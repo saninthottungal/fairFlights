@@ -5,6 +5,7 @@ import 'package:flight_booking/view/home/widgets/drawerHome.dart';
 import 'package:flight_booking/view/home/widgets/inputs_widget.dart';
 import 'package:flight_booking/view/home/tabs/tab_bar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -43,34 +44,41 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           ),
         ),
         // Tab Bar Widget
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(40),
-          child: TabBarWidget(
-            tabController: tabController,
-          ),
-        ),
+        // bottom: PreferredSize(
+        //   preferredSize: const Size.fromHeight(40),
+        //   child: TabBarWidget(
+        //     tabController: tabController,
+        //   ),
+        // ),
       ),
       // Tabs
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: TabBarView(
-          controller: tabController,
-          children: [
-            Stack(
-              children: [
-                Image.asset('assets/air.png'),
-                const BlueBackgroundWidget(),
-                const InputsWidget(),
-              ],
+      body: Column(
+        children: [
+          TabBarWidget(tabController: tabController),
+          Expanded(
+            child: SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: TabBarView(
+                controller: tabController,
+                children: [
+                  Stack(
+                    children: [
+                      Image.asset('assets/air.png'),
+                      const BlueBackgroundWidget(),
+                      const InputsWidget(),
+                    ],
+                  ),
+                  const HotelTabWidget(),
+                  const Center(
+                    child: Text("Visa"),
+                  ),
+                  const PassportTab()
+                ],
+              ),
             ),
-            const HotelTabWidget(),
-            const Center(
-              child: Text("Visa"),
-            ),
-            const PassportTab()
-          ],
-        ),
+          ),
+        ],
       ),
       drawer: const DrawerHome(),
     );

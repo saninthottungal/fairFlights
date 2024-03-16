@@ -11,31 +11,66 @@ class TabBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TabBar(
+      labelStyle: const TextStyle(fontWeight: FontWeight.w900),
+      isScrollable: true,
       controller: tabController,
-      dividerColor: Colors.transparent,
-      indicatorColor: Colors.white,
+      tabAlignment: TabAlignment.center,
+      // dividerColor: Colors.transparent,
+      // indicatorColor: Colors.white,
+      // unselectedLabelStyle: const TextStyle(
+      //   color: Color.fromRGBO(105, 143, 241, 1),
+      //   fontWeight: FontWeight.bold,
+      //   fontSize: 16,
+      // ),
+      // labelColor: Colors.white,
       unselectedLabelStyle: const TextStyle(
-        color: Color.fromRGBO(105, 143, 241, 1),
-        fontWeight: FontWeight.bold,
-        fontSize: 16,
+        fontWeight: FontWeight.w400,
       ),
-      labelColor: Colors.white,
-      labelStyle: const TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 16,
-      ),
+
       tabs: const [
         Tab(
-          text: "Flights",
+          child: Row(
+            children: [
+              Icon(
+                Icons.flight,
+                size: 15,
+              ),
+              Text("Flights")
+            ],
+          ),
         ),
         Tab(
-          text: "Hotel",
+          child: Row(
+            children: [
+              Icon(
+                Icons.bed,
+                size: 15,
+              ),
+              Text("Hotels")
+            ],
+          ),
         ),
         Tab(
-          text: "Visa",
+          child: Row(
+            children: [
+              Icon(
+                Icons.credit_card,
+                size: 15,
+              ),
+              Text("Visa")
+            ],
+          ),
         ),
         Tab(
-          text: "Passport",
+          child: Row(
+            children: [
+              Icon(
+                Icons.library_books,
+                size: 15,
+              ),
+              Text("Passport")
+            ],
+          ),
         ),
       ],
     );

@@ -139,12 +139,6 @@ class InputsWidget extends StatelessWidget {
                             );
                           },
                         ),
-                        const SizedBox(height: 8),
-                        const DropMenu3(
-                          label: "Traveller*",
-                          iconData: Icons.person,
-                          width: null,
-                        ),
                         const SizedBox(height: 18),
                       ],
                     ),

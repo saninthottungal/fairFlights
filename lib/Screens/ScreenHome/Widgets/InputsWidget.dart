@@ -3,7 +3,7 @@ import 'package:flight_booking/Screens/ScreenCalendar/ScreenCalendar.dart';
 import 'package:flight_booking/Screens/ScreenHome/Providers/ChoiceProvider.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/FromToColumn.dart';
-import 'package:flight_booking/Screens/ScreenHome/Widgets/drop_menu.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +17,7 @@ class InputsWidget extends StatelessWidget {
     // final width = MediaQuery.of(context).size.width;
     // final height = MediaQuery.of(context).size.height;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+      padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
       child: ListView(
         children: [
           Row(
@@ -32,7 +32,7 @@ class InputsWidget extends StatelessWidget {
               const FromToColumn(cityCode: "COK", cityName: 'Kochi'),
             ],
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 20),
           Consumer<ChoiceProvider>(builder: (context, choice, _) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -96,24 +96,55 @@ class InputsWidget extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        DatePicker(
-                          helperText: "03-March-2024 Sunday",
-                          label: "Select Trip*",
-                          iconData: Icons.calendar_month,
-                          width: null,
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const ScreenCalendar(),
-                              ),
-                            );
-                          },
+                        const Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Text(
+                            "Select Date",
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
+                          ),
                         ),
-                        const SizedBox(height: 8),
-                        const DropMenu3(
-                          label: "Select Trip*",
-                          iconData: Icons.expand_more_sharp,
-                          width: double.infinity,
+                        Card(
+                          child: CupertinoListTile(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ScreenCalendar()));
+                            },
+                            title: const Text(
+                              "16 Mar, Fri",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black54,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 10, top: 8),
+                          child: Text(
+                            "Traveller/Class",
+                            style: TextStyle(
+                                color: Colors.black54,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13),
+                          ),
+                        ),
+                        const Card(
+                          child: CupertinoListTile(
+                            title: Text(
+                              "1 Traveller/First Class",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black54,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -142,19 +173,34 @@ class InputsWidget extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              DatePicker(
-                                helperText: "03-March-2024 Sunday",
-                                label: "Select Trip*",
-                                iconData: Icons.calendar_month,
-                                width: null,
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ScreenCalendar(),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 10),
+                                child: Text(
+                                  "Select Date",
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                  ),
+                                ),
+                              ),
+                              Card(
+                                child: CupertinoListTile(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const ScreenCalendar()));
+                                  },
+                                  title: const Text(
+                                    "16 Mar, Fri",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.black54,
+                                      fontSize: 15,
                                     ),
-                                  );
-                                },
+                                  ),
+                                ),
                               ),
                               const SizedBox(height: 18),
                             ],

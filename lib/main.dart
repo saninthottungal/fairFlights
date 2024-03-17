@@ -1,6 +1,5 @@
 import 'package:flight_booking/Screens/ScreenHome/Providers/ChoiceProvider.dart';
 import 'package:flight_booking/Screens/ScreenSplash/ScreenSplash.dart';
-// import 'package:flight_booking/view/ticket.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

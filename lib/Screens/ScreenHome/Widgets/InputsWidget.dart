@@ -1,9 +1,11 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Screens/ScreenCalendar/ScreenCalendar.dart';
+import 'package:flight_booking/Screens/ScreenHome/Providers/ChoiceProvider.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/FromToColumn.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/drop_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class InputsWidget extends StatelessWidget {
   const InputsWidget({
@@ -27,22 +29,40 @@ class InputsWidget extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 30),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CustomChip(
-                title: "One Way",
-                isSelected: true,
-                onSelected: (value) {},
-              ),
-              CustomChip(
-                title: "Round Trip",
-                isSelected: false,
-                onSelected: (value) {},
-              ),
-            ],
-          ),
+          Consumer<ChoiceProvider>(builder: (context, choice, _) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomChip(
+                  title: "One Way",
+                  isSelected: choice.isOneWay,
+                  color: choice.isOneWay
+                      ? Colors.lightBlue
+                      : AppColor.customBlue.withOpacity(0.85),
+                  onSelected: (value) {
+                    if (choice.isOneWay) {
+                    } else {
+                      choice.changeValue(true);
+                    }
+                  },
+                ),
+                CustomChip(
+                  title: "Round Trip",
+                  isSelected: !choice.isOneWay,
+                  color: choice.isOneWay
+                      ? AppColor.customBlue.withOpacity(0.85)
+                      : Colors.lightBlue,
+                  onSelected: (value) {
+                    if (!choice.isOneWay) {
+                    } else {
+                      choice.changeValue(false);
+                    }
+                  },
+                ),
+              ],
+            );
+          }),
           Card(
             surfaceTintColor: Colors.white,
             elevation: 5,

@@ -15,18 +15,9 @@ class TabBarWidget extends StatelessWidget {
       isScrollable: true,
       controller: tabController,
       tabAlignment: TabAlignment.center,
-      // dividerColor: Colors.transparent,
-      // indicatorColor: Colors.white,
-      // unselectedLabelStyle: const TextStyle(
-      //   color: Color.fromRGBO(105, 143, 241, 1),
-      //   fontWeight: FontWeight.bold,
-      //   fontSize: 16,
-      // ),
-      // labelColor: Colors.white,
       unselectedLabelStyle: const TextStyle(
         fontWeight: FontWeight.w400,
       ),
-
       tabs: const [
         Tab(
           child: Row(

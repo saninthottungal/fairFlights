@@ -16,7 +16,7 @@ class ScreenSplash extends StatelessWidget {
       );
     });
     return Scaffold(
-      backgroundColor: AppColor.blue,
+      backgroundColor: AppColor.customBlue,
       body: Center(
         child: Text(
           "LOGO",

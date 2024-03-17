@@ -152,7 +152,7 @@ class ScreenHotel extends StatelessWidget {
                   width: double.infinity,
                   height: 53,
                   decoration: BoxDecoration(
-                    color: AppColor.blue,
+                    color: AppColor.customBlue,
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Center(

@@ -1,5 +1,7 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Screens/ScreenCalendar/ScreenCalendar.dart';
+import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
+import 'package:flight_booking/Screens/ScreenHome/Widgets/FromToColumn.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/drop_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -18,26 +20,29 @@ class InputsWidget extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //  crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              const Column(
-                children: [
-                  Text("From"),
-                  Text("DXB"),
-                  Text("Dubai"),
-                ],
+              const FromToColumn(cityCode: 'DXB', cityName: "Dubai"),
+              IconButton(onPressed: () {}, icon: const Icon(Icons.apple)),
+              const FromToColumn(cityCode: "COK", cityName: 'Kochi'),
+            ],
+          ),
+          const SizedBox(height: 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CustomChip(
+                title: "One Way",
+                isSelected: true,
+                onSelected: (value) {},
               ),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
-              const Column(
-                children: [
-                  Text("From"),
-                  Text("DXB"),
-                  Text("Dubai"),
-                ],
+              CustomChip(
+                title: "Round Trip",
+                isSelected: false,
+                onSelected: (value) {},
               ),
             ],
           ),
-          const SizedBox(height: 150),
           Card(
             surfaceTintColor: Colors.white,
             elevation: 5,
@@ -61,7 +66,7 @@ class InputsWidget extends StatelessWidget {
                         Text(
                           "Departure",
                           style: TextStyle(
-                            color: AppColor.blue,
+                            color: AppColor.customBlue,
                             fontWeight: FontWeight.w800,
                             fontSize: 16,
                           ),
@@ -103,7 +108,7 @@ class InputsWidget extends StatelessWidget {
                         Text(
                           "Return",
                           style: TextStyle(
-                            color: AppColor.blue,
+                            color: AppColor.customBlue,
                             fontWeight: FontWeight.w800,
                             fontSize: 16,
                           ),
@@ -135,7 +140,7 @@ class InputsWidget extends StatelessWidget {
             width: double.infinity,
             height: 53,
             decoration: BoxDecoration(
-              color: AppColor.blue,
+              color: AppColor.customBlue,
               borderRadius: BorderRadius.circular(15),
             ),
             child: Center(
@@ -154,79 +159,3 @@ class InputsWidget extends StatelessWidget {
     );
   }
 }
-
-// class FromToWidgets extends StatelessWidget {
-//   final double width;
-//   const FromToWidgets({
-//     super.key,
-//     required this.width,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//       crossAxisAlignment: CrossAxisAlignment.end,
-//       children: [
-//         DropMenu(
-//           helperText: "DXB DUBAI",
-//           label: "From*",
-//           iconData: Icons.expand_more_sharp,
-//           // width: double.infinity,
-//           width: width,
-//         ),
-//         const Icon(
-//           Icons.swap_horiz_outlined,
-//           color: Colors.white,
-//           size: 40,
-//         ),
-//         DropMenu(
-//           helperText: "JFK NEW YORK",
-//           label: "To*",
-//           iconData: Icons.expand_more_sharp,
-//           // width: double.infinity,
-//           width: width,
-//           //  ,
-//         ),
-//       ],
-//     );
-//   }
-// }
-
-// class FromToWidgetsColumn extends StatelessWidget {
-//   final double? width;
-//   const FromToWidgetsColumn({
-//     super.key,
-//     this.width,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       crossAxisAlignment: CrossAxisAlignment.center,
-//       children: [
-//         DropMenu(
-//           helperText: "DXB DUBAI",
-//           label: "From*",
-//           iconData: Icons.expand_more_sharp,
-//           // width: double.infinity,
-//           width: width,
-//         ),
-//         const Icon(
-//           Icons.swap_vert,
-//           color: Colors.white,
-//           size: 40,
-//         ),
-//         DropMenu(
-//           helperText: "JFK NEW YORK",
-//           label: "To*",
-//           iconData: Icons.expand_more_sharp,
-//           // width: double.infinity,
-//           width: width,
-//           //  ,
-//         ),
-//       ],
-//     );
-//   }
-// }

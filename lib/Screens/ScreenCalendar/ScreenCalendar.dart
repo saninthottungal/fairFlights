@@ -11,7 +11,7 @@ class ScreenCalendar extends StatelessWidget {
     List<String> week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColor.blue,
+        backgroundColor: AppColor.customBlue,
         title: const Text(
           "Pick a journey Date",
           style: TextStyle(

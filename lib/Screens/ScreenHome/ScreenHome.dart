@@ -4,7 +4,6 @@ import 'package:flight_booking/Screens/ScreenHome/Widgets/drawerHome.dart';
 import 'package:flight_booking/Screens/ScreenHotel/ScreenHotel.dart';
 import 'package:flight_booking/Screens/ScreenPassport/ScreenPassport.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ScreenHome extends StatefulWidget {
   const ScreenHome({super.key});
@@ -28,7 +27,7 @@ class _ScreenHomeState extends State<ScreenHome> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(20, 61, 187, 1),
-        iconTheme: const IconThemeData(color: Colors.white70),
+
         centerTitle: true,
         // APP bar Title
         title: const Text(
@@ -40,14 +39,8 @@ class _ScreenHomeState extends State<ScreenHome> with TickerProviderStateMixin {
             fontStyle: FontStyle.italic,
           ),
         ),
-        // Tab Bar Widget
-        // bottom: PreferredSize(
-        //   preferredSize: const Size.fromHeight(40),
-        //   child: TabBarWidget(
-        //     tabController: tabController,
-        //   ),
-        // ),
       ),
+
       // Tabs
       body: Column(
         children: [

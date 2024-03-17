@@ -11,7 +11,7 @@ class ScreenTickets extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: AppColor.blue,
+          backgroundColor: AppColor.customBlue,
           title: const AppBarTitle(),
           actions: [
             IconButton(

@@ -61,7 +61,7 @@ class _DropMenuState extends State<DropMenu> {
                   _selectedValue = newValue!;
                 });
               },
-              dropdownColor: AppColor.blue,
+              dropdownColor: AppColor.customBlue,
               items: <String>[
                 'DXB Dubai',
                 'JFK New York',
@@ -141,7 +141,7 @@ class _DropMenu2State extends State<DropMenu2> {
                   _selectedValue = newValue!;
                 });
               },
-              dropdownColor: AppColor.blue,
+              dropdownColor: AppColor.customBlue,
               items: widget.items.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -223,7 +223,7 @@ class _DropMenu3State extends State<DropMenu3> {
                         _selectedValue = newValue!;
                       });
                     },
-                    dropdownColor: AppColor.blue,
+                    dropdownColor: AppColor.customBlue,
                     items: ["1 Adult", "2 Adults"]
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
@@ -282,7 +282,7 @@ class DatePicker extends StatelessWidget {
               onTap();
             },
             readOnly: true,
-            cursorColor: AppColor.blue,
+            cursorColor: AppColor.customBlue,
             style: const TextStyle(color: Colors.white),
             decoration: InputDecoration(
               fillColor: Colors.transparent,

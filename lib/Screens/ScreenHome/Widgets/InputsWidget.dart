@@ -1,6 +1,6 @@
-import 'package:flight_booking/view/colors.dart';
-import 'package:flight_booking/view/home/screens/calendar_screen.dart';
-import 'package:flight_booking/view/home/widgets/drop_menu.dart';
+import 'package:flight_booking/Core/Constants/colors.dart';
+import 'package:flight_booking/Screens/ScreenCalendar/ScreenCalendar.dart';
+import 'package:flight_booking/Screens/ScreenHome/Widgets/drop_menu.dart';
 import 'package:flutter/material.dart';
 
 class InputsWidget extends StatelessWidget {
@@ -10,51 +10,34 @@ class InputsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    // final width = MediaQuery.of(context).size.width;
+    // final height = MediaQuery.of(context).size.height;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
       child: ListView(
         children: [
-          Column(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //  crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              LayoutBuilder(
-                builder: (context, constraints) {
-                  if (width >= 411) {
-                    return const FromToWidgets(width: 165);
-                  }
-                  if (width <= 410 && width >= 390) {
-                    return const FromToWidgets(width: 155);
-                  }
-                  if (width <= 390 && width >= 380) {
-                    return const FromToWidgets(width: 150);
-                  }
-                  if (width <= 380 && width >= 370) {
-                    return const FromToWidgets(width: 145);
-                  }
-                  if (width <= 370 && width >= 350) {
-                    return const FromToWidgets(width: 135);
-                  }
-                  if (width <= 350 && width >= 330) {
-                    return const FromToWidgets(width: 125);
-                  }
-                  if (width <= 330 && width >= 311) {
-                    return const FromToWidgets(width: 115);
-                  } else {
-                    return const FromToWidgets(width: 140);
-                  }
-                },
+              const Column(
+                children: [
+                  Text("From"),
+                  Text("DXB"),
+                  Text("Dubai"),
+                ],
               ),
-              const SizedBox(height: 15),
-              const DropMenu2(
-                label: "Select Trip*",
-                iconData: Icons.expand_more_sharp,
-                width: double.infinity,
-                items: ["Round Trip", "Single Trip"],
-                color: Colors.white,
+              IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
+              const Column(
+                children: [
+                  Text("From"),
+                  Text("DXB"),
+                  Text("Dubai"),
+                ],
               ),
             ],
           ),
-          const SizedBox(height: 18),
+          const SizedBox(height: 150),
           Card(
             surfaceTintColor: Colors.white,
             elevation: 5,
@@ -92,7 +75,7 @@ class InputsWidget extends StatelessWidget {
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => const CalenderScreen(),
+                                builder: (context) => const ScreenCalendar(),
                               ),
                             );
                           },
@@ -134,7 +117,7 @@ class InputsWidget extends StatelessWidget {
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => const CalenderScreen(),
+                                builder: (context) => const ScreenCalendar(),
                               ),
                             );
                           },
@@ -172,78 +155,78 @@ class InputsWidget extends StatelessWidget {
   }
 }
 
-class FromToWidgets extends StatelessWidget {
-  final double width;
-  const FromToWidgets({
-    super.key,
-    required this.width,
-  });
+// class FromToWidgets extends StatelessWidget {
+//   final double width;
+//   const FromToWidgets({
+//     super.key,
+//     required this.width,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        DropMenu(
-          helperText: "DXB DUBAI",
-          label: "From*",
-          iconData: Icons.expand_more_sharp,
-          // width: double.infinity,
-          width: width,
-        ),
-        const Icon(
-          Icons.swap_horiz_outlined,
-          color: Colors.white,
-          size: 40,
-        ),
-        DropMenu(
-          helperText: "JFK NEW YORK",
-          label: "To*",
-          iconData: Icons.expand_more_sharp,
-          // width: double.infinity,
-          width: width,
-          //  ,
-        ),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//       crossAxisAlignment: CrossAxisAlignment.end,
+//       children: [
+//         DropMenu(
+//           helperText: "DXB DUBAI",
+//           label: "From*",
+//           iconData: Icons.expand_more_sharp,
+//           // width: double.infinity,
+//           width: width,
+//         ),
+//         const Icon(
+//           Icons.swap_horiz_outlined,
+//           color: Colors.white,
+//           size: 40,
+//         ),
+//         DropMenu(
+//           helperText: "JFK NEW YORK",
+//           label: "To*",
+//           iconData: Icons.expand_more_sharp,
+//           // width: double.infinity,
+//           width: width,
+//           //  ,
+//         ),
+//       ],
+//     );
+//   }
+// }
 
-class FromToWidgetsColumn extends StatelessWidget {
-  final double? width;
-  const FromToWidgetsColumn({
-    super.key,
-    this.width,
-  });
+// class FromToWidgetsColumn extends StatelessWidget {
+//   final double? width;
+//   const FromToWidgetsColumn({
+//     super.key,
+//     this.width,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        DropMenu(
-          helperText: "DXB DUBAI",
-          label: "From*",
-          iconData: Icons.expand_more_sharp,
-          // width: double.infinity,
-          width: width,
-        ),
-        const Icon(
-          Icons.swap_vert,
-          color: Colors.white,
-          size: 40,
-        ),
-        DropMenu(
-          helperText: "JFK NEW YORK",
-          label: "To*",
-          iconData: Icons.expand_more_sharp,
-          // width: double.infinity,
-          width: width,
-          //  ,
-        ),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       crossAxisAlignment: CrossAxisAlignment.center,
+//       children: [
+//         DropMenu(
+//           helperText: "DXB DUBAI",
+//           label: "From*",
+//           iconData: Icons.expand_more_sharp,
+//           // width: double.infinity,
+//           width: width,
+//         ),
+//         const Icon(
+//           Icons.swap_vert,
+//           color: Colors.white,
+//           size: 40,
+//         ),
+//         DropMenu(
+//           helperText: "JFK NEW YORK",
+//           label: "To*",
+//           iconData: Icons.expand_more_sharp,
+//           // width: double.infinity,
+//           width: width,
+//           //  ,
+//         ),
+//       ],
+//     );
+//   }
+// }

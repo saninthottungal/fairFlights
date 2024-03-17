@@ -1,9 +1,9 @@
-import 'package:flight_booking/view/colors.dart';
-import 'package:flight_booking/view/home/tabs/hotel_tab/widgets.dart';
+import 'package:flight_booking/Core/Constants/colors.dart';
+import 'package:flight_booking/Screens/ScreenHotel/Widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
-class HotelTabWidget extends StatelessWidget {
-  const HotelTabWidget({
+class ScreenHotel extends StatelessWidget {
+  const ScreenHotel({
     super.key,
   });
 

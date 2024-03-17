@@ -1,9 +1,9 @@
-import 'package:flight_booking/view/home/tabs/passport_tab/widgets.dart';
+import 'package:flight_booking/Screens/ScreenPassport/Widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PassportTab extends StatelessWidget {
-  const PassportTab({
+class ScreenPassport extends StatelessWidget {
+  const ScreenPassport({
     super.key,
   });
 

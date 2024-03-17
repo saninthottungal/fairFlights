@@ -1,27 +1,25 @@
-import 'package:flight_booking/view/home/tabs/hotel_tab/hotel_tab.dart';
-import 'package:flight_booking/view/home/tabs/passport_tab/passport_tab.dart';
-import 'package:flight_booking/view/home/widgets/drawerHome.dart';
-// import 'package:flight_booking/view/home/widgets/drawer_widgets.txt';
-import 'package:flight_booking/view/home/widgets/inputs_widget.dart';
-import 'package:flight_booking/view/home/tabs/tab_bar_widget.dart';
+import 'package:flight_booking/Screens/ScreenHome/Widgets/InputsWidget.dart';
+import 'package:flight_booking/Screens/ScreenHome/Widgets/TabBarWidget.dart';
+import 'package:flight_booking/Screens/ScreenHome/Widgets/drawerHome.dart';
+import 'package:flight_booking/Screens/ScreenHotel/ScreenHotel.dart';
+import 'package:flight_booking/Screens/ScreenPassport/ScreenPassport.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class ScreenHome extends StatefulWidget {
+  const ScreenHome({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<ScreenHome> createState() => _ScreenHomeState();
 }
 
-class _HomeState extends State<Home> with TickerProviderStateMixin {
+class _ScreenHomeState extends State<ScreenHome> with TickerProviderStateMixin {
   late TabController tabController;
 
   @override
   void initState() {
-    super.initState();
-
     tabController = TabController(length: 4, vsync: this);
+    super.initState();
   }
 
   @override
@@ -30,8 +28,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(20, 61, 187, 1),
-        // Hamburger Menu button
-
+        iconTheme: const IconThemeData(color: Colors.white70),
         centerTitle: true,
         // APP bar Title
         title: const Text(
@@ -64,16 +61,25 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 children: [
                   Stack(
                     children: [
-                      Image.asset('assets/air.png'),
+                      Positioned(
+                        left: 65,
+                        child: Image.asset(
+                          'assets/air.png',
+
+                          height: 250,
+                          width: 250,
+                          //scale: 0.6,
+                        ),
+                      ),
                       const BlueBackgroundWidget(),
                       const InputsWidget(),
                     ],
                   ),
-                  const HotelTabWidget(),
+                  const ScreenHotel(),
                   const Center(
                     child: Text("Visa"),
                   ),
-                  const PassportTab()
+                  const ScreenPassport()
                 ],
               ),
             ),

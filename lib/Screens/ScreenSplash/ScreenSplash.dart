@@ -1,17 +1,17 @@
-import 'package:flight_booking/view/colors.dart';
-import 'package:flight_booking/view/home/screens/home_screen.dart';
+import 'package:flight_booking/Core/Constants/colors.dart';
+import 'package:flight_booking/Screens/ScreenHome/ScreenHome.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+class ScreenSplash extends StatelessWidget {
+  const ScreenSplash({super.key});
 
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => const Home(),
+          builder: (context) => const ScreenHome(),
         ),
       );
     });

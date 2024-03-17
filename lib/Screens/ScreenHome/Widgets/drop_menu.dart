@@ -1,4 +1,4 @@
-import 'package:flight_booking/view/colors.dart';
+import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class DropMenu extends StatefulWidget {

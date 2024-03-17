@@ -1,11 +1,11 @@
-import 'package:flight_booking/view/colors.dart';
-import 'package:flight_booking/view/ticket/widget/app_bar_title.dart';
-import 'package:flight_booking/view/ticket/widget/date_picker_widget.dart';
-import 'package:flight_booking/view/ticket/widget/ticker_card.dart';
+import 'package:flight_booking/Core/Constants/colors.dart';
+import 'package:flight_booking/Screens/ScreenTicket/Widgets/app_bar_title.dart';
+import 'package:flight_booking/Screens/ScreenTicket/Widgets/date_picker_widget.dart';
+import 'package:flight_booking/Screens/ScreenTicket/Widgets/ticker_card.dart';
 import 'package:flutter/material.dart';
 
-class ViewTickets extends StatelessWidget {
-  const ViewTickets({super.key});
+class ScreenTickets extends StatelessWidget {
+  const ScreenTickets({super.key});
 
   @override
   Widget build(BuildContext context) {

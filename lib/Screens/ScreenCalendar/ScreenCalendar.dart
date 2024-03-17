@@ -1,10 +1,10 @@
-import 'package:flight_booking/view/colors.dart';
+import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:paged_vertical_calendar/paged_vertical_calendar.dart';
 
-class CalenderScreen extends StatelessWidget {
-  const CalenderScreen({super.key});
+class ScreenCalendar extends StatelessWidget {
+  const ScreenCalendar({super.key});
 
   @override
   Widget build(BuildContext context) {

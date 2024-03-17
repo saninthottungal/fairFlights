@@ -24,7 +24,11 @@ class InputsWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               const FromToColumn(cityCode: 'DXB', cityName: "Dubai"),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.apple)),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.swap_horizontal_circle_outlined),
+                iconSize: 30,
+              ),
               const FromToColumn(cityCode: "COK", cityName: 'Kochi'),
             ],
           ),
@@ -114,40 +118,48 @@ class InputsWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Divider(
-                    color: Colors.grey[300],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 2,
-                      horizontal: 13,
-                    ),
+                  Visibility(
+                    visible: !Provider.of<ChoiceProvider>(context).isOneWay,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Return",
-                          style: TextStyle(
-                            color: AppColor.customBlue,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 16,
+                        Divider(
+                          color: Colors.grey[300],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 2,
+                            horizontal: 13,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Return",
+                                style: TextStyle(
+                                  color: AppColor.customBlue,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              DatePicker(
+                                helperText: "03-March-2024 Sunday",
+                                label: "Select Trip*",
+                                iconData: Icons.calendar_month,
+                                width: null,
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ScreenCalendar(),
+                                    ),
+                                  );
+                                },
+                              ),
+                              const SizedBox(height: 18),
+                            ],
                           ),
                         ),
-                        const SizedBox(height: 8),
-                        DatePicker(
-                          helperText: "03-March-2024 Sunday",
-                          label: "Select Trip*",
-                          iconData: Icons.calendar_month,
-                          width: null,
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const ScreenCalendar(),
-                              ),
-                            );
-                          },
-                        ),
-                        const SizedBox(height: 18),
                       ],
                     ),
                   ),

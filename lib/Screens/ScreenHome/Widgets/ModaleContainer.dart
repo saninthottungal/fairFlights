@@ -1,5 +1,7 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
+import 'package:flight_booking/Screens/ScreenHome/Constants/enums.dart';
 import 'package:flight_booking/Screens/ScreenHome/Providers/CounterProvider.dart';
+import 'package:flight_booking/Screens/ScreenHome/Providers/CustomChipProvider.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/Counter.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
 import 'package:flutter/material.dart';
@@ -142,34 +144,53 @@ class ModaleContainer extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 70),
-                  child: Wrap(
-                    children: [
-                      CustomChip(
-                        title: "Economy",
-                        isSelected: true,
-                        onSelected: (value) {},
-                        color: AppColor.customBlue,
-                      ),
-                      CustomChip(
-                        title: "Premium Economy",
-                        isSelected: true,
-                        onSelected: (value) {},
-                        color: AppColor.customBlue.withOpacity(0.5),
-                      ),
-                      CustomChip(
-                        title: "Buissnes",
-                        isSelected: true,
-                        onSelected: (value) {},
-                        color: AppColor.customBlue.withOpacity(0.5),
-                      ),
-                      CustomChip(
-                        title: "First Class",
-                        isSelected: true,
-                        onSelected: (value) {},
-                        color: AppColor.customBlue.withOpacity(0.5),
-                      ),
-                    ],
-                  ),
+                  child:
+                      Consumer<CustomChipProvider>(builder: (context, chip, _) {
+                    return Wrap(
+                      children: [
+                        CustomChip(
+                          title: "Economy",
+                          value: ClassType.economy,
+                          groupValue: chip.selectedType,
+                          onSelected: (value) {
+                            chip.onChanged(ClassType.economy);
+                          },
+                          selectedColor: AppColor.customBlue,
+                          disabledColor: Colors.transparent,
+                        ),
+                        CustomChip(
+                          title: "Premium Economy",
+                          value: ClassType.premiumEconomy,
+                          groupValue: chip.selectedType,
+                          onSelected: (value) {
+                            chip.onChanged(ClassType.premiumEconomy);
+                          },
+                          selectedColor: AppColor.customBlue,
+                          disabledColor: Colors.transparent,
+                        ),
+                        CustomChip(
+                          title: "Buissnes",
+                          value: ClassType.buissness,
+                          groupValue: chip.selectedType,
+                          onSelected: (value) {
+                            chip.onChanged(ClassType.buissness);
+                          },
+                          selectedColor: AppColor.customBlue,
+                          disabledColor: Colors.transparent,
+                        ),
+                        CustomChip(
+                          title: "First Class",
+                          value: ClassType.firstClass,
+                          groupValue: chip.selectedType,
+                          onSelected: (value) {
+                            chip.onChanged(ClassType.firstClass);
+                          },
+                          selectedColor: AppColor.customBlue,
+                          disabledColor: Colors.transparent,
+                        ),
+                      ],
+                    );
+                  }),
                 )
               ],
             ),

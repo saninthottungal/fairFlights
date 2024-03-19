@@ -1,5 +1,6 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Screens/ScreenCalendar/ScreenCalendar.dart';
+import 'package:flight_booking/Screens/ScreenHome/Constants/enums.dart';
 import 'package:flight_booking/Screens/ScreenHome/Providers/ChoiceProvider.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomCard.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
@@ -42,29 +43,23 @@ class InputsWidget extends StatelessWidget {
               children: [
                 CustomChip(
                   title: "One Way",
-                  isSelected: choice.isOneWay,
-                  color: choice.isOneWay
-                      ? Colors.lightBlue
-                      : AppColor.customBlue.withOpacity(0.85),
+                  value: TripType.oneWay,
+                  groupValue: choice.value,
                   onSelected: (value) {
-                    if (choice.isOneWay) {
-                    } else {
-                      choice.changeValue(true);
-                    }
+                    choice.changeValue(TripType.oneWay);
                   },
+                  selectedColor: Colors.lightBlue,
+                  disabledColor: AppColor.customBlue.withOpacity(0.85),
                 ),
                 CustomChip(
                   title: "Round Trip",
-                  isSelected: !choice.isOneWay,
-                  color: choice.isOneWay
-                      ? AppColor.customBlue.withOpacity(0.85)
-                      : Colors.lightBlue,
+                  value: TripType.roundTrip,
+                  groupValue: choice.value,
                   onSelected: (value) {
-                    if (!choice.isOneWay) {
-                    } else {
-                      choice.changeValue(false);
-                    }
+                    choice.changeValue(TripType.roundTrip);
                   },
+                  selectedColor: Colors.lightBlue,
+                  disabledColor: AppColor.customBlue.withOpacity(0.85),
                 ),
               ],
             );
@@ -112,8 +107,10 @@ class InputsWidget extends StatelessWidget {
                         CustomCard(
                           title: "16 Mar, Fri",
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const ScreenCalendar()));
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => const ScreenCalendar()),
+                            );
                           },
                         ),
                         const Padding(
@@ -142,7 +139,8 @@ class InputsWidget extends StatelessWidget {
                     ),
                   ),
                   Visibility(
-                    visible: !Provider.of<ChoiceProvider>(context).isOneWay,
+                    visible: Provider.of<ChoiceProvider>(context).value ==
+                        TripType.roundTrip,
                     child: Column(
                       children: [
                         Divider(

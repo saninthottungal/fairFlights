@@ -1,10 +1,11 @@
+import 'package:flight_booking/Screens/ScreenHome/Constants/enums.dart';
 import 'package:flutter/material.dart';
 
 class ChoiceProvider extends ChangeNotifier {
-  bool isOneWay = true;
+  TripType value = TripType.oneWay;
 
-  void changeValue(bool? value) {
-    isOneWay = value ?? true;
+  void changeValue(TripType newValue) {
+    value = newValue;
     notifyListeners();
   }
 }

@@ -156,7 +156,7 @@ class ModaleContainer extends StatelessWidget {
                             chip.onChanged(ClassType.economy);
                           },
                           selectedColor: AppColor.customBlue,
-                          disabledColor: Colors.transparent,
+                          disabledColor: AppColor.customBlue.withOpacity(0.5),
                         ),
                         CustomChip(
                           title: "Premium Economy",
@@ -166,7 +166,7 @@ class ModaleContainer extends StatelessWidget {
                             chip.onChanged(ClassType.premiumEconomy);
                           },
                           selectedColor: AppColor.customBlue,
-                          disabledColor: Colors.transparent,
+                          disabledColor: AppColor.customBlue.withOpacity(0.5),
                         ),
                         CustomChip(
                           title: "Buissnes",
@@ -176,7 +176,7 @@ class ModaleContainer extends StatelessWidget {
                             chip.onChanged(ClassType.buissness);
                           },
                           selectedColor: AppColor.customBlue,
-                          disabledColor: Colors.transparent,
+                          disabledColor: AppColor.customBlue.withOpacity(0.5),
                         ),
                         CustomChip(
                           title: "First Class",
@@ -186,7 +186,7 @@ class ModaleContainer extends StatelessWidget {
                             chip.onChanged(ClassType.firstClass);
                           },
                           selectedColor: AppColor.customBlue,
-                          disabledColor: Colors.transparent,
+                          disabledColor: AppColor.customBlue.withOpacity(0.5),
                         ),
                       ],
                     );

@@ -1,8 +1,10 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Screens/ScreenCalendar/ScreenCalendar.dart';
 import 'package:flight_booking/Screens/ScreenHome/Providers/ChoiceProvider.dart';
+import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomCard.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/FromToColumn.dart';
+import 'package:flight_booking/Screens/ScreenHome/Widgets/ModaleContainer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -107,22 +109,12 @@ class InputsWidget extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Card(
-                          child: CupertinoListTile(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ScreenCalendar()));
-                            },
-                            title: const Text(
-                              "16 Mar, Fri",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black54,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ),
+                        CustomCard(
+                          title: "16 Mar, Fri",
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const ScreenCalendar()));
+                          },
                         ),
                         const Padding(
                           padding: EdgeInsets.only(left: 10, top: 8),
@@ -134,17 +126,15 @@ class InputsWidget extends StatelessWidget {
                                 fontSize: 13),
                           ),
                         ),
-                        const Card(
-                          child: CupertinoListTile(
-                            title: Text(
-                              "1 Traveller/First Class",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black54,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ),
+                        CustomCard(
+                          title: "1 Traveller/Economy",
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (ctx) {
+                                  return const ModaleContainer();
+                                });
+                          },
                         ),
                       ],
                     ),

@@ -1,5 +1,6 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Screens/ScreenPassport/Widgets/CardField.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ScreenPassport extends StatelessWidget {
@@ -17,7 +18,7 @@ class ScreenPassport extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: Colors.white60,
+              color: Colors.white70,
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
@@ -25,17 +26,17 @@ class ScreenPassport extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Icon(
-                      Icons.book_sharp,
-                      size: 40,
-                      color: Colors.black.withOpacity(0.8),
+                    Image.asset(
+                      'assets/passport.png',
+                      height: 55,
+                      width: 55,
                     ),
                     const SizedBox(width: 5),
                     Text(
                       "Passport\nAppointment 1599/Rs only",
                       style: TextStyle(
                         color: Colors.black.withOpacity(0.8),
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
                     ),
@@ -46,10 +47,7 @@ class ScreenPassport extends StatelessWidget {
                 const SizedBox(height: 15),
                 const CardField(title: "Email", icon: Icons.mail),
                 const SizedBox(height: 15),
-                const CardField(
-                  title: "Mobile",
-                  icon: Icons.phone,
-                ),
+                const CardField(title: "Mobile", icon: Icons.phone),
                 const SizedBox(height: 15),
                 const CardField(title: "Place", icon: Icons.location_city),
                 const SizedBox(height: 30),

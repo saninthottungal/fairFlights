@@ -1,4 +1,4 @@
-import 'package:flight_booking/Screens/ScreenHome/Providers/ChoiceProvider.dart';
+import 'package:flight_booking/Screens/ScreenHome/Providers/TripProvider.dart';
 import 'package:flight_booking/Screens/ScreenHome/Providers/CounterProvider.dart';
 import 'package:flight_booking/Screens/ScreenHome/Providers/CustomChipProvider.dart';
 import 'package:flight_booking/Screens/ScreenSplash/ScreenSplash.dart';
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => ChoiceProvider(),
+          create: (context) => TripProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => CounterProvider(),

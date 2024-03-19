@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CardField extends StatelessWidget {
@@ -17,7 +16,7 @@ class CardField extends StatelessWidget {
               title,
               style: const TextStyle(
                 color: Colors.black87,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
             )),

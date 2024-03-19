@@ -1,9 +1,7 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Screens/ScreenCalendar/ScreenCalendar.dart';
 import 'package:flight_booking/Screens/ScreenHome/Constants/enums.dart';
-import 'package:flight_booking/Screens/ScreenHome/Providers/ChoiceProvider.dart';
-import 'package:flight_booking/Screens/ScreenHome/Providers/CounterProvider.dart';
-import 'package:flight_booking/Screens/ScreenHome/Providers/CustomChipProvider.dart';
+import 'package:flight_booking/Screens/ScreenHome/Providers/TripProvider.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomCard.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/FromToColumn.dart';
@@ -38,7 +36,7 @@ class InputsWidget extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          Consumer<ChoiceProvider>(builder: (context, choice, _) {
+          Consumer<TripProvider>(builder: (context, choice, _) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -141,7 +139,7 @@ class InputsWidget extends StatelessWidget {
                     ),
                   ),
                   Visibility(
-                    visible: Provider.of<ChoiceProvider>(context).value ==
+                    visible: Provider.of<TripProvider>(context).value ==
                         TripType.roundTrip,
                     child: Column(
                       children: [

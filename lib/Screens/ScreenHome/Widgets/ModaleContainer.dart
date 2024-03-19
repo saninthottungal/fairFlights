@@ -1,8 +1,7 @@
+import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/Counter.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ModaleContainer extends StatelessWidget {
   const ModaleContainer({super.key});
@@ -11,39 +10,41 @@ class ModaleContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(
-        top: 5,
+        top: 10,
         left: 15,
         right: 15,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          IconButton(
-              onPressed: () {},
-              icon: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Icon(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(
                     Icons.close,
                     color: Colors.black,
                     size: 27,
-                  ),
-                  ElevatedButton(
-                      style: const ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.black)),
-                      onPressed: () {},
-                      child: const Text(
-                        "Apply",
-                        style: TextStyle(color: Colors.white),
-                      )),
-                ],
-              )),
+                  )),
+              ElevatedButton(
+                  style: const ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(Colors.black)),
+                  onPressed: () {},
+                  child: const Text(
+                    "Apply",
+                    style: TextStyle(color: Colors.white),
+                  )),
+            ],
+          ),
+          const SizedBox(height: 5),
           const Divider(
             height: 0,
             color: Colors.black12,
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
             child: Column(
@@ -77,33 +78,36 @@ class ModaleContainer extends StatelessWidget {
                     ),
                   ),
                 ),
-                Wrap(
-                  children: [
-                    CustomChip(
-                      title: "Economy",
-                      isSelected: true,
-                      onSelected: (value) {},
-                      color: Colors.blue,
-                    ),
-                    CustomChip(
-                      title: "Premium Economy",
-                      isSelected: true,
-                      onSelected: (value) {},
-                      color: Colors.blue,
-                    ),
-                    CustomChip(
-                      title: "Buissnes",
-                      isSelected: true,
-                      onSelected: (value) {},
-                      color: Colors.blue,
-                    ),
-                    CustomChip(
-                      title: "First Class",
-                      isSelected: true,
-                      onSelected: (value) {},
-                      color: Colors.blue,
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(right: 70),
+                  child: Wrap(
+                    children: [
+                      CustomChip(
+                        title: "Economy",
+                        isSelected: true,
+                        onSelected: (value) {},
+                        color: AppColor.customBlue,
+                      ),
+                      CustomChip(
+                        title: "Premium Economy",
+                        isSelected: true,
+                        onSelected: (value) {},
+                        color: AppColor.customBlue.withOpacity(0.5),
+                      ),
+                      CustomChip(
+                        title: "Buissnes",
+                        isSelected: true,
+                        onSelected: (value) {},
+                        color: AppColor.customBlue.withOpacity(0.5),
+                      ),
+                      CustomChip(
+                        title: "First Class",
+                        isSelected: true,
+                        onSelected: (value) {},
+                        color: AppColor.customBlue.withOpacity(0.5),
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),

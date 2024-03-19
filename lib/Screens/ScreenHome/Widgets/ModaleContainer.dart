@@ -1,6 +1,8 @@
 import 'package:flight_booking/Screens/ScreenHome/Widgets/Counter.dart';
+import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class ModaleContainer extends StatelessWidget {
   const ModaleContainer({super.key});
@@ -9,7 +11,7 @@ class ModaleContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(
-        top: 10,
+        top: 5,
         left: 15,
         right: 15,
       ),
@@ -37,10 +39,13 @@ class ModaleContainer extends StatelessWidget {
                       )),
                 ],
               )),
-          const Divider(height: 0),
+          const Divider(
+            height: 0,
+            color: Colors.black12,
+          ),
           const SizedBox(height: 20),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
             child: Column(
               children: [
                 SizedBox(
@@ -50,19 +55,59 @@ class ModaleContainer extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.black.withOpacity(0.8),
                       fontWeight: FontWeight.w500,
-                      fontSize: 25,
+                      fontSize: 23,
                     ),
                   ),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 10),
                 const Counter(title: 'Adults', subtitle: 'Over 15'),
                 const SizedBox(height: 8),
                 const Counter(title: 'Children', subtitle: '2 - 15'),
                 const SizedBox(height: 8),
                 const Counter(title: 'Infants', subtitle: 'Under 2'),
+                const Divider(color: Colors.black12, height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    "Cabin class",
+                    style: TextStyle(
+                      color: Colors.black.withOpacity(0.8),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 23,
+                    ),
+                  ),
+                ),
+                Wrap(
+                  children: [
+                    CustomChip(
+                      title: "Economy",
+                      isSelected: true,
+                      onSelected: (value) {},
+                      color: Colors.blue,
+                    ),
+                    CustomChip(
+                      title: "Premium Economy",
+                      isSelected: true,
+                      onSelected: (value) {},
+                      color: Colors.blue,
+                    ),
+                    CustomChip(
+                      title: "Buissnes",
+                      isSelected: true,
+                      onSelected: (value) {},
+                      color: Colors.blue,
+                    ),
+                    CustomChip(
+                      title: "First Class",
+                      isSelected: true,
+                      onSelected: (value) {},
+                      color: Colors.blue,
+                    ),
+                  ],
+                )
               ],
             ),
-          )
+          ),
         ],
       ),
     );

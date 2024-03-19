@@ -21,7 +21,7 @@ class Counter extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.black.withOpacity(0.75),
                   fontWeight: FontWeight.w400,
-                  fontSize: 17,
+                  fontSize: 16,
                 ),
               ),
             ),
@@ -49,7 +49,7 @@ class Counter extends StatelessWidget {
             const SizedBox(width: 12),
             const Text(
               "1",
-              style: TextStyle(color: Colors.black, fontSize: 18),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             const SizedBox(width: 12),
             IconButton.filled(

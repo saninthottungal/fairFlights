@@ -130,9 +130,11 @@ class InputsWidget extends StatelessWidget {
                           title: "1 Traveller/Economy",
                           onTap: () {
                             showModalBottomSheet(
+                                isScrollControlled: true,
                                 context: context,
                                 builder: (ctx) {
-                                  return const ModaleContainer();
+                                  return const SingleChildScrollView(
+                                      child: ModaleContainer());
                                 });
                           },
                         ),

@@ -1,7 +1,9 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
+import 'package:flight_booking/Screens/ScreenHome/Providers/CounterProvider.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/Counter.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ModaleContainer extends StatelessWidget {
   const ModaleContainer({super.key});
@@ -61,11 +63,71 @@ class ModaleContainer extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Counter(title: 'Adults', subtitle: 'Over 15'),
+                Consumer<CounterProvider>(builder: (context, counter, _) {
+                  return Counter(
+                    title: 'Adults',
+                    subtitle: 'Over 15',
+                    count: counter.adult,
+                    onPressedOnAdd: () {
+                      if (counter.adult < 9) {
+                        counter.adult++;
+                      }
+
+                      counter.notify();
+                    },
+                    onPressedOnRemove: () {
+                      if (counter.adult > 1) {
+                        counter.adult--;
+                      }
+
+                      counter.notify();
+                    },
+                  );
+                }),
                 const SizedBox(height: 8),
-                const Counter(title: 'Children', subtitle: '2 - 15'),
+                Consumer<CounterProvider>(builder: (context, counter, _) {
+                  return Counter(
+                    title: 'Children',
+                    subtitle: '2 - 15',
+                    count: counter.children,
+                    onPressedOnAdd: () {
+                      if (counter.children < 9) {
+                        counter.children++;
+                      }
+
+                      counter.notify();
+                    },
+                    onPressedOnRemove: () {
+                      if (counter.children > 0) {
+                        counter.children--;
+                      }
+
+                      counter.notify();
+                    },
+                  );
+                }),
                 const SizedBox(height: 8),
-                const Counter(title: 'Infants', subtitle: 'Under 2'),
+                Consumer<CounterProvider>(builder: (context, counter, _) {
+                  return Counter(
+                    title: 'Infants',
+                    subtitle: 'Under 2',
+                    count: counter.infant,
+                    onPressedOnAdd: () {
+                      if (counter.infant < 9) {
+                        counter.infant++;
+                      }
+
+                      counter.notify();
+                    },
+                    onPressedOnRemove: () {
+                      if (counter.infant > 0) {
+                        counter.infant--;
+                      }
+
+                      counter.notify();
+                    },
+                  );
+                }),
                 const Divider(color: Colors.black12, height: 20),
                 SizedBox(
                   width: double.infinity,

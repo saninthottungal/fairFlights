@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 
 class Counter extends StatelessWidget {
-  const Counter({super.key, required this.title, required this.subtitle});
+  const Counter({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.count,
+    required this.onPressedOnAdd,
+    required this.onPressedOnRemove,
+  });
 
   final String title;
   final String subtitle;
+  final int count;
+  final void Function() onPressedOnAdd;
+  final void Function() onPressedOnRemove;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -39,19 +49,19 @@ class Counter extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton.filledTonal(
-                onPressed: () {},
+                onPressed: onPressedOnRemove,
                 icon: const Icon(
                   Icons.remove,
                   color: Colors.black54,
                 )),
             const SizedBox(width: 12),
-            const Text(
-              "1",
-              style: TextStyle(color: Colors.black, fontSize: 16),
+            Text(
+              count.toString(),
+              style: const TextStyle(color: Colors.black, fontSize: 16),
             ),
             const SizedBox(width: 12),
             IconButton.filled(
-                onPressed: () {},
+                onPressed: onPressedOnAdd,
                 icon: const Icon(
                   Icons.add,
                   color: Colors.white70,

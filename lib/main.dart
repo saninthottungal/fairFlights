@@ -1,4 +1,6 @@
 import 'package:flight_booking/Screens/ScreenHome/Providers/ChoiceProvider.dart';
+import 'package:flight_booking/Screens/ScreenHome/Providers/CounterProvider.dart';
+import 'package:flight_booking/Screens/ScreenHome/Providers/CustomChipProvider.dart';
 import 'package:flight_booking/Screens/ScreenSplash/ScreenSplash.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +20,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => ChoiceProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => CounterProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CustomChipProvider(),
+        )
       ],
       child: MaterialApp(
         title: 'Fare Flights',

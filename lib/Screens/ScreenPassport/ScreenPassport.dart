@@ -1,6 +1,5 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Screens/ScreenPassport/Widgets/CardField.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ScreenPassport extends StatelessWidget {
@@ -23,8 +22,8 @@ class ScreenPassport extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
               child: Column(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                Wrap(
+                  // mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Image.asset(
                       'assets/passport.png',

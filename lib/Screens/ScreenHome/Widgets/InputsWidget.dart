@@ -6,8 +6,10 @@ import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomCard.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/FromToColumn.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/ModaleContainer.dart';
+import 'package:flight_booking/Screens/ScreenSearch/ScreenSearch.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class InputsWidget extends StatelessWidget {
@@ -26,7 +28,13 @@ class InputsWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const FromToColumn(cityCode: 'DXB', cityName: "Dubai"),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => ScreenSearch()));
+                },
+                child: const FromToColumn(cityCode: 'DXB', cityName: "Dubai"),
+              ),
               IconButton(
                 onPressed: () {},
                 icon: const Icon(Icons.swap_horizontal_circle_outlined),

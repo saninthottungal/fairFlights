@@ -1,7 +1,7 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
-import 'package:flight_booking/Screens/ScreenHome/Constants/enums.dart';
-import 'package:flight_booking/Screens/ScreenHome/Providers/CounterProvider.dart';
-import 'package:flight_booking/Screens/ScreenHome/Providers/CustomChipProvider.dart';
+import 'package:flight_booking/Core/Constants/enums.dart';
+import 'package:flight_booking/Providers/HomeProviders/CounterProvider.dart';
+import 'package:flight_booking/Providers/HomeProviders/ClassChipProvider.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/Counter.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
 import 'package:flutter/material.dart';
@@ -145,7 +145,7 @@ class ModaleContainer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 70),
                   child:
-                      Consumer<CustomChipProvider>(builder: (context, chip, _) {
+                      Consumer<ClassChipProvider>(builder: (context, chip, _) {
                     return Wrap(
                       children: [
                         CustomChip(

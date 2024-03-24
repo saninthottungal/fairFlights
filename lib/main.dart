@@ -1,6 +1,6 @@
-import 'package:flight_booking/Screens/ScreenHome/Providers/TripProvider.dart';
-import 'package:flight_booking/Screens/ScreenHome/Providers/CounterProvider.dart';
-import 'package:flight_booking/Screens/ScreenHome/Providers/CustomChipProvider.dart';
+import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
+import 'package:flight_booking/Providers/HomeProviders/CounterProvider.dart';
+import 'package:flight_booking/Providers/HomeProviders/ClassChipProvider.dart';
 import 'package:flight_booking/Screens/ScreenSplash/ScreenSplash.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,13 +18,13 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => TripProvider(),
+          create: (context) => TripChipProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => CounterProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => CustomChipProvider(),
+          create: (context) => ClassChipProvider(),
         )
       ],
       child: MaterialApp(

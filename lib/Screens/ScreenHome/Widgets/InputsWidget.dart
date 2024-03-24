@@ -1,7 +1,6 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
-import 'package:flight_booking/Screens/ScreenCalendar/ScreenCalendar.dart';
-import 'package:flight_booking/Screens/ScreenHome/Constants/enums.dart';
-import 'package:flight_booking/Screens/ScreenHome/Providers/TripProvider.dart';
+import 'package:flight_booking/Core/Constants/enums.dart';
+import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomCard.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/FromToColumn.dart';
@@ -36,7 +35,7 @@ class InputsWidget extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          Consumer<TripProvider>(builder: (context, choice, _) {
+          Consumer<TripChipProvider>(builder: (context, choice, _) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -106,12 +105,7 @@ class InputsWidget extends StatelessWidget {
                         ),
                         CustomCard(
                           title: "16 Mar, Fri",
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => const ScreenCalendar()),
-                            );
-                          },
+                          onTap: () {},
                         ),
                         const Padding(
                           padding: EdgeInsets.only(left: 10, top: 8),
@@ -139,7 +133,7 @@ class InputsWidget extends StatelessWidget {
                     ),
                   ),
                   Visibility(
-                    visible: Provider.of<TripProvider>(context).value ==
+                    visible: Provider.of<TripChipProvider>(context).value ==
                         TripType.roundTrip,
                     child: Column(
                       children: [
@@ -176,12 +170,7 @@ class InputsWidget extends StatelessWidget {
                               ),
                               Card(
                                 child: CupertinoListTile(
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const ScreenCalendar()));
-                                  },
+                                  onTap: () {},
                                   title: const Text(
                                     "16 Mar, Fri",
                                     style: TextStyle(

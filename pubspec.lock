@@ -57,22 +57,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
-  dropdown_button2:
-    dependency: "direct main"
-    description:
-      name: dropdown_button2
-      sha256: b0fe8d49a030315e9eef6c7ac84ca964250155a6224d491c1365061bc974a9e1
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.9"
-  easy_date_timeline:
-    dependency: "direct main"
-    description:
-      name: easy_date_timeline
-      sha256: ed4da259694032953d17fb356aa25b5bca3d398fd9a075a03d353da921facfaa
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -102,6 +86,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  flutter_localizations:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -131,22 +120,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
-  infinite_scroll_pagination:
-    dependency: transitive
-    description:
-      name: infinite_scroll_pagination
-      sha256: "9517328f4e373f08f57dbb11c5aac5b05554142024d6b60c903f3b73476d52db"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.2.0"
   intl:
     dependency: "direct main"
     description:
       name: intl
-      sha256: d6f56758b7d3014a48af9701c085700aac781a92a87a62b1333b46d8879661cf
+      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.19.0"
+    version: "0.18.1"
   leak_tracker:
     dependency: transitive
     description:
@@ -211,22 +192,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  number_inc_dec:
-    dependency: "direct main"
-    description:
-      name: number_inc_dec
-      sha256: af0a35f923a2e67532bc6579e8fbf0093be8ea185e48bb543db4e3e355017ec5
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.0"
-  paged_vertical_calendar:
-    dependency: "direct main"
-    description:
-      name: paged_vertical_calendar
-      sha256: bca7385d0b810d9c010616515d75429ea9e89290316f928f6a7bb9af3ae01ac4
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.6"
   path:
     dependency: transitive
     description:
@@ -307,19 +272,27 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.2"
+  scrollable_clean_calendar:
+    dependency: "direct main"
+    description:
+      name: scrollable_clean_calendar
+      sha256: e68f13b49dd70f70d6e6cbb39e3a76d2ff920671cd9b10a33370dd298c0f595e
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.5.0"
+  scrollable_positioned_list:
+    dependency: transitive
+    description:
+      name: scrollable_positioned_list
+      sha256: "1b54d5f1329a1e263269abc9e2543d90806131aa14fe7c6062a8054d57249287"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.8"
   sky_engine:
     dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.99"
-  sliver_tools:
-    dependency: transitive
-    description:
-      name: sliver_tools
-      sha256: eae28220badfb9d0559207badcbbc9ad5331aac829a88cb0964d330d2a4636a6
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.12"
   source_span:
     dependency: transitive
     description:

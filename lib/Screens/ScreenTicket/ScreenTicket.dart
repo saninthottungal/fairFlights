@@ -1,6 +1,5 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Screens/ScreenTicket/Widgets/app_bar_title.dart';
-import 'package:flight_booking/Screens/ScreenTicket/Widgets/date_picker_widget.dart';
 import 'package:flight_booking/Screens/ScreenTicket/Widgets/ticker_card.dart';
 import 'package:flutter/material.dart';
 
@@ -31,10 +30,6 @@ class ScreenTickets extends StatelessWidget {
               onPressed: () {},
             ),
           ],
-          bottom: const PreferredSize(
-            preferredSize: Size.fromHeight(80),
-            child: DatePickerWidget(),
-          ),
         ),
         body: ListView(
           padding: const EdgeInsets.all(4),

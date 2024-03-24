@@ -26,18 +26,9 @@ class _ScreenHomeState extends State<ScreenHome> with TickerProviderStateMixin {
     precacheImage(const AssetImage('assets/bluebg.jpg'), context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(20, 61, 187, 1),
-
-        centerTitle: true,
         // APP bar Title
         title: const Text(
           "Let's Travel",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 23,
-            fontStyle: FontStyle.italic,
-          ),
         ),
       ),
 

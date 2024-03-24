@@ -9,3 +9,8 @@ enum ClassType {
   buissness,
   firstClass,
 }
+
+enum TripDate {
+  departureDate,
+  returnDate,
+}

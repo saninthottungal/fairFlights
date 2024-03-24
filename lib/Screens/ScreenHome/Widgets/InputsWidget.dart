@@ -1,6 +1,7 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
+import 'package:flight_booking/Screens/ScreenCalendar/ScreenCalendar.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomCard.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/FromToColumn.dart';
@@ -105,7 +106,10 @@ class InputsWidget extends StatelessWidget {
                         ),
                         CustomCard(
                           title: "16 Mar, Fri",
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ScreenCalendar()));
+                          },
                         ),
                         const Padding(
                           padding: EdgeInsets.only(left: 10, top: 8),

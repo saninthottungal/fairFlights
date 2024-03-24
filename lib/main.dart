@@ -1,3 +1,4 @@
+import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/CounterProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/ClassChipProvider.dart';
@@ -39,11 +40,22 @@ class MyApp extends StatelessWidget {
               ),
               bodyMedium: TextStyle(
                 color: Colors.white,
-              )),
+              ),
+              bodySmall: TextStyle(color: Colors.black)),
           iconButtonTheme: const IconButtonThemeData(
               style: ButtonStyle(
                   iconColor: MaterialStatePropertyAll(Colors.white))),
           useMaterial3: true,
+          appBarTheme: AppBarTheme(
+            backgroundColor: AppColor.customBlue,
+            centerTitle: true,
+            titleTextStyle: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 23,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
         ),
         home: const ScreenSplash(),
       ),

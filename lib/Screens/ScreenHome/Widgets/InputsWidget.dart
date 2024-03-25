@@ -1,5 +1,6 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
+import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
 import 'package:flight_booking/Screens/ScreenCalendar/ScreenCalendar.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomCard.dart';
@@ -22,27 +23,48 @@ class InputsWidget extends StatelessWidget {
     // final width = MediaQuery.of(context).size.width;
     // final height = MediaQuery.of(context).size.height;
     return Padding(
-      padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
+      padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
       child: ListView(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ScreenSearch()));
-                },
-                child: const FromToColumn(cityCode: 'DXB', cityName: "Dubai"),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.swap_horizontal_circle_outlined),
-                iconSize: 30,
-              ),
-              const FromToColumn(cityCode: "COK", cityName: 'Kochi'),
-            ],
-          ),
+          Consumer<FromToProvider>(builder: (context, fromToProvider, _) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ScreenSearch()));
+                  },
+                  child: FromToColumn(
+                    cityCode: fromToProvider.from.code ?? 'DXB',
+                    cityName: fromToProvider.from.countryName ??
+                        "United Arab Emirates",
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    final provider =
+                        Provider.of<FromToProvider>(context, listen: false);
+                    final tempFrom = provider.from;
+                    provider.changeFromValue = provider.to;
+                    provider.changeToValue = tempFrom;
+                  },
+                  icon: const Icon(Icons.swap_horizontal_circle_outlined),
+                  iconSize: 30,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ScreenSearch()));
+                  },
+                  child: FromToColumn(
+                    cityCode: fromToProvider.to.code ?? "COK",
+                    cityName: fromToProvider.to.countryName ?? "Kochi",
+                  ),
+                ),
+              ],
+            );
+          }),
           const SizedBox(height: 20),
           Consumer<TripChipProvider>(builder: (context, choice, _) {
             return Row(

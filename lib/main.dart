@@ -1,4 +1,6 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
+import 'package:flight_booking/Providers/CitySearchProviders/CitySearchProvider.dart';
+import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/CounterProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/ClassChipProvider.dart';
@@ -26,7 +28,13 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => ClassChipProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CitySearchProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => FromToProvider(),
+        ),
       ],
       child: MaterialApp(
         title: 'Fare Flights',

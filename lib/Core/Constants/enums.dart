@@ -14,3 +14,8 @@ enum TripDate {
   departureDate,
   returnDate,
 }
+
+enum SelectedField {
+  fromField,
+  toField,
+}

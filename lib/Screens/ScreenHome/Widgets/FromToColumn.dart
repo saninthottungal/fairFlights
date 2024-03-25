@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -11,6 +12,7 @@ class FromToColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         const Text(
           "FROM",
@@ -18,6 +20,7 @@ class FromToColumn extends StatelessWidget {
             letterSpacing: 2,
             fontWeight: FontWeight.w400,
             fontSize: 14,
+            // overflow: TextOverflow.ellipsis,
           ),
         ),
         Text(
@@ -29,12 +32,18 @@ class FromToColumn extends StatelessWidget {
             fontStyle: FontStyle.italic,
           ),
         ),
-        Text(
-          cityName,
-          style: const TextStyle(
-            letterSpacing: 2,
-            fontSize: 18,
-            fontWeight: FontWeight.w300,
+        SizedBox(
+          width: 140,
+          child: Text(
+            cityName,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              letterSpacing: 2,
+              fontSize: 18,
+              fontWeight: FontWeight.w300,
+            ),
+            // softWrap: true,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ],

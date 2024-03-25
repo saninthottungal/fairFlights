@@ -1,5 +1,6 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
+import 'package:flight_booking/Providers/CalendarProvider/CalendarProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
 import 'package:flight_booking/Screens/ScreenCalendar/ScreenCalendar.dart';
@@ -11,6 +12,7 @@ import 'package:flight_booking/Screens/ScreenSearch/ScreenSearch.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class InputsWidget extends StatelessWidget {
@@ -134,13 +136,24 @@ class InputsWidget extends StatelessWidget {
                             ),
                           ),
                         ),
-                        CustomCard(
-                          title: "16 Mar, Fri",
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => ScreenCalendar()));
-                          },
-                        ),
+                        Consumer<CalendarProvider>(
+                            builder: (context, provider, _) {
+                          final date = formatDate(provider.departureDate);
+                          return CustomCard(
+                            title: date,
+                            onTap: () {
+                              final provider = Provider.of<CalendarProvider>(
+                                  context,
+                                  listen: false);
+                              provider.way = TripWay.departureWay;
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const ScreenCalendar(),
+                                ),
+                              );
+                            },
+                          );
+                        }),
                         const Padding(
                           padding: EdgeInsets.only(left: 10, top: 8),
                           child: Text(
@@ -204,15 +217,29 @@ class InputsWidget extends StatelessWidget {
                               ),
                               Card(
                                 child: CupertinoListTile(
-                                  onTap: () {},
-                                  title: const Text(
-                                    "16 Mar, Fri",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.black54,
-                                      fontSize: 15,
-                                    ),
-                                  ),
+                                  onTap: () {
+                                    final provider =
+                                        Provider.of<CalendarProvider>(context,
+                                            listen: false);
+                                    provider.way = TripWay.returnWay;
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const ScreenCalendar()));
+                                  },
+                                  title: Consumer<CalendarProvider>(
+                                      builder: (context, provider, _) {
+                                    final date =
+                                        formatDate(provider.returnDate);
+                                    return Text(
+                                      date,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.black54,
+                                        fontSize: 15,
+                                      ),
+                                    );
+                                  }),
                                 ),
                               ),
                               const SizedBox(height: 18),
@@ -248,5 +275,10 @@ class InputsWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String formatDate(DateTime dateTime) {
+    final DateFormat formatter = DateFormat('dd MMMM, EEEEEE');
+    return formatter.format(dateTime).toLowerCase();
   }
 }

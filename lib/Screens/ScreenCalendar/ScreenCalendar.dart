@@ -1,17 +1,14 @@
+import 'package:flight_booking/Core/Constants/enums.dart';
+import 'package:flight_booking/Providers/CalendarProvider/CalendarProvider.dart';
 import 'package:flight_booking/Screens/ScreenCalendar/Widgets/CustomRow.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:scrollable_clean_calendar/controllers/clean_calendar_controller.dart';
 import 'package:scrollable_clean_calendar/scrollable_clean_calendar.dart';
 import 'package:scrollable_clean_calendar/utils/enums.dart';
 
 class ScreenCalendar extends StatelessWidget {
-  ScreenCalendar({super.key});
-
-  final calendarController = CleanCalendarController(
-      minDate: DateTime.now(),
-      maxDate: DateTime.now().add(
-        const Duration(days: 365 * 3),
-      ));
+  const ScreenCalendar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +32,30 @@ class ScreenCalendar extends StatelessWidget {
           ),
           Expanded(
             child: ScrollableCleanCalendar(
-              calendarController: calendarController,
+              calendarController: CleanCalendarController(
+                minDate: DateTime.now(),
+                maxDate: DateTime.now().add(const Duration(days: 365 * 3)),
+                rangeMode: false,
+                onDayTapped: (date) async {
+                  final provider =
+                      Provider.of<CalendarProvider>(context, listen: false);
+                  if (provider.way == TripWay.departureWay) {
+                    if (date.isAfter(provider.returnDate)) {
+                      provider.changeDepartureDate = date;
+                      provider.changeReturnDate = date;
+                    }
+                  } else {
+                    if (date.isBefore(provider.departureDate)) {
+                      provider.changeReturnDate = provider.departureDate;
+                    } else {
+                      provider.changeReturnDate = date;
+                    }
+                  }
+                  Future.delayed(const Duration(milliseconds: 300), () {
+                    Navigator.of(context).pop();
+                  });
+                },
+              ),
               layout: Layout.DEFAULT,
               calendarCrossAxisSpacing: 0,
               showWeekdays: true,

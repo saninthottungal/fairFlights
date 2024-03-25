@@ -10,12 +10,12 @@ enum ClassType {
   firstClass,
 }
 
-enum TripDate {
-  departureDate,
-  returnDate,
-}
-
 enum SelectedField {
   fromField,
   toField,
+}
+
+enum TripWay {
+  departureWay,
+  returnWay,
 }

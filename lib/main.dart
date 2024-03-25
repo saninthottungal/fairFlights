@@ -1,4 +1,5 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
+import 'package:flight_booking/Providers/CalendarProvider/CalendarProvider.dart';
 import 'package:flight_booking/Providers/CitySearchProviders/CitySearchProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => FromToProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CalendarProvider(),
         ),
       ],
       child: MaterialApp(

@@ -1,6 +1,8 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
 import 'package:flight_booking/Providers/CalendarProvider/CalendarProvider.dart';
+import 'package:flight_booking/Providers/HomeProviders/ClassChipProvider.dart';
+import 'package:flight_booking/Providers/HomeProviders/CounterProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
 import 'package:flight_booking/Screens/ScreenCalendar/ScreenCalendar.dart';
@@ -14,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:scrollable_clean_calendar/utils/extensions.dart';
 
 class InputsWidget extends StatelessWidget {
   const InputsWidget({
@@ -164,18 +167,39 @@ class InputsWidget extends StatelessWidget {
                                 fontSize: 13),
                           ),
                         ),
-                        CustomCard(
-                          title: "1 Traveller/Economy",
-                          onTap: () {
-                            showModalBottomSheet(
-                                isScrollControlled: true,
-                                context: context,
-                                builder: (ctx) {
-                                  return const SingleChildScrollView(
-                                      child: ModaleContainer());
-                                });
-                          },
-                        )
+                        Consumer2<CounterProvider, ClassChipProvider>(builder:
+                            (context, counterProvider, classProvider, _) {
+                          final travellers =
+                              "${counterProvider.travellersCount} Travellers";
+                          String classType = 'Economy';
+                          switch (classProvider.selectedType) {
+                            case ClassType.buissness:
+                              classType = 'Buissness';
+                              break;
+                            case ClassType.economy:
+                              classType = 'Economy';
+                              break;
+                            case ClassType.premiumEconomy:
+                              classType = 'Premium Economy';
+                              break;
+                            case ClassType.firstClass:
+                              classType = 'First Class';
+                              break;
+                          }
+                          return CustomCard(
+                            title: '$travellers/$classType',
+                            onTap: () {
+                              showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  context: context,
+                                  builder: (ctx) {
+                                    return const SingleChildScrollView(
+                                      child: ModaleContainer(),
+                                    );
+                                  });
+                            },
+                          );
+                        })
                       ],
                     ),
                   ),

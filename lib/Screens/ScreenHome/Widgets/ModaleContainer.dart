@@ -36,7 +36,9 @@ class ModaleContainer extends StatelessWidget {
               ElevatedButton(
                   style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(Colors.black)),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                   child: const Text(
                     "Apply",
                     style: TextStyle(color: Colors.white),

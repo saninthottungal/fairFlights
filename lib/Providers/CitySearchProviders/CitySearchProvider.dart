@@ -5,6 +5,7 @@ class CitySearchProvider extends ChangeNotifier {
   bool isLoading = false;
   List<CityModel> cites = [];
   bool isEmpty = false;
+  bool firstLoading = true;
 
   set updateCities(List<CityModel> values) {
     cites = values;
@@ -18,5 +19,9 @@ class CitySearchProvider extends ChangeNotifier {
 
   set setEmpty(bool value) {
     isEmpty = value;
+  }
+
+  set setFirstLoading(bool value) {
+    firstLoading = value;
   }
 }

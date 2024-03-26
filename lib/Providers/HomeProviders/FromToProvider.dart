@@ -16,4 +16,9 @@ class FromToProvider extends ChangeNotifier {
     to = value;
     notifyListeners();
   }
+
+  set changeSelectedField(SelectedField value) {
+    selectedField = value;
+    notifyListeners();
+  }
 }

@@ -13,6 +13,8 @@ class ScreenSearch extends StatelessWidget {
   final toController = TextEditingController();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final toFocusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +28,10 @@ class ScreenSearch extends StatelessWidget {
             //from searchfield
 
             CupertinoSearchTextField(
-              placeholder: 'Origin',
+              prefixIcon: const Icon(Icons.flight_takeoff),
+              //itemColor: AppColor.customBlue,
               padding: const EdgeInsets.all(12),
+              placeholder: 'Origin',
               controller: fromController,
               onTap: () {
                 Provider.of<FromToProvider>(context, listen: false)
@@ -56,9 +60,12 @@ class ScreenSearch extends StatelessWidget {
 
             //to searchfield
             CupertinoSearchTextField(
-              placeholder: 'Destination',
               padding: const EdgeInsets.all(12),
+              prefixIcon: const Icon(Icons.flight_land),
+              //itemColor: AppColor.customBlue,
+              placeholder: 'Destination',
               controller: toController,
+              focusNode: toFocusNode,
               onTap: () {
                 Provider.of<FromToProvider>(context, listen: false)
                     .selectedField = SelectedField.toField;
@@ -130,25 +137,39 @@ class ScreenSearch extends StatelessWidget {
                           width: 55,
                           height: 55,
                           decoration: BoxDecoration(
-                              color: Colors.black12,
+                              color: Colors.blueGrey.shade100,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                               child: Text(
                             city.code ?? "",
-                            style: const TextStyle(fontSize: 15),
+                            style: const TextStyle(
+                              fontSize: 15,
+                            ),
                           )),
                         ),
                         title: Text(
-                            isCity ? city.name ?? '' : city.cityName ?? ''),
+                          isCity ? city.name ?? '' : city.cityName ?? '',
+                          style: const TextStyle(fontWeight: FontWeight.w500),
+                        ),
                         subtitle: Text(isCity ? cityAirport : mainAirport),
                         onTap: () {
                           final fromtoProvider = Provider.of<FromToProvider>(
                               context,
                               listen: false);
+                          final cityProvider = Provider.of<CitySearchProvider>(
+                              context,
+                              listen: false);
 
                           if (fromtoProvider.selectedField ==
                               SelectedField.fromField) {
+                            FocusScope.of(context).requestFocus(toFocusNode);
+                            fromtoProvider.changeSelectedField =
+                                SelectedField.toField;
+
+                            // cityProvider.updateCities = [];
+                            cityProvider.setFirstLoading = true;
                             fromtoProvider.changeFromValue = city;
+
                             if (city.countryName != null) {
                               fromController.text =
                                   isCity ? city.name! : city.cityName!;
@@ -159,7 +180,8 @@ class ScreenSearch extends StatelessWidget {
                               fromController.text =
                                   isCity ? city.name! : city.cityName!;
                             }
-
+                            fromController.dispose();
+                            toController.dispose();
                             Navigator.of(context).pop();
                             Provider.of<CitySearchProvider>(context,
                                     listen: false)

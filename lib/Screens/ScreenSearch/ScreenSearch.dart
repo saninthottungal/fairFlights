@@ -21,7 +21,7 @@ class ScreenSearch extends StatelessWidget {
           child: Padding(
         padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             //from searchfield
 
@@ -34,10 +34,21 @@ class ScreenSearch extends StatelessWidget {
                     .selectedField = SelectedField.fromField;
               },
               onChanged: (value) async {
-                final cities = await searchCities(value);
-                Provider.of<CitySearchProvider>(scaffoldKey.currentContext!,
-                        listen: false)
-                    .updateCities = cities;
+                final provider =
+                    Provider.of<CitySearchProvider>(context, listen: false);
+                provider.loading = true;
+                provider.isEmpty = false;
+                if (value.trim().isEmpty) {
+                  provider.loading = false;
+                  return;
+                } else {
+                  final cities = await searchCities(value);
+                  if (cities.isEmpty) {
+                    provider.setEmpty = true;
+                  }
+                  provider.updateCities = cities;
+                  provider.loading = false;
+                }
               },
             ),
             const SizedBox(height: 10),
@@ -52,74 +63,106 @@ class ScreenSearch extends StatelessWidget {
                     .selectedField = SelectedField.toField;
               },
               onChanged: (value) async {
-                final cities = await searchCities(value);
-                Provider.of<CitySearchProvider>(scaffoldKey.currentContext!,
-                        listen: false)
-                    .updateCities = cities;
+                final provider = Provider.of<CitySearchProvider>(
+                    scaffoldKey.currentContext!,
+                    listen: false);
+                provider.loading = true;
+                provider.isEmpty = false;
+
+                if (value.trim().isEmpty) {
+                  provider.loading = false;
+                  return;
+                } else {
+                  final cities = await searchCities(value);
+                  if (cities.isEmpty) {
+                    provider.setEmpty = true;
+                  }
+                  provider.updateCities = cities;
+                  provider.loading = false;
+                }
               },
             ),
             const SizedBox(height: 10),
             const Divider(height: 25),
 
-            //listview separated
-            Consumer<CitySearchProvider>(builder: (context, cityProvider, _) {
-              return Expanded(
-                child: ListView.separated(
-                  itemBuilder: (context, index) {
-                    final city = cityProvider.cites[index];
-                    bool isCity = true;
-                    if (city.type == 'city') {
-                      isCity = true;
-                    } else {
-                      isCity = false;
-                    }
-                    final mainAirport = city.name ?? city.mainAirportName ?? '';
-                    final cityAirport = city.mainAirportName ?? "Any Airport";
-
-                    return ListTile(
-                      leading: Container(
-                        width: 55,
-                        height: 55,
-                        decoration: BoxDecoration(
-                            color: Colors.black12,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Center(
-                            child: Text(
-                          city.code ?? "",
-                          style: const TextStyle(fontSize: 15),
-                        )),
-                      ),
-                      title:
-                          Text(isCity ? city.name ?? '' : city.cityName ?? ''),
-                      subtitle: Text(isCity ? cityAirport : mainAirport),
-                      onTap: () {
-                        final fromtoProvider =
-                            Provider.of<FromToProvider>(context, listen: false);
-
-                        if (fromtoProvider.selectedField ==
-                            SelectedField.fromField) {
-                          fromtoProvider.changeFromValue = city;
-                          if (city.countryName != null) {
-                            fromController.text =
-                                isCity ? city.name! : city.cityName!;
-                          }
-                        } else {
-                          fromtoProvider.changeToValue = city;
-                          if (city.name != null) {
-                            fromController.text =
-                                isCity ? city.name! : city.cityName!;
-                          }
-                          Navigator.of(context).pop();
-                        }
-                      },
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(height: 10);
-                  },
-                  itemCount: cityProvider.cites.length,
+            Consumer<CitySearchProvider>(builder: (context, provider, _) {
+              return Visibility(
+                visible: provider.isLoading,
+                child: const SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(),
                 ),
               );
+            }),
+
+            //listview separated
+            Consumer<CitySearchProvider>(builder: (context, cityProvider, _) {
+              return cityProvider.isEmpty
+                  ? const Text(
+                      "List is empty",
+                      style: TextStyle(color: Colors.black),
+                    )
+                  : Expanded(
+                      child: ListView.separated(
+                        itemBuilder: (context, index) {
+                          final city = cityProvider.cites[index];
+                          bool isCity = true;
+                          if (city.type == 'city') {
+                            isCity = true;
+                          } else {
+                            isCity = false;
+                          }
+                          final mainAirport =
+                              city.name ?? city.mainAirportName ?? '';
+                          final cityAirport =
+                              city.mainAirportName ?? "Any Airport";
+
+                          return ListTile(
+                            leading: Container(
+                              width: 55,
+                              height: 55,
+                              decoration: BoxDecoration(
+                                  color: Colors.black12,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Center(
+                                  child: Text(
+                                city.code ?? "",
+                                style: const TextStyle(fontSize: 15),
+                              )),
+                            ),
+                            title: Text(
+                                isCity ? city.name ?? '' : city.cityName ?? ''),
+                            subtitle: Text(isCity ? cityAirport : mainAirport),
+                            onTap: () {
+                              final fromtoProvider =
+                                  Provider.of<FromToProvider>(context,
+                                      listen: false);
+
+                              if (fromtoProvider.selectedField ==
+                                  SelectedField.fromField) {
+                                fromtoProvider.changeFromValue = city;
+                                if (city.countryName != null) {
+                                  fromController.text =
+                                      isCity ? city.name! : city.cityName!;
+                                }
+                              } else {
+                                fromtoProvider.changeToValue = city;
+                                if (city.name != null) {
+                                  fromController.text =
+                                      isCity ? city.name! : city.cityName!;
+                                }
+                                Navigator.of(context).pop();
+                              }
+                            },
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(height: 10);
+                        },
+                        itemCount: cityProvider.cites.length,
+                      ),
+                    );
             }),
           ],
         ),

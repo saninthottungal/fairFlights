@@ -20,6 +20,7 @@ class FromToColumn extends StatelessWidget {
             letterSpacing: 2,
             fontWeight: FontWeight.w400,
             fontSize: 14,
+            color: Colors.white,
             // overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -30,6 +31,7 @@ class FromToColumn extends StatelessWidget {
             fontSize: 45,
             letterSpacing: 2,
             fontStyle: FontStyle.italic,
+            color: Colors.white,
           ),
         ),
         SizedBox(
@@ -41,6 +43,7 @@ class FromToColumn extends StatelessWidget {
               letterSpacing: 2,
               fontSize: 18,
               fontWeight: FontWeight.w300,
+              color: Colors.white,
             ),
             // softWrap: true,
             overflow: TextOverflow.ellipsis,

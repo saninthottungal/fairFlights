@@ -56,6 +56,7 @@ class CustomDrawerHeader extends StatelessWidget {
       padding: const EdgeInsets.only(top: 105, bottom: 10, left: 30, right: 30),
       //  margin: EdgeInsets.all(0),
       child: CupertinoButton(
+        pressedOpacity: 0.9,
         //alignment: Alignment.bottomCenter,
         onPressed: () {},
         color: Colors.white,

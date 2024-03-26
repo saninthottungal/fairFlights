@@ -50,9 +50,10 @@ class MyApp extends StatelessWidget {
               bodyLarge: TextStyle(
                 color: Colors.white,
               ),
-              bodyMedium: TextStyle(
-                color: Colors.white,
-              ),
+              // bodyMedium: TextStyle(
+              //   color: Colors.white,
+              // ),
+
               bodySmall: TextStyle(color: Colors.black)),
           iconButtonTheme: const IconButtonThemeData(
               style: ButtonStyle(

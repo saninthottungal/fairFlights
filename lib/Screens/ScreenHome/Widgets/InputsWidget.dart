@@ -6,6 +6,7 @@ import 'package:flight_booking/Providers/HomeProviders/CounterProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
 import 'package:flight_booking/Screens/ScreenCalendar/ScreenCalendar.dart';
+import 'package:flight_booking/Screens/ScreenFlights/ScreenFlights.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomCard.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/FromToColumn.dart';
@@ -276,24 +277,15 @@ class InputsWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 23),
-          Container(
-            width: double.infinity,
-            height: 53,
-            decoration: BoxDecoration(
-              color: AppColor.customBlue,
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Center(
-              child: Text(
-                "Search Flights",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white.withOpacity(0.9),
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          )
+          CupertinoButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const ScreenFlights()));
+            },
+            color: const Color.fromARGB(255, 26, 52, 192),
+            pressedOpacity: 0.9,
+            child: const Text("Search Flights"),
+          ),
         ],
       ),
     );

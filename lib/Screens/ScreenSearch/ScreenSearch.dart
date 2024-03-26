@@ -1,7 +1,9 @@
 import 'package:flight_booking/Core/Constants/enums.dart';
+import 'package:flight_booking/Core/Widgets/CustomSnackbar.dart';
 import 'package:flight_booking/Providers/CitySearchProviders/CitySearchProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Services/Api/CitySearch/CitySearch.dart';
+import 'package:flight_booking/Services/Connectivty/CheckConnectivty.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,12 +31,20 @@ class ScreenSearch extends StatelessWidget {
 
             CupertinoSearchTextField(
               prefixIcon: const Icon(Icons.flight_takeoff),
-              //itemColor: AppColor.customBlue,
               padding: const EdgeInsets.all(12),
               placeholder: 'Origin',
               controller: fromController,
-              onTap: () {
-                Provider.of<FromToProvider>(context, listen: false)
+              onTap: () async {
+                final value =
+                    await CheckNetConnectivity().checknetConnectivity();
+                if (!value) {
+                  CustomSnackbar.show(
+                    context: scaffoldKey.currentContext!,
+                    message: "No Network Connection",
+                  );
+                }
+                Provider.of<FromToProvider>(scaffoldKey.currentContext!,
+                        listen: false)
                     .selectedField = SelectedField.fromField;
               },
               onChanged: (value) async {
@@ -66,8 +76,17 @@ class ScreenSearch extends StatelessWidget {
               placeholder: 'Destination',
               controller: toController,
               focusNode: toFocusNode,
-              onTap: () {
-                Provider.of<FromToProvider>(context, listen: false)
+              onTap: () async {
+                final value =
+                    await CheckNetConnectivity().checknetConnectivity();
+                if (!value) {
+                  CustomSnackbar.show(
+                    context: scaffoldKey.currentContext!,
+                    message: "No Network Connection",
+                  );
+                }
+                Provider.of<FromToProvider>(scaffoldKey.currentContext!,
+                        listen: false)
                     .selectedField = SelectedField.toField;
               },
               onChanged: (value) async {
@@ -98,9 +117,11 @@ class ScreenSearch extends StatelessWidget {
               return Visibility(
                 visible: provider.isLoading,
                 child: const SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(),
+                  width: 25,
+                  height: 25,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3,
+                  ),
                 ),
               );
             }),
@@ -191,7 +212,7 @@ class ScreenSearch extends StatelessWidget {
                       );
                     },
                     separatorBuilder: (context, index) {
-                      return const SizedBox(height: 10);
+                      return const SizedBox(height: 15);
                     },
                     itemCount: cityProvider.cites.length,
                   ),

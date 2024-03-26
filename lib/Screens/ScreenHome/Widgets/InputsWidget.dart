@@ -35,7 +35,7 @@ class InputsWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => ScreenSearch()));
                   },
@@ -46,7 +46,7 @@ class InputsWidget extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {
+                  onPressed: () async {
                     final provider =
                         Provider.of<FromToProvider>(context, listen: false);
                     final tempFrom = provider.from;

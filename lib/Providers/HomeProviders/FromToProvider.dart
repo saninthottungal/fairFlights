@@ -3,8 +3,8 @@ import 'package:flight_booking/Services/Api/CitySearch/city_model/city_model.dar
 import 'package:flutter/cupertino.dart';
 
 class FromToProvider extends ChangeNotifier {
-  CityModel from = CityModel();
-  CityModel to = CityModel();
+  CityModel from = CityModel(code: 'DXB', countryName: "United Arab Emirates");
+  CityModel to = CityModel(code: 'COK', countryName: "Kochi");
   SelectedField selectedField = SelectedField.fromField;
 
   set changeFromValue(CityModel value) {

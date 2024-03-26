@@ -21,6 +21,9 @@ class ScreenSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      appBar: AppBar(
+        title: const Text("Pick a Destination"),
+      ),
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.only(top: 25, left: 20, right: 20),

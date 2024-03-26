@@ -7,10 +7,15 @@ import 'package:flight_booking/Providers/HomeProviders/CounterProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/ClassChipProvider.dart';
 import 'package:flight_booking/Screens/ScreenSplash/ScreenSplash.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized;
+  await dotenv.load(fileName: '.env');
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -50,10 +55,6 @@ class MyApp extends StatelessWidget {
               bodyLarge: TextStyle(
                 color: Colors.white,
               ),
-              // bodyMedium: TextStyle(
-              //   color: Colors.white,
-              // ),
-
               bodySmall: TextStyle(color: Colors.black)),
           iconButtonTheme: const IconButtonThemeData(
               style: ButtonStyle(

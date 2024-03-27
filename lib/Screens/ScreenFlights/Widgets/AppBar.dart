@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
+  const CustomAppBar({super.key, required this.onPressed});
+
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
         centerTitle: false,
+        actions: [
+          IconButton(onPressed: onPressed, icon: const Icon(Icons.sort)),
+        ],
         title: const Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [

@@ -1,7 +1,7 @@
-import 'package:flight_booking/Models/FlightSearchPostModel/flightSignature.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'passengers.dart';
 import 'segment.dart';
+import 'package:flight_booking/Core/Constants/searchTerms.dart';
 part 'FlightSearchPostModel.g.dart';
 
 @JsonSerializable()
@@ -28,22 +28,19 @@ class FlightSearchPostModel {
   FlightSearchPostModel({
     this.signature,
     this.marker,
-    this.host,
     this.userIp,
-    this.locale,
     this.tripClass,
     this.passengers,
     this.segments,
-    this.currency,
-  });
+  }) {
+    currency = flightCurrency;
+    host = flightHost;
+    locale = flightLocale;
+  }
 
   factory FlightSearchPostModel.fromJson(Map<String, dynamic> json) {
     return _$FlightSearchPostModelFromJson(json);
   }
 
   Map<String, dynamic> toJson() => _$FlightSearchPostModelToJson(this);
-
-  Future<String?> getSignature() async {
-    return getSignatureFromFlightPostData(flightData: this);
-  }
 }

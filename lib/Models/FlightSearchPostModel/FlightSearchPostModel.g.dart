@@ -11,9 +11,7 @@ FlightSearchPostModel _$FlightSearchPostModelFromJson(
     FlightSearchPostModel(
       signature: json['signature'] as String?,
       marker: json['marker'] as String?,
-      host: json['host'] as String?,
       userIp: json['user_ip'] as String?,
-      locale: json['locale'] as String?,
       tripClass: json['trip_class'] as String?,
       passengers: json['passengers'] == null
           ? null
@@ -22,8 +20,10 @@ FlightSearchPostModel _$FlightSearchPostModelFromJson(
           ?.map((e) =>
               e == null ? null : Segment.fromJson(e as Map<String, dynamic>))
           .toList(),
-      currency: json['currency'] as String?,
-    );
+    )
+      ..host = json['host'] as String?
+      ..locale = json['locale'] as String?
+      ..currency = json['currency'] as String?;
 
 Map<String, dynamic> _$FlightSearchPostModelToJson(
         FlightSearchPostModel instance) =>

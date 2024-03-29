@@ -73,18 +73,14 @@ class ModaleContainer extends StatelessWidget {
                     subtitle: 'Over 15',
                     count: counter.adult,
                     onPressedOnAdd: () {
-                      if (counter.adult < 9) {
-                        counter.adult++;
-                      }
+                      int value = counter.adult + 1;
+                      // /print(value);
 
-                      counter.notify();
+                      counter.setAdultCount(value);
                     },
                     onPressedOnRemove: () {
-                      if (counter.adult > 1) {
-                        counter.adult--;
-                      }
-
-                      counter.notify();
+                      int value = counter.adult - 1;
+                      counter.setAdultCount(value);
                     },
                   );
                 }),
@@ -95,18 +91,12 @@ class ModaleContainer extends StatelessWidget {
                     subtitle: '2 - 15',
                     count: counter.children,
                     onPressedOnAdd: () {
-                      if (counter.children < 9) {
-                        counter.children++;
-                      }
-
-                      counter.notify();
+                      int value = counter.children + 1;
+                      counter.setChildrenCount(value);
                     },
                     onPressedOnRemove: () {
-                      if (counter.children > 0) {
-                        counter.children--;
-                      }
-
-                      counter.notify();
+                      int value = counter.children - 1;
+                      counter.setChildrenCount(value);
                     },
                   );
                 }),
@@ -117,18 +107,12 @@ class ModaleContainer extends StatelessWidget {
                     subtitle: 'Under 2',
                     count: counter.infant,
                     onPressedOnAdd: () {
-                      if (counter.infant < 9) {
-                        counter.infant++;
-                      }
-
-                      counter.notify();
+                      int value = counter.infant + 1;
+                      counter.setInfantCount(value);
                     },
                     onPressedOnRemove: () {
-                      if (counter.infant > 0) {
-                        counter.infant--;
-                      }
-
-                      counter.notify();
+                      int value = counter.infant - 1;
+                      counter.setInfantCount(value);
                     },
                   );
                 }),
@@ -144,56 +128,52 @@ class ModaleContainer extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 70),
-                  child:
-                      Consumer<ClassChipProvider>(builder: (context, chip, _) {
-                    return Wrap(
-                      children: [
-                        CustomChip(
-                          title: "Economy",
-                          value: ClassType.economy,
-                          groupValue: chip.selectedType,
-                          onSelected: (value) {
-                            chip.onChanged(ClassType.economy);
-                          },
-                          selectedColor: AppColor.customBlue,
-                          disabledColor: AppColor.customBlue.withOpacity(0.5),
-                        ),
-                        CustomChip(
-                          title: "Premium Economy",
-                          value: ClassType.premiumEconomy,
-                          groupValue: chip.selectedType,
-                          onSelected: (value) {
-                            chip.onChanged(ClassType.premiumEconomy);
-                          },
-                          selectedColor: AppColor.customBlue,
-                          disabledColor: AppColor.customBlue.withOpacity(0.5),
-                        ),
-                        CustomChip(
-                          title: "Buissnes",
-                          value: ClassType.buissness,
-                          groupValue: chip.selectedType,
-                          onSelected: (value) {
-                            chip.onChanged(ClassType.buissness);
-                          },
-                          selectedColor: AppColor.customBlue,
-                          disabledColor: AppColor.customBlue.withOpacity(0.5),
-                        ),
-                        CustomChip(
-                          title: "First Class",
-                          value: ClassType.firstClass,
-                          groupValue: chip.selectedType,
-                          onSelected: (value) {
-                            chip.onChanged(ClassType.firstClass);
-                          },
-                          selectedColor: AppColor.customBlue,
-                          disabledColor: AppColor.customBlue.withOpacity(0.5),
-                        ),
-                      ],
-                    );
-                  }),
-                )
+                Consumer<ClassChipProvider>(builder: (context, chip, _) {
+                  return Row(
+                    children: [
+                      CustomChip(
+                        title: "Economy",
+                        value: ClassType.economy,
+                        groupValue: chip.selectedType,
+                        onSelected: (value) {
+                          chip.onChanged(ClassType.economy);
+                        },
+                        selectedColor: AppColor.customBlue,
+                        disabledColor: AppColor.customBlue.withOpacity(0.5),
+                      ),
+                      // CustomChip(
+                      //   title: "Premium Economy",
+                      //   value: ClassType.premiumEconomy,
+                      //   groupValue: chip.selectedType,
+                      //   onSelected: (value) {
+                      //     chip.onChanged(ClassType.premiumEconomy);
+                      //   },
+                      //   selectedColor: AppColor.customBlue,
+                      //   disabledColor: AppColor.customBlue.withOpacity(0.5),
+                      // ),
+                      CustomChip(
+                        title: "Buissnes",
+                        value: ClassType.buissness,
+                        groupValue: chip.selectedType,
+                        onSelected: (value) {
+                          chip.onChanged(ClassType.buissness);
+                        },
+                        selectedColor: AppColor.customBlue,
+                        disabledColor: AppColor.customBlue.withOpacity(0.5),
+                      ),
+                      // CustomChip(
+                      //   title: "First Class",
+                      //   value: ClassType.firstClass,
+                      //   groupValue: chip.selectedType,
+                      //   onSelected: (value) {
+                      //     chip.onChanged(ClassType.firstClass);
+                      //   },
+                      //   selectedColor: AppColor.customBlue,
+                      //   disabledColor: AppColor.customBlue.withOpacity(0.5),
+                      // ),
+                    ],
+                  );
+                })
               ],
             ),
           ),

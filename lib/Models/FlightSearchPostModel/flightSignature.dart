@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:flight_booking/Services/Api/FlightSearch/flight_search_post/flight_search_post.dart';
-import 'package:flight_booking/Services/Api/FlightSearch/flight_search_post/segment.dart';
+import 'package:flight_booking/Models/FlightSearchPostModel/FlightSearchPostModel.dart';
+import 'package:flight_booking/Models/FlightSearchPostModel/segment.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:crypto/crypto.dart' as crypto;
 
 Future<String?> getSignatureFromFlightPostData(
-    {required FlightSearchPost? flightData}) async {
+    {required FlightSearchPostModel? flightData}) async {
   String? apiKey = dotenv.env['API_KEY'];
   String? currency = flightData?.currency;
   String? host = flightData?.host;
@@ -28,6 +28,7 @@ Future<String?> getSignatureFromFlightPostData(
 
   String data =
       '$apiKey:$currency:$host:$locale:$marker:$adults:$children:$infants:$date1:$destination1:$origin1:$date2:$destination2:$origin2:$tripClass:$userIp';
+  print(data);
 
   return generateMd5(data);
 }

@@ -1,13 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'flight_search_post.dart';
+part of 'FlightSearchPostModel.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-FlightSearchPost _$FlightSearchPostFromJson(Map<String, dynamic> json) =>
-    FlightSearchPost(
+FlightSearchPostModel _$FlightSearchPostModelFromJson(
+        Map<String, dynamic> json) =>
+    FlightSearchPostModel(
       signature: json['signature'] as String?,
       marker: json['marker'] as String?,
       host: json['host'] as String?,
@@ -18,12 +19,14 @@ FlightSearchPost _$FlightSearchPostFromJson(Map<String, dynamic> json) =>
           ? null
           : Passengers.fromJson(json['passengers'] as Map<String, dynamic>),
       segments: (json['segments'] as List<dynamic>?)
-          ?.map((e) => Segment.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              e == null ? null : Segment.fromJson(e as Map<String, dynamic>))
           .toList(),
       currency: json['currency'] as String?,
     );
 
-Map<String, dynamic> _$FlightSearchPostToJson(FlightSearchPost instance) =>
+Map<String, dynamic> _$FlightSearchPostModelToJson(
+        FlightSearchPostModel instance) =>
     <String, dynamic>{
       'signature': instance.signature,
       'marker': instance.marker,

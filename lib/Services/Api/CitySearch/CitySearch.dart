@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flight_booking/Services/Api/CitySearch/city_model/city_model.dart';
+import 'package:flight_booking/Models/CityModel/CityModel.dart';
 import 'package:flight_booking/Services/Api/CitySearch/constants.dart';
 
 Future<List<CityModel>> searchCities(String value) async {

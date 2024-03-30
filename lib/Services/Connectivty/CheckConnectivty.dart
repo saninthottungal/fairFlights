@@ -14,7 +14,7 @@ class CheckNetConnectivity {
         return true;
       }
     } catch (_) {
-      throw NetworkException();
+      throw Network404Exception();
     }
   }
 
@@ -25,7 +25,7 @@ class CheckNetConnectivity {
       ipAddress = await networkInfo.getWifiIP();
       return ipAddress;
     } catch (_) {
-      throw NetworkException();
+      throw Network404Exception();
     }
   }
 }

@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
 import 'package:flight_booking/Models/FlightSearchPostModel/FlightSearchPostModel.dart';
@@ -19,6 +18,7 @@ import 'package:flight_booking/Screens/ScreenHome/Widgets/ModaleContainer.dart';
 import 'package:flight_booking/Screens/ScreenSearch/ScreenSearch.dart';
 import 'package:flight_booking/Services/Api/FlightSearch/FlightSearch.dart';
 import 'package:flight_booking/Services/Connectivty/CheckConnectivty.dart';
+import 'package:flight_booking/Services/Exception/NetworkExceptions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -26,9 +26,9 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class InputsWidget extends StatelessWidget {
-  const InputsWidget({
-    super.key,
-  });
+  InputsWidget({super.key});
+
+  final List<dynamic> flightResults = [];
 
   @override
   Widget build(BuildContext context) {
@@ -287,8 +287,9 @@ class InputsWidget extends StatelessWidget {
           const SizedBox(height: 23),
           CupertinoButton(
             onPressed: () async {
-              final flightData = await getFlightData(context);
-              log(flightData.toString());
+              final data = await getFlightData(context);
+              flightResults.addAll(data);
+              log(flightResults.toString());
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const ScreenFlights()));
             },
@@ -311,7 +312,6 @@ class InputsWidget extends StatelessWidget {
   }
 
   Future<List> getFlightData(BuildContext context) async {
-    final marker = dotenv.env['API_MARKER'];
     final travellerClassProvider =
         Provider.of<TravellerClassProvider>(context, listen: false);
     final tripClass =
@@ -319,14 +319,20 @@ class InputsWidget extends StatelessWidget {
     final counterProvider =
         Provider.of<CounterProvider>(context, listen: false);
     final tripProvider = Provider.of<TripChipProvider>(context, listen: false);
+    final fromToProvider = Provider.of<FromToProvider>(context, listen: false);
+    final calendarProvider =
+        Provider.of<CalendarProvider>(context, listen: false);
+
+    final marker = dotenv.env['API_MARKER'];
+    String? searchId;
+    List<dynamic> flightList;
+    String? userIp;
+
     final passengers = Passengers(
       adults: counterProvider.adult,
       children: counterProvider.children,
       infants: counterProvider.infant,
     );
-    final fromToProvider = Provider.of<FromToProvider>(context, listen: false);
-    final calendarProvider =
-        Provider.of<CalendarProvider>(context, listen: false);
 
     final List<Segment> segments = [];
     final departureDate = formatDateSegment(calendarProvider.departureDate);
@@ -347,7 +353,13 @@ class InputsWidget extends StatelessWidget {
       segments.add(segment1);
       segments.add(segment2);
     }
-    final userIp = await CheckNetConnectivity().getIpAddress();
+    try {
+      userIp = await CheckNetConnectivity().getIpAddress();
+    } on Network404Exception {
+      throw Network404Exception();
+    } on GenericException {
+      throw GenericException();
+    }
     final postModel = FlightSearchPostModel(
       marker: marker,
       userIp: userIp,
@@ -363,8 +375,39 @@ class InputsWidget extends StatelessWidget {
       apiKey: apiKey,
     );
 
-    final searchId = await flightSearch.postRequest();
-    final flightList = await flightSearch.getRequest(searchId);
+    if (marker == null) {
+      throw MarkerNotFoundException();
+    }
+    if (passengers.adults == null ||
+        passengers.children == null ||
+        passengers.infants == null) {
+      throw PassengersNotFoundException();
+    }
+    if (segments.isEmpty || segments.length > 2) {
+      throw SegmentsErrorException();
+    }
+    if (userIp == null) {
+      throw UserIpNotFoundException();
+    }
+    if (apiKey == null) {
+      ApiKeyNotFoundException();
+    }
+
+    try {
+      searchId = await flightSearch.postRequest();
+      flightList = await flightSearch.getRequest(searchId);
+    } on Network404Exception {
+      throw Network404Exception();
+    } on SignatureFormationException {
+      throw SignatureFormationException();
+    } on SearchIdNotFoundException {
+      throw SearchIdNotFoundException();
+    } on DioRequestException {
+      throw DioRequestException();
+    } on GenericException {
+      throw GenericException();
+    }
+
     return flightList;
   }
 }

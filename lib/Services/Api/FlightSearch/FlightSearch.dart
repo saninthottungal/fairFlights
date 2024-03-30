@@ -4,6 +4,7 @@ import 'package:flight_booking/Core/Constants/searchTerms.dart';
 import 'package:flight_booking/Models/FlightSearchPostModel/FlightSearchPostModel.dart';
 import 'package:flight_booking/Models/FlightSearchPostModel/segment.dart';
 import 'package:crypto/crypto.dart' as crypto;
+import 'package:flight_booking/Services/Exception/NetworkExceptions.dart';
 
 class FlightSearch {
   final FlightSearchPostModel postModel;
@@ -16,20 +17,32 @@ class FlightSearch {
   }) : dio = Dio();
 
   Future<String?> postRequest() async {
-    final signature = await getSignatureFromFlightPostData();
+    try {
+      final signature = await getSignatureFromFlightPostData();
+      postModel.signature = signature;
+    } on SignatureFormationException {
+      throw SignatureFormationException();
+    } catch (_) {
+      throw GenericException();
+    }
 
-    postModel.signature = signature;
     final result = postModel.toJson();
-    print(result);
+
     String? searchId;
     try {
       final response = await dio.post(baseUrl + postUrl, data: result);
-      print(response.data);
-      searchId = response.data['search_id'];
-    } catch (e) {
-      print(e.toString());
+      if (response.statusCode == 400) {
+        throw Network404Exception();
+      }
 
-      //error handling
+      searchId = response.data['search_id'];
+      if (searchId == null) {
+        throw SearchIdNotFoundException();
+      }
+    } on DioException {
+      throw DioRequestException();
+    } catch (_) {
+      throw GenericException();
     }
     return searchId;
   }
@@ -41,10 +54,16 @@ class FlightSearch {
     final List data = [];
 
     while (!isFound) {
-      response = await dio.get(
-        baseUrl + getUrl,
-        queryParameters: {'uuid': searchId},
-      );
+      try {
+        response = await dio.get(
+          baseUrl + getUrl,
+          queryParameters: {'uuid': searchId},
+        );
+      } on DioException {
+        throw DioRequestException();
+      } catch (_) {
+        throw GenericException();
+      }
 
       if (response.data is List) {
         final dataList = response.data as List;
@@ -98,14 +117,21 @@ class FlightSearch {
       data =
           '$apiKey:$flightCurrency:$flightHost:$flightLocale:$marker:$adults:$children:$infants:$date1:$destination1:$origin1:$tripClass:$userIp';
     }
-
-    return generateMd5(data);
+    try {
+      return generateMd5(data);
+    } catch (_) {
+      throw SignatureFormationException();
+    }
   }
 
   String generateMd5(String data) {
-    var content = utf8.encode(data);
-    var md5 = crypto.md5;
-    var digest = md5.convert(content);
-    return digest.toString();
+    try {
+      var content = utf8.encode(data);
+      var md5 = crypto.md5;
+      var digest = md5.convert(content);
+      return digest.toString();
+    } catch (_) {
+      throw SignatureFormationException();
+    }
   }
 }

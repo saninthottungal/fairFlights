@@ -56,7 +56,7 @@ class _ScreenHomeState extends State<ScreenHome> with TickerProviderStateMixin {
                         ),
                       ),
                       const BlueBackgroundWidget(),
-                      const InputsWidget(),
+                      InputsWidget(),
                     ],
                   ),
                   const ScreenHotel(),

@@ -6,38 +6,39 @@ import 'package:flight_booking/Models/FlightSearchPostModel/segment.dart';
 import 'package:crypto/crypto.dart' as crypto;
 
 class FlightSearch {
-  final String userIp;
-  final String apiKey;
-  final String marker;
   final FlightSearchPostModel postModel;
   final Dio dio;
+  final String? apiKey;
 
   FlightSearch({
     required this.apiKey,
-    required this.userIp,
-    required this.marker,
     required this.postModel,
   }) : dio = Dio();
 
   Future<String?> postRequest() async {
     final signature = await getSignatureFromFlightPostData();
+
+    print(signature);
+
     postModel.signature = signature;
     final result = postModel.toJson();
-
-    String? uuid;
+    print(result);
+    String? searchId;
     try {
       final response = await dio.post(baseUrl + postUrl, data: result);
-      uuid = response.data['search_id'];
-    } catch (_) {
+      print(response.data);
+      searchId = response.data['search_id'];
+    } catch (e) {
+      // print(e.toString());
+
       //error handling
     }
-    return uuid;
+    return searchId;
   }
 
-  Future<void> getRequest(String? uuid) async {
+  Future<List> getRequest(String? uuid) async {
     bool isFound = false;
-
-    dynamic response;
+    Response response;
 
     final List data = [];
 
@@ -59,6 +60,7 @@ class FlightSearch {
         }
       }
     }
+    return data;
   }
 
   Future<String?> getSignatureFromFlightPostData() async {
@@ -66,6 +68,8 @@ class FlightSearch {
     int? children = postModel.passengers?.children;
     int? infants = postModel.passengers?.infants;
     String? tripClass = postModel.tripClass;
+    String? marker = postModel.marker;
+    String? userIp = postModel.userIp;
     Segment? segment1;
     String? date1;
     String? destination1;

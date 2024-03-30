@@ -1,6 +1,10 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
+import 'package:flight_booking/Models/FlightSearchPostModel/FlightSearchPostModel.dart';
+import 'package:flight_booking/Models/FlightSearchPostModel/passengers.dart';
+import 'package:flight_booking/Models/FlightSearchPostModel/segment.dart';
 import 'package:flight_booking/Providers/CalendarProvider/CalendarProvider.dart';
+import 'package:flight_booking/Providers/HomeProviders/CounterProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TravellerClassProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
@@ -11,8 +15,11 @@ import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/FromToColumn.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/ModaleContainer.dart';
 import 'package:flight_booking/Screens/ScreenSearch/ScreenSearch.dart';
+import 'package:flight_booking/Services/Api/FlightSearch/FlightSearch.dart';
+import 'package:flight_booking/Services/Connectivty/CheckConnectivty.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -277,7 +284,82 @@ class InputsWidget extends StatelessWidget {
           ),
           const SizedBox(height: 23),
           CupertinoButton(
-            onPressed: () {
+            onPressed: () async {
+              final marker = dotenv.env['API_MARKER'];
+              final travellerClassProvider =
+                  Provider.of<TravellerClassProvider>(context, listen: false);
+              final tripClass =
+                  travellerClassProvider.classType == ClassType.economy
+                      ? 'Y'
+                      : 'C';
+              final counterProvider =
+                  Provider.of<CounterProvider>(context, listen: false);
+              final tripProvider =
+                  Provider.of<TripChipProvider>(context, listen: false);
+              final passengers = Passengers(
+                adults: counterProvider.adult,
+                children: counterProvider.children,
+                infants: counterProvider.infant,
+              );
+              final fromToProvider =
+                  Provider.of<FromToProvider>(context, listen: false);
+              final calendarProvider =
+                  Provider.of<CalendarProvider>(context, listen: false);
+
+              final List<Segment> segments = [];
+              final departureDate =
+                  formatDateSegment(calendarProvider.departureDate);
+              final returnDate = formatDateSegment(calendarProvider.returnDate);
+              final segment1 = Segment(
+                origin: fromToProvider.from.code,
+                destination: fromToProvider.to.code,
+                date: departureDate,
+              );
+              final segment2 = Segment(
+                origin: fromToProvider.to.code,
+                destination: fromToProvider.from.code,
+                date: returnDate,
+              );
+              if (tripProvider.value == TripType.oneWay) {
+                segments.add(segment1);
+              } else {
+                segments.add(segment1);
+                segments.add(segment2);
+              }
+              final userIp = await CheckNetConnectivity().getIpAddress();
+              final postModel = FlightSearchPostModel(
+                marker: marker,
+                userIp: userIp,
+                tripClass: tripClass,
+                passengers: passengers,
+                segments: segments,
+              );
+
+              final apiKey = dotenv.env['API_KEY'];
+
+              final flightSearch = FlightSearch(
+                postModel: postModel,
+                apiKey: apiKey,
+              );
+              // print(flightSearch.apiKey);
+              // print(flightSearch.postModel.currency);
+              // print(flightSearch.postModel.host);
+              // print(flightSearch.postModel.locale);
+              // print(flightSearch.postModel.marker);
+              // print(flightSearch.postModel.passengers?.adults);
+              // print(flightSearch.postModel.passengers?.children);
+              // print(flightSearch.postModel.passengers?.infants);
+              // print(flightSearch.postModel.segments?.length);
+              // print(flightSearch.postModel.segments?.first?.date);
+
+              // print(flightSearch.postModel.segments?.first?.destination);
+
+              // print(flightSearch.postModel.segments?.first?.origin);
+              // print(flightSearch.postModel.tripClass);
+              // print(flightSearch.postModel.userIp);
+              final searchId = await flightSearch.postRequest();
+              print(searchId);
+
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const ScreenFlights()));
             },
@@ -293,5 +375,9 @@ class InputsWidget extends StatelessWidget {
   String formatDate(DateTime dateTime) {
     final DateFormat formatter = DateFormat('dd MMMM, EEEEEE');
     return formatter.format(dateTime).toLowerCase();
+  }
+
+  String formatDateSegment(DateTime dateTime) {
+    return DateFormat('yyyy-MM-dd').format(dateTime);
   }
 }

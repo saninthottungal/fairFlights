@@ -26,15 +26,20 @@ FlightSearchPostModel _$FlightSearchPostModelFromJson(
       ..currency = json['currency'] as String?;
 
 Map<String, dynamic> _$FlightSearchPostModelToJson(
-        FlightSearchPostModel instance) =>
-    <String, dynamic>{
-      'signature': instance.signature,
-      'marker': instance.marker,
-      'host': instance.host,
-      'user_ip': instance.userIp,
-      'locale': instance.locale,
-      'trip_class': instance.tripClass,
-      'passengers': instance.passengers,
-      'segments': instance.segments,
-      'currency': instance.currency,
-    };
+    FlightSearchPostModel instance) {
+  final passengers = instance.passengers?.toJson();
+  final segments = instance.segments?.map((segment) {
+    return segment?.toJson();
+  }).toList();
+  return <String, dynamic>{
+    'signature': instance.signature,
+    'marker': instance.marker,
+    'host': instance.host,
+    'user_ip': instance.userIp,
+    'locale': instance.locale,
+    'trip_class': instance.tripClass,
+    'passengers': passengers,
+    'segments': segments,
+    'currency': instance.currency,
+  };
+}

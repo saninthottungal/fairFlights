@@ -18,8 +18,6 @@ class FlightSearch {
   Future<String?> postRequest() async {
     final signature = await getSignatureFromFlightPostData();
 
-    print(signature);
-
     postModel.signature = signature;
     final result = postModel.toJson();
     print(result);
@@ -29,14 +27,14 @@ class FlightSearch {
       print(response.data);
       searchId = response.data['search_id'];
     } catch (e) {
-      // print(e.toString());
+      print(e.toString());
 
       //error handling
     }
     return searchId;
   }
 
-  Future<List> getRequest(String? uuid) async {
+  Future<List> getRequest(String? searchId) async {
     bool isFound = false;
     Response response;
 
@@ -45,7 +43,7 @@ class FlightSearch {
     while (!isFound) {
       response = await dio.get(
         baseUrl + getUrl,
-        queryParameters: {'uuid': uuid},
+        queryParameters: {'uuid': searchId},
       );
 
       if (response.data is List) {
@@ -96,6 +94,7 @@ class FlightSearch {
       segment1 = postModel.segments?[0];
       date1 = segment1?.date;
       destination1 = segment1?.destination;
+      origin1 = segment1?.origin;
       data =
           '$apiKey:$flightCurrency:$flightHost:$flightLocale:$marker:$adults:$children:$infants:$date1:$destination1:$origin1:$tripClass:$userIp';
     }

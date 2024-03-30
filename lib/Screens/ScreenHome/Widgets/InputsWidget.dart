@@ -1,9 +1,8 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
 import 'package:flight_booking/Providers/CalendarProvider/CalendarProvider.dart';
-import 'package:flight_booking/Providers/HomeProviders/ClassChipProvider.dart';
-import 'package:flight_booking/Providers/HomeProviders/CounterProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
+import 'package:flight_booking/Providers/HomeProviders/TravellerClassProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
 import 'package:flight_booking/Screens/ScreenCalendar/ScreenCalendar.dart';
 import 'package:flight_booking/Screens/ScreenFlights/ScreenFlights.dart';
@@ -166,12 +165,12 @@ class InputsWidget extends StatelessWidget {
                                 fontSize: 13),
                           ),
                         ),
-                        Consumer2<CounterProvider, ClassChipProvider>(builder:
-                            (context, counterProvider, classProvider, _) {
+                        Consumer<TravellerClassProvider>(
+                            builder: (context, provider, _) {
                           final travellers =
-                              "${counterProvider.travellersCount} Travellers";
+                              "${provider.travellerCount} Travellers";
                           String classType = 'Economy';
-                          switch (classProvider.selectedType) {
+                          switch (provider.classType) {
                             case ClassType.buissness:
                               classType = 'Buissness';
                               break;

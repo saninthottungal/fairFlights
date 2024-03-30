@@ -2,6 +2,7 @@ import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
 import 'package:flight_booking/Providers/HomeProviders/CounterProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/ClassChipProvider.dart';
+import 'package:flight_booking/Providers/HomeProviders/TravellerClassProvider.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/Counter.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,18 @@ class ModaleContainer extends StatelessWidget {
                   style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(Colors.black)),
                   onPressed: () {
+                    final counterProvider =
+                        Provider.of<CounterProvider>(context, listen: false);
+                    final classProvider =
+                        Provider.of<ClassChipProvider>(context, listen: false);
+                    final travellerClassProvider =
+                        Provider.of<TravellerClassProvider>(context,
+                            listen: false);
+
+                    travellerClassProvider.setTravellersCount =
+                        counterProvider.travellersCount;
+                    travellerClassProvider.setClassType =
+                        classProvider.selectedType;
                     Navigator.of(context).pop();
                   },
                   child: const Text(

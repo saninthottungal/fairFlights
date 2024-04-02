@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flight_booking/Core/Constants/searchTerms.dart';
 import 'package:flight_booking/Models/FlightSearchPostModel/FlightSearchPostModel.dart';
@@ -47,11 +48,12 @@ class FlightSearch {
     return searchId;
   }
 
-  Future<List> getRequest(String? searchId) async {
+  Future<List<Map<String, dynamic>>> getRequest(String? searchId) async {
     bool isFound = false;
     Response response;
 
-    final List data = [];
+    final List<dynamic> data = [];
+    final List<Map<String, dynamic>> dataAsMap = [];
 
     while (!isFound) {
       try {
@@ -67,9 +69,10 @@ class FlightSearch {
 
       if (response.data is List) {
         final dataList = response.data as List;
+        data.clear();
         data.addAll(dataList);
 
-        final lastElement = dataList.last as Map<String, dynamic>;
+        final lastElement = dataList.last;
         if (lastElement.length == 1) {
           if (lastElement.containsKey('search_id')) {
             isFound = true;
@@ -77,7 +80,16 @@ class FlightSearch {
         }
       }
     }
-    return data;
+
+    for (var element in data) {
+      if (element is Map<String, dynamic>) {
+        dataAsMap.add(element);
+      } else {
+        print("not map found");
+      }
+    }
+
+    return dataAsMap;
   }
 
   Future<String?> getSignatureFromFlightPostData() async {

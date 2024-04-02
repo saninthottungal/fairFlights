@@ -1,6 +1,7 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
 import 'package:flight_booking/Providers/CalendarProvider/CalendarProvider.dart';
+import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TravellerClassProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
@@ -276,6 +277,8 @@ class InputsWidget extends StatelessWidget {
           const SizedBox(height: 23),
           CupertinoButton(
             onPressed: () {
+              Provider.of<FlightDataProvider>(context, listen: false)
+                  .isLoading = true;
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const ScreenFlights()));
             },

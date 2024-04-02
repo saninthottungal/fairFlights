@@ -1,3 +1,4 @@
+import 'package:flight_booking/Models/FlightDataModel/flight_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
 import 'package:flight_booking/Models/FlightSearchPostModel/FlightSearchPostModel.dart';
@@ -16,6 +17,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class FlightDataProvider extends ChangeNotifier {
+  List<FlightDataModel> flightDatas = [];
   bool isLoading = true;
 
   Future<List<Map<String, dynamic>>> getFlightData(BuildContext context) async {
@@ -115,6 +117,7 @@ class FlightDataProvider extends ChangeNotifier {
       throw GenericException();
     }
     isLoading = false;
+    await Future.delayed(Durations.medium1);
     notifyListeners();
     return flightList;
   }

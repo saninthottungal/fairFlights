@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flight_booking/Core/Constants/searchTerms.dart';
 import 'package:flight_booking/Models/FlightSearchPostModel/FlightSearchPostModel.dart';
@@ -84,8 +83,6 @@ class FlightSearch {
     for (var element in data) {
       if (element is Map<String, dynamic>) {
         dataAsMap.add(element);
-      } else {
-        print("not map found");
       }
     }
 

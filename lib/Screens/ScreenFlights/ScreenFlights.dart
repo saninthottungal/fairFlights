@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flight_booking/Models/FlightDataModel/flight_data_model.dart';
 import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
 import 'package:flight_booking/Screens/ScreenFlights/Widgets/AppBar.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,15 @@ class ScreenFlights extends StatelessWidget {
 
       final list = await provider.getFlightData(context);
       final proposals = list.first['proposals'];
-      log(proposals.toString());
+      if (proposals is List) {
+        final flightDatas = proposals.map((element) {
+          final flightData = element as Map<String, dynamic>;
+          return FlightDataModel.fromJson(flightData);
+        }).toList();
+        provider.flightDatas.addAll(flightDatas);
+      } else {
+        print("no list found");
+      }
     });
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
@@ -263,7 +272,6 @@ class ScreenFlights extends StatelessWidget {
     });
   }
 }
-
 
 // //   WidgetsBinding.instance!.addPostFrameCallback((_) {
 //       // This function will be executed after the build method has completed

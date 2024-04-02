@@ -1,15 +1,12 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flight_booking/Models/FlightDataModel/flight_data_model.dart';
 import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
-import 'package:flight_booking/Screens/ScreenFlights/Widgets/AppBar.dart';
+import 'package:flight_booking/Screens/ScreenFlightsList/Widgets/AppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
-class ScreenFlights extends StatelessWidget {
-  const ScreenFlights({super.key});
+class ScreenFlightsList extends StatelessWidget {
+  const ScreenFlightsList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +176,7 @@ class ScreenFlights extends StatelessWidget {
                                   ),
                                 );
                               },
-                              itemCount: 20,
+                              itemCount: 10,
                             ),
                           ),
                         ],
@@ -190,80 +187,87 @@ class ScreenFlights extends StatelessWidget {
                       flex: 10,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: ListView.separated(
-                          itemBuilder: (context, index) {
-                            return const SizedBox(
-                              height: 100,
-                              width: double.infinity,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  SizedBox(
-                                    width: double.infinity,
-                                    child: Text(
-                                      "Air India, United Airlines",
+                        child: Consumer<FlightDataProvider>(
+                            builder: (context, provider, _) {
+                          return ListView.separated(
+                            itemBuilder: (context, index) {
+                              final flight = provider.flightDatas[index].segment
+                                  ?.first.flight?.first.aircraft;
+                              final time = provider.flightDatas[index].segment
+                                  ?.first.flight?.first.arrivalTime;
+                              return SizedBox(
+                                height: 100,
+                                width: double.infinity,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    SizedBox(
+                                      width: double.infinity,
+                                      child: Text(
+                                        flight ?? "",
+                                      ),
                                     ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      CircleAvatar(),
-                                      Column(
-                                        children: [
-                                          Text(
-                                            "07:15",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                          ),
-                                          Text("DEL"),
-                                        ],
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text("24h 50m"),
-                                          Divider(),
-                                          Text("1 stop"),
-                                        ],
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text(
-                                            "07:15",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                          ),
-                                          Text("DEL"),
-                                        ],
-                                      ),
-                                      SizedBox(width: 15),
-                                      Padding(
-                                        padding: EdgeInsets.only(bottom: 15),
-                                        child: Text(
-                                          "\$82705",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        const CircleAvatar(),
+                                        Column(
+                                          children: [
+                                            Text(
+                                              time ?? "",
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18),
+                                            ),
+                                            const Text("DEL"),
+                                          ],
                                         ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return const Divider();
-                          },
-                          itemCount: 10,
-                        ),
+                                        const Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text("24h 50m"),
+                                            Divider(),
+                                            Text("1 stop"),
+                                          ],
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(
+                                              "07:15",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18),
+                                            ),
+                                            Text("DEL"),
+                                          ],
+                                        ),
+                                        SizedBox(width: 15),
+                                        Padding(
+                                          padding: EdgeInsets.only(bottom: 15),
+                                          child: Text(
+                                            "\$82705",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return const Divider();
+                            },
+                            itemCount: 10,
+                          );
+                        }),
                       ),
                     ),
                   ],

@@ -6,7 +6,7 @@ import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TravellerClassProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
 import 'package:flight_booking/Screens/ScreenCalendar/ScreenCalendar.dart';
-import 'package:flight_booking/Screens/ScreenFlights/ScreenFlights.dart';
+import 'package:flight_booking/Screens/ScreenFlightsList/ScreenFlightsList.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomCard.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/FromToColumn.dart';
@@ -280,7 +280,7 @@ class InputsWidget extends StatelessWidget {
               Provider.of<FlightDataProvider>(context, listen: false)
                   .isLoading = true;
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ScreenFlights()));
+                  builder: (context) => const ScreenFlightsList()));
             },
             color: const Color.fromARGB(255, 26, 52, 192),
             pressedOpacity: 0.9,

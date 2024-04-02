@@ -14,22 +14,22 @@ FlightDataModel _$FlightDataModelFromJson(Map<String, dynamic> json) =>
       segment: (json['segment'] as List<dynamic>?)
           ?.map((e) => Segment.fromJson(e as Map<String, dynamic>))
           .toList(),
-      totalDuration: json['total_duration'] as int?,
+      totalDuration: json['total_duration'] as num?,
       stopsAirports: (json['stops_airports'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
       isCharter: json['is_charter'] as bool?,
-      maxStops: json['max_stops'] as int?,
-      maxStopDuration: json['max_stop_duration'] as int?,
-      minStopDuration: json['min_stop_duration'] as int?,
+      maxStops: json['max_stops'] as num?,
+      maxStopDuration: json['max_stop_duration'] as num?,
+      minStopDuration: json['min_stop_duration'] as num?,
       carriers: (json['carriers'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
       segmentDurations: (json['segment_durations'] as List<dynamic>?)
-          ?.map((e) => e as int)
+          ?.map((e) => e as num)
           .toList(),
       segmentsTime: (json['segments_time'] as List<dynamic>?)
-          ?.map((e) => (e as List<dynamic>).map((e) => e as int).toList())
+          ?.map((e) => (e as List<dynamic>).map((e) => e as num).toList())
           .toList(),
       segmentsAirports: (json['segments_airports'] as List<dynamic>?)
           ?.map((e) => (e as List<dynamic>).map((e) => e as String).toList())
@@ -37,7 +37,7 @@ FlightDataModel _$FlightDataModelFromJson(Map<String, dynamic> json) =>
       sign: json['sign'] as String?,
       isDirect: json['is_direct'] as bool?,
       flightWeight: (json['flight_weight'] as num?)?.toDouble(),
-      popularity: json['popularity'] as int?,
+      popularity: json['popularity'] as num?,
       segmentsRating: (json['segments_rating'] as num?)?.toDouble(),
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
       validatingCarrier: json['validating_carrier'] as String?,

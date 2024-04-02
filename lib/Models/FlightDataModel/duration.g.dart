@@ -7,7 +7,7 @@ part of 'duration.dart';
 // **************************************************************************
 
 Duration _$DurationFromJson(Map<String, dynamic> json) => Duration(
-      seconds: json['seconds'] as int?,
+      seconds: json['seconds'] as num?,
     );
 
 Map<String, dynamic> _$DurationToJson(Duration instance) => <String, dynamic>{

@@ -10,22 +10,22 @@ class FlightDataModel {
   Terms? terms;
   List<Segment>? segment;
   @JsonKey(name: 'total_duration')
-  int? totalDuration;
+  num? totalDuration;
   @JsonKey(name: 'stops_airports')
   List<String>? stopsAirports;
   @JsonKey(name: 'is_charter')
   bool? isCharter;
   @JsonKey(name: 'max_stops')
-  int? maxStops;
+  num? maxStops;
   @JsonKey(name: 'max_stop_duration')
-  int? maxStopDuration;
+  num? maxStopDuration;
   @JsonKey(name: 'min_stop_duration')
-  int? minStopDuration;
+  num? minStopDuration;
   List<String>? carriers;
   @JsonKey(name: 'segment_durations')
-  List<int>? segmentDurations;
+  List<num>? segmentDurations;
   @JsonKey(name: 'segments_time')
-  List<List<int>>? segmentsTime;
+  List<List<num>>? segmentsTime;
   @JsonKey(name: 'segments_airports')
   List<List<String>>? segmentsAirports;
   String? sign;
@@ -33,7 +33,7 @@ class FlightDataModel {
   bool? isDirect;
   @JsonKey(name: 'flight_weight')
   double? flightWeight;
-  int? popularity;
+  num? popularity;
   @JsonKey(name: 'segments_rating')
   double? segmentsRating;
   List<String>? tags;

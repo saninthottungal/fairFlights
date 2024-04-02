@@ -11,21 +11,21 @@ class Flight {
   @JsonKey(name: 'arrival_time')
   String? arrivalTime;
   @JsonKey(name: 'arrival_timestamp')
-  int? arrivalTimestamp;
-  int? delay;
+  num? arrivalTimestamp;
+  num? delay;
   String? departure;
   @JsonKey(name: 'departure_date')
   String? departureDate;
   @JsonKey(name: 'departure_time')
   String? departureTime;
   @JsonKey(name: 'departure_timestamp')
-  int? departureTimestamp;
-  int? duration;
+  num? departureTimestamp;
+  num? duration;
   String? equipment;
   @JsonKey(name: 'local_arrival_timestamp')
-  int? localArrivalTimestamp;
+  num? localArrivalTimestamp;
   @JsonKey(name: 'local_departure_timestamp')
-  int? localDepartureTimestamp;
+  num? localDepartureTimestamp;
   @JsonKey(name: 'marketing_carrier')
   String? marketingCarrier;
   String? number;
@@ -33,7 +33,7 @@ class Flight {
   String? operatingCarrier;
   @JsonKey(name: 'operated_by')
   String? operatedBy;
-  int? rating;
+  num? rating;
   @JsonKey(name: 'technical_stops')
   dynamic technicalStops;
   @JsonKey(name: 'trip_class')

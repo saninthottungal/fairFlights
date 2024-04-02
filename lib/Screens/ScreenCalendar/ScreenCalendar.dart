@@ -36,6 +36,9 @@ class ScreenCalendar extends StatelessWidget {
                 minDate: DateTime.now(),
                 maxDate: DateTime.now().add(const Duration(days: 365 * 3)),
                 rangeMode: false,
+                initialDateSelected:
+                    Provider.of<CalendarProvider>(context, listen: false)
+                        .departureDate,
                 onDayTapped: (date) async {
                   final provider =
                       Provider.of<CalendarProvider>(context, listen: false);
@@ -43,6 +46,8 @@ class ScreenCalendar extends StatelessWidget {
                     if (date.isAfter(provider.returnDate)) {
                       provider.changeDepartureDate = date;
                       provider.changeReturnDate = date;
+                    } else {
+                      provider.changeDepartureDate = date;
                     }
                   } else {
                     if (date.isBefore(provider.departureDate)) {

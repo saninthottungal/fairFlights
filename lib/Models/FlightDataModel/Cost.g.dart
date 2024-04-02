@@ -8,9 +8,9 @@ part of 'Cost.dart';
 
 Cost _$CostFromJson(Map<String, dynamic> json) => Cost(
       currency: json['currency'] as String?,
-      price: json['price'] as int?,
-      unifiedPrice: json['unified_price'] as int?,
-      url: json['url'] as int?,
+      price: json['price'] as num?,
+      unifiedPrice: json['unified_price'] as num?,
+      url: json['url'] as num?,
       flightsBaggage: (json['flights_baggage'] as List<dynamic>?)
           ?.map((e) => (e as List<dynamic>).map((e) => e as bool).toList())
           .toList(),
@@ -18,10 +18,10 @@ Cost _$CostFromJson(Map<String, dynamic> json) => Cost(
           ?.map((e) => (e as List<dynamic>).map((e) => e as String).toList())
           .toList(),
       baggageSource: (json['baggage_source'] as List<dynamic>?)
-          ?.map((e) => (e as List<dynamic>).map((e) => e as int).toList())
+          ?.map((e) => (e as List<dynamic>).map((e) => e as num).toList())
           .toList(),
       handbagsSource: (json['handbags_source'] as List<dynamic>?)
-          ?.map((e) => (e as List<dynamic>).map((e) => e as int).toList())
+          ?.map((e) => (e as List<dynamic>).map((e) => e as num).toList())
           .toList(),
     );
 

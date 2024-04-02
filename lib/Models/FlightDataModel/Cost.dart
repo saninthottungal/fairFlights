@@ -5,18 +5,18 @@ part 'Cost.g.dart';
 @JsonSerializable()
 class Cost {
   String? currency;
-  int? price;
+  num? price;
   @JsonKey(name: 'unified_price')
-  int? unifiedPrice;
-  int? url;
+  num? unifiedPrice;
+  num? url;
   @JsonKey(name: 'flights_baggage')
   List<List<bool>>? flightsBaggage;
   @JsonKey(name: 'flights_handbags')
   List<List<String>>? flightsHandbags;
   @JsonKey(name: 'baggage_source')
-  List<List<int>>? baggageSource;
+  List<List<num>>? baggageSource;
   @JsonKey(name: 'handbags_source')
-  List<List<int>>? handbagsSource;
+  List<List<num>>? handbagsSource;
 
   Cost({
     this.currency,

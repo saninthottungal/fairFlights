@@ -4,7 +4,7 @@ part 'duration.g.dart';
 
 @JsonSerializable()
 class Duration {
-  int? seconds;
+  num? seconds;
 
   Duration({this.seconds});
 

@@ -8,7 +8,7 @@ part of 'detailed.dart';
 
 Detailed _$DetailedFromJson(Map<String, dynamic> json) => Detailed(
       transfer: (json['transfer'] as num?)?.toDouble(),
-      departureTime: json['departure_time'] as int?,
+      departureTime: json['departure_time'] as num?,
       arrivalTime: (json['arrival_time'] as num?)?.toDouble(),
     );
 

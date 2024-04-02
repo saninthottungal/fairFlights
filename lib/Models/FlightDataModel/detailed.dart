@@ -6,7 +6,7 @@ part 'detailed.g.dart';
 class Detailed {
   double? transfer;
   @JsonKey(name: 'departure_time')
-  int? departureTime;
+  num? departureTime;
   @JsonKey(name: 'arrival_time')
   double? arrivalTime;
 

@@ -20,7 +20,7 @@ class Transfer {
   bool? nightTransfer;
   List<String>? tags;
   @JsonKey(name: 'duration_seconds')
-  int? durationSeconds;
+  num? durationSeconds;
   Duration? duration;
 
   Transfer({

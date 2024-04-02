@@ -20,7 +20,7 @@ Transfer _$TransferFromJson(Map<String, dynamic> json) => Transfer(
       recheckBaggage: json['recheck_baggage'] as bool?,
       nightTransfer: json['night_transfer'] as bool?,
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      durationSeconds: json['duration_seconds'] as int?,
+      durationSeconds: json['duration_seconds'] as num?,
       duration: json['duration'] == null
           ? null
           : Duration.fromJson(json['duration'] as Map<String, dynamic>),

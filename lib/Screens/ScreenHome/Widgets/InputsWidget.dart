@@ -278,6 +278,9 @@ class InputsWidget extends StatelessWidget {
           CupertinoButton(
             onPressed: () {
               Provider.of<FlightDataProvider>(context, listen: false)
+                  .flightDatas
+                  .clear();
+              Provider.of<FlightDataProvider>(context, listen: false)
                   .isLoading = true;
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const ScreenFlightsList()));

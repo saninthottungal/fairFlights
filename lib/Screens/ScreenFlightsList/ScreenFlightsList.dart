@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flight_booking/Models/FlightDataModel/flight_data_model.dart';
 import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
 import 'package:flight_booking/Screens/ScreenFlightsList/Widgets/AppBar.dart';
@@ -15,12 +17,14 @@ class ScreenFlightsList extends StatelessWidget {
 
       final list = await provider.getFlightData(context);
       final proposals = list.first['proposals'];
+      log(proposals.toString());
       if (proposals is List) {
         final flightDatas = proposals.map((element) {
           final flightData = element as Map<String, dynamic>;
           return FlightDataModel.fromJson(flightData);
         }).toList();
         provider.flightDatas.addAll(flightDatas);
+        print(flightDatas.first.terms?.cost);
       } else {
         print("no list found");
       }
@@ -128,58 +132,41 @@ class ScreenFlightsList extends StatelessWidget {
                   children: [
                     Flexible(
                       flex: 1,
-                      child: Row(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(left: 10, top: 10),
-                            child: RotatedBox(
-                              quarterTurns: 3,
-                              child: Text(
-                                "MAR",
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        //shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                top: 10, left: 5, right: 5, bottom: 5),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: index == 1
+                                    ? const BorderDirectional(
+                                        bottom: BorderSide(
+                                        color: Colors.blue,
+                                        width: 3,
+                                      ))
+                                    : const Border(),
+                              ),
+                              width: 65,
+                              child: Column(
+                                children: [
+                                  Text("Thu, $index"),
+                                  Text(
+                                    "\$48569",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: index == 1
+                                            ? Colors.lightBlue
+                                            : Colors.black),
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
-                          const VerticalDivider(width: 20, indent: 10),
-                          Expanded(
-                            flex: 1,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              //shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 10, left: 5, right: 5, bottom: 5),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      border: index == 1
-                                          ? const BorderDirectional(
-                                              bottom: BorderSide(
-                                              color: Colors.blue,
-                                              width: 3,
-                                            ))
-                                          : const Border(),
-                                    ),
-                                    width: 65,
-                                    child: Column(
-                                      children: [
-                                        Text("Thu, $index"),
-                                        Text(
-                                          "\$48569",
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: index == 1
-                                                  ? Colors.lightBlue
-                                                  : Colors.black),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                              itemCount: 10,
-                            ),
-                          ),
-                        ],
+                          );
+                        },
+                        itemCount: 10,
                       ),
                     ),
                     const Divider(),
@@ -250,7 +237,7 @@ class ScreenFlightsList extends StatelessWidget {
                                         Padding(
                                           padding: EdgeInsets.only(bottom: 15),
                                           child: Text(
-                                            "\$82705",
+                                            '${provider.flightDatas[index].terms?.cost?.price}',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 18),

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Models/FlightDataModel/flight_data_model.dart';
 import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
 import 'package:flight_booking/Screens/ScreenFlightsList/Widgets/AppBar.dart';
@@ -12,23 +13,6 @@ class ScreenFlightsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final provider = Provider.of<FlightDataProvider>(context, listen: false);
-
-      final list = await provider.getFlightData(context);
-      final proposals = list.first['proposals'];
-      log(proposals.toString());
-      if (proposals is List) {
-        final flightDatas = proposals.map((element) {
-          final flightData = element as Map<String, dynamic>;
-          return FlightDataModel.fromJson(flightData);
-        }).toList();
-        provider.flightDatas.addAll(flightDatas);
-        print(flightDatas.first.terms?.cost);
-      } else {
-        print("no list found");
-      }
-    });
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Consumer<FlightDataProvider>(builder: (context, flightProvider, _) {
@@ -170,6 +154,9 @@ class ScreenFlightsList extends StatelessWidget {
                       ),
                     ),
                     const Divider(),
+
+                    //Flight lists
+
                     Flexible(
                       flex: 10,
                       child: Padding(
@@ -193,13 +180,23 @@ class ScreenFlightsList extends StatelessWidget {
                                       width: double.infinity,
                                       child: Text(
                                         flight ?? "",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColor.customBlue,
+                                        ),
                                       ),
                                     ),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
                                       children: [
-                                        const CircleAvatar(),
+                                        const CircleAvatar(
+                                          backgroundColor: Colors.transparent,
+                                          backgroundImage: NetworkImage(
+                                            "http://pics.avs.io/200/200/AI.png",
+                                            scale: 1,
+                                          ),
+                                        ),
                                         Column(
                                           children: [
                                             Text(

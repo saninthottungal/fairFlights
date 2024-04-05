@@ -276,14 +276,16 @@ class InputsWidget extends StatelessWidget {
           ),
           const SizedBox(height: 23),
           CupertinoButton(
-            onPressed: () {
-              Provider.of<FlightDataProvider>(context, listen: false)
-                  .flightDatas
-                  .clear();
-              Provider.of<FlightDataProvider>(context, listen: false)
-                  .isLoading = true;
+            onPressed: () async {
+              final provider =
+                  Provider.of<FlightDataProvider>(context, listen: false);
+
+              provider.flightDatas.clear();
+              provider.isLoading = true;
+
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const ScreenFlightsList()));
+              await provider.getFlightData(context);
             },
             color: const Color.fromARGB(255, 26, 52, 192),
             pressedOpacity: 0.9,

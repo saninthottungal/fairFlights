@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flight_booking/Models/FlightDataModel/flight_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
@@ -20,7 +22,7 @@ class FlightDataProvider extends ChangeNotifier {
   List<FlightDataModel> flightDatas = [];
   bool isLoading = true;
 
-  Future<List<Map<String, dynamic>>> getFlightData(BuildContext context) async {
+  Future<void> getFlightData(BuildContext context) async {
     final travellerClassProvider =
         Provider.of<TravellerClassProvider>(context, listen: false);
     final tripClass =
@@ -116,10 +118,20 @@ class FlightDataProvider extends ChangeNotifier {
     } on GenericException {
       throw GenericException();
     }
+
+    final proposals = flightList.first['proposals'];
+    log(proposals.toString());
+    if (proposals is List) {
+      flightDatas = proposals.map((element) {
+        final flightData = element as Map<String, dynamic>;
+        return FlightDataModel.fromJson(flightData);
+      }).toList();
+    } else {
+      //exception handling
+    }
     isLoading = false;
     await Future.delayed(Durations.medium1);
     notifyListeners();
-    return flightList;
   }
 
   String formatDateSegment(DateTime dateTime) {

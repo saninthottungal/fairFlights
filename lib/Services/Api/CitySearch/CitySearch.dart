@@ -12,10 +12,10 @@ Future<List<CityModel>> searchCities(String value) async {
 
     if (data is List) {
       final jsonCities = data.cast<Map<String, dynamic>>();
+
       final cities = jsonCities.map((cityAsJson) {
         return CityModel.fromJson(cityAsJson);
       }).toList();
-
       return cities;
     } else {
       return [];

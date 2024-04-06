@@ -7,6 +7,7 @@ import 'package:flight_booking/Providers/HomeProviders/TravellerClassProvider.da
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/CounterProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/ClassChipProvider.dart';
+
 import 'package:flight_booking/Screens/ScreenSplash/ScreenSplash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

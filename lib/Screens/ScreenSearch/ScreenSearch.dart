@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flight_booking/Core/Constants/enums.dart';
 import 'package:flight_booking/Core/Widgets/CustomSnackbar.dart';
 import 'package:flight_booking/Providers/CitySearchProviders/CitySearchProvider.dart';
@@ -8,12 +9,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class ScreenSearch extends StatelessWidget {
   ScreenSearch({super.key});
 
   final fromController = TextEditingController();
   final toController = TextEditingController();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  Timer? timer;
 
   final toFocusNode = FocusNode();
 
@@ -51,8 +54,10 @@ class ScreenSearch extends StatelessWidget {
                     .selectedField = SelectedField.fromField;
               },
               onChanged: (value) async {
+                timer?.cancel();
                 final provider =
                     Provider.of<CitySearchProvider>(context, listen: false);
+
                 provider.setFirstLoading = false;
                 provider.loading = true;
                 provider.isEmpty = false;
@@ -60,12 +65,14 @@ class ScreenSearch extends StatelessWidget {
                   provider.loading = false;
                   return;
                 } else {
-                  final cities = await searchCities(value);
-                  if (cities.isEmpty) {
-                    provider.setEmpty = true;
-                  }
-                  provider.updateCities = cities;
-                  provider.loading = false;
+                  timer = Timer(const Duration(milliseconds: 400), () async {
+                    final cities = await searchCities(value);
+                    if (cities.isEmpty) {
+                      provider.setEmpty = true;
+                    }
+                    provider.updateCities = cities;
+                    provider.loading = false;
+                  });
                 }
               },
             ),
@@ -93,6 +100,7 @@ class ScreenSearch extends StatelessWidget {
                     .selectedField = SelectedField.toField;
               },
               onChanged: (value) async {
+                timer?.cancel();
                 final provider = Provider.of<CitySearchProvider>(
                     scaffoldKey.currentContext!,
                     listen: false);
@@ -104,12 +112,14 @@ class ScreenSearch extends StatelessWidget {
                   provider.loading = false;
                   return;
                 } else {
-                  final cities = await searchCities(value);
-                  if (cities.isEmpty) {
-                    provider.setEmpty = true;
-                  }
-                  provider.updateCities = cities;
-                  provider.loading = false;
+                  timer = Timer(const Duration(milliseconds: 400), () async {
+                    final cities = await searchCities(value);
+                    if (cities.isEmpty) {
+                      provider.setEmpty = true;
+                    }
+                    provider.updateCities = cities;
+                    provider.loading = false;
+                  });
                 }
               },
             ),

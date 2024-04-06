@@ -23,109 +23,113 @@ class FlightsListWidget extends StatelessWidget {
                   flightData.segment?.first.flight?.last.arrivalTime;
               final duration =
                   ((flightData.totalDuration)! / 60).toStringAsFixed(1);
+              final layoverTime = flightData.segmentDurations?.first;
               String? maxStops;
+
               if (flightData.isDirect != null) {
                 maxStops = !flightData.isDirect!
-                    ? '${flightData.maxStops} stops'
+                    ? '${flightData.maxStops} layovers'
                     : 'Direct';
               }
-
-              return SizedBox(
-                height: 90,
-                width: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: Text(
-                        flights?.first.aircraft ??
-                            flights?.first.marketingCarrier ??
-                            '',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: AppColor.customBlue,
-                        ),
-                      ),
-                    ),
-                    Row(
+              return Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        CircleAvatar(
-                          backgroundColor: Colors.transparent,
-                          backgroundImage: NetworkImage(
-                            "http://pics.avs.io/250/250/${flights?.first.operatedBy ?? flights?.first.operatingCarrier}.png",
-                            scale: 1,
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            //price
+
                             Text(
-                              arrivalTime ?? "",
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
+                              '\u20B9${provider.flightDatas[index].terms?.cost?.unifiedPrice}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: AppColor.customBlue,
+                                fontSize: 20,
+                              ),
                             ),
-                            Text(
-                              "${flights?.first.departure}",
-                              style: const TextStyle(color: Colors.black45),
+
+                            //logo
+
+                            CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              backgroundImage: NetworkImage(
+                                "http://pics.avs.io/250/250/${flights?.first.operatedBy ?? flights?.first.operatingCarrier}.png",
+                                scale: 1,
+                              ),
                             ),
                           ],
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              '$duration hours',
-                              style: const TextStyle(
-                                  color: Colors.black38, fontSize: 13),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  children: [
+                                    //arrival time
+                                    Text(
+                                      arrivalTime ?? "",
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                    //departure place
+                                    Text(
+                                      "${flights?.first.departure}",
+                                      style: const TextStyle(
+                                          color: Colors.black45, fontSize: 13),
+                                    ),
+                                  ],
+                                ),
+                                const Text(" - "),
+                                Column(
+                                  children: [
+                                    Text(
+                                      //landtime
+                                      landTime ?? "",
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                    //arrival place
+                                    Text(
+                                      '${flights?.last.arrival}',
+                                      style: const TextStyle(
+                                          color: Colors.black45),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                            Container(
-                              width: 50,
-                              height: 1,
-                              color: Colors.black38,
+                            Column(
+                              children: [
+                                Text(
+                                  //maxStops
+                                  '$maxStops',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                                //to change to segment time layover
+                                Text(
+                                  '$layoverTime',
+                                  style: const TextStyle(),
+                                ),
+                              ],
                             ),
+                            //total Duration
                             Text(
-                              '$maxStops',
-                              style: const TextStyle(
-                                  color: Colors.black38, fontSize: 13),
+                              'Travel time: $duration',
                             ),
                           ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              '$landTime',
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
-                            ),
-                            Text(
-                              '${flights?.last.arrival}',
-                              style: const TextStyle(color: Colors.black45),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(width: 5),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 15),
-                          child: Text(
-                            '\u20B9${provider.flightDatas[index].terms?.cost?.price}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Colors.black87,
-                            ),
-                          ),
-                        ),
+                        )
                       ],
-                    )
-                  ],
+                    ),
+                  ),
                 ),
               );
             },
             separatorBuilder: (context, index) {
-              return const Divider();
+              return const SizedBox(height: 4);
             },
             itemCount: provider.flightDatas.length,
           );

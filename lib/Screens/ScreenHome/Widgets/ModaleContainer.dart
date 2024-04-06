@@ -165,7 +165,7 @@ class ModaleContainer extends StatelessWidget {
                       //   disabledColor: AppColor.customBlue.withOpacity(0.5),
                       // ),
                       CustomChip(
-                        title: "Buissnes",
+                        title: "Buissness",
                         value: ClassType.buissness,
                         groupValue: chip.selectedType,
                         onSelected: (value) {

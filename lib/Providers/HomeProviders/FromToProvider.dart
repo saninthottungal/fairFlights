@@ -4,9 +4,17 @@ import 'package:flutter/cupertino.dart';
 
 class FromToProvider extends ChangeNotifier {
   CityModel from = CityModel(
-      code: 'DXB', countryName: "United Arab Emirates", cityName: 'Dubai');
-  CityModel to =
-      CityModel(code: 'COK', countryName: "India", cityName: 'Kochi');
+    code: 'DXB',
+    countryName: "United Arab Emirates",
+    cityName: 'Dubai',
+    name: 'Dubai',
+  );
+  CityModel to = CityModel(
+    code: 'COK',
+    countryName: "India",
+    cityName: 'Kochi',
+    name: 'Kochi',
+  );
   SelectedField selectedField = SelectedField.fromField;
 
   set changeFromValue(CityModel value) {

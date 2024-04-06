@@ -204,8 +204,7 @@ class ScreenSearch extends StatelessWidget {
                               fromController.text =
                                   isCity ? city.name! : city.cityName!;
                             }
-                            fromController.dispose();
-                            toController.dispose();
+
                             Navigator.of(context).pop();
                             Provider.of<CitySearchProvider>(context,
                                     listen: false)

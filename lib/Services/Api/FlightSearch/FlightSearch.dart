@@ -53,7 +53,6 @@ class FlightSearch {
 
     final List<dynamic> data = [];
     final List<Map<String, dynamic>> dataAsMap = [];
-
     while (!isFound) {
       try {
         response = await dio.get(

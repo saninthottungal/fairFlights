@@ -15,10 +15,21 @@ class FlightsListWidget extends StatelessWidget {
         child: Consumer<FlightDataProvider>(builder: (context, provider, _) {
           return ListView.separated(
             itemBuilder: (context, index) {
-              final flight =
-                  provider.flightDatas[index].segment?.first.flight?.first;
-              final time = provider
-                  .flightDatas[index].segment?.first.flight?.first.arrivalTime;
+              final flightData = provider.flightDatas[index];
+              final flights = flightData.segment?.first.flight;
+              final arrivalTime =
+                  flightData.segment?.first.flight?.first.departureTime;
+              final landTime =
+                  flightData.segment?.first.flight?.last.arrivalTime;
+              final duration =
+                  ((flightData.totalDuration)! / 60).toStringAsFixed(1);
+              String? maxStops;
+              if (flightData.isDirect != null) {
+                maxStops = !flightData.isDirect!
+                    ? '${flightData.maxStops} stops'
+                    : 'Direct';
+              }
+
               return SizedBox(
                 height: 90,
                 width: double.infinity,
@@ -28,7 +39,9 @@ class FlightsListWidget extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: Text(
-                        flight?.aircraft ?? "",
+                        flights?.first.aircraft ??
+                            flights?.first.marketingCarrier ??
+                            '',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: AppColor.customBlue,
@@ -41,7 +54,7 @@ class FlightsListWidget extends StatelessWidget {
                         CircleAvatar(
                           backgroundColor: Colors.transparent,
                           backgroundImage: NetworkImage(
-                            "http://pics.avs.io/200/200/${flight?.operatedBy ?? flight?.operatingCarrier}.png",
+                            "http://pics.avs.io/250/250/${flights?.first.operatedBy ?? flights?.first.operatingCarrier}.png",
                             scale: 1,
                           ),
                         ),
@@ -49,22 +62,22 @@ class FlightsListWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              time ?? "",
+                              arrivalTime ?? "",
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18),
                             ),
-                            const Text(
-                              "DEL",
-                              style: TextStyle(color: Colors.black45),
+                            Text(
+                              "${flights?.first.departure}",
+                              style: const TextStyle(color: Colors.black45),
                             ),
                           ],
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Text(
-                              "24h 50m",
-                              style: TextStyle(
+                            Text(
+                              '$duration hours',
+                              style: const TextStyle(
                                   color: Colors.black38, fontSize: 13),
                             ),
                             Container(
@@ -72,25 +85,24 @@ class FlightsListWidget extends StatelessWidget {
                               height: 1,
                               color: Colors.black38,
                             ),
-                            const Text(
-                              "1 stop",
-                              style: TextStyle(
+                            Text(
+                              '$maxStops',
+                              style: const TextStyle(
                                   color: Colors.black38, fontSize: 13),
                             ),
                           ],
                         ),
-                        const Column(
-                          // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              "07:15",
-                              style: TextStyle(
+                              '$landTime',
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18),
                             ),
                             Text(
-                              "DEL",
-                              style: TextStyle(color: Colors.black45),
+                              '${flights?.last.arrival}',
+                              style: const TextStyle(color: Colors.black45),
                             ),
                           ],
                         ),
@@ -115,7 +127,7 @@ class FlightsListWidget extends StatelessWidget {
             separatorBuilder: (context, index) {
               return const Divider();
             },
-            itemCount: 10,
+            itemCount: provider.flightDatas.length,
           );
         }),
       ),

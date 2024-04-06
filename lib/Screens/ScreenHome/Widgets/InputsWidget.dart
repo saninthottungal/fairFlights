@@ -1,5 +1,6 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
+import 'package:flight_booking/Core/Widgets/CustomSnackbar.dart';
 import 'package:flight_booking/Providers/CalendarProvider/CalendarProvider.dart';
 import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
@@ -12,6 +13,7 @@ import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/FromToColumn.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/ModaleContainer.dart';
 import 'package:flight_booking/Screens/ScreenSearch/ScreenSearch.dart';
+import 'package:flight_booking/Services/Connectivty/CheckConnectivty.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -277,6 +279,14 @@ class InputsWidget extends StatelessWidget {
           const SizedBox(height: 23),
           CupertinoButton(
             onPressed: () async {
+              final isNetworkAvailable =
+                  await CheckNetConnectivity().checknetConnectivity();
+              if (!isNetworkAvailable) {
+                CustomSnackbar.show(
+                    context: context,
+                    message: "Network connection unavailable");
+                return;
+              }
               final provider =
                   Provider.of<FlightDataProvider>(context, listen: false);
 

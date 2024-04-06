@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flight_booking/Models/FlightDataModel/flight_data_model.dart';
@@ -21,8 +22,15 @@ import 'package:provider/provider.dart';
 class FlightDataProvider extends ChangeNotifier {
   List<FlightDataModel> flightDatas = [];
   bool isLoading = true;
+  String loadingText = '';
+
+  set setLoadingText(String text) {
+    loadingText = text;
+    notifyListeners();
+  }
 
   Future<void> getFlightData(BuildContext context) async {
+    setLoadingText = 'creating a request...';
     final travellerClassProvider =
         Provider.of<TravellerClassProvider>(context, listen: false);
     final tripClass =
@@ -64,6 +72,7 @@ class FlightDataProvider extends ChangeNotifier {
       segments.add(segment1);
       segments.add(segment2);
     }
+    setLoadingText = "Getting Ip address...";
     try {
       userIp = await CheckNetConnectivity().getIpAddress();
     } on Network404Exception {
@@ -105,7 +114,9 @@ class FlightDataProvider extends ChangeNotifier {
     }
 
     try {
+      setLoadingText = 'Sending request...';
       searchId = await flightSearch.postRequest();
+      setLoadingText = 'searching the best flights for you...';
       flightList = await flightSearch.getRequest(searchId);
     } on Network404Exception {
       throw Network404Exception();
@@ -120,7 +131,8 @@ class FlightDataProvider extends ChangeNotifier {
     }
 
     final proposals = flightList.first['proposals'];
-    log(proposals.toString());
+    final proposalsAsjosn = jsonEncode(proposals);
+    log(proposalsAsjosn);
     if (proposals is List) {
       flightDatas = proposals.map((element) {
         final flightData = element as Map<String, dynamic>;

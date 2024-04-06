@@ -27,7 +27,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             SizedBox(
               width: double.infinity,
               child: Text(
-                '${fromToProvider.from.cityName} - ${fromToProvider.to.cityName}',
+                '${fromToProvider.from.cityName ?? fromToProvider.from.name} - ${fromToProvider.to.cityName ?? fromToProvider.to.name}',
+                style: const TextStyle(fontSize: 20),
                 textAlign: TextAlign.start,
               ),
             ),

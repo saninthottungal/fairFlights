@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:flight_booking/Models/FlightDataModel/flight_data_model.dart';
+import 'package:flight_booking/Models/FlightDataModel/proposals.dart';
 import 'package:flutter/material.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
 import 'package:flight_booking/Models/FlightSearchPostModel/FlightSearchPostModel.dart';
@@ -20,7 +20,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class FlightDataProvider extends ChangeNotifier {
-  List<FlightDataModel> flightDatas = [];
+  List<Proposals> flightDatas = [];
   bool isLoading = true;
   String loadingText = '';
 
@@ -136,7 +136,7 @@ class FlightDataProvider extends ChangeNotifier {
     if (proposals is List) {
       flightDatas = proposals.map((element) {
         final flightData = element as Map<String, dynamic>;
-        return FlightDataModel.fromJson(flightData);
+        return Proposals.fromJson(flightData);
       }).toList();
     } else {
       //exception handling

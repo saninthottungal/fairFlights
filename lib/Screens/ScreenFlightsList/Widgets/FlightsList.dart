@@ -11,7 +11,7 @@ class FlightsListWidget extends StatelessWidget {
     return Flexible(
       flex: 10,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
         child: Consumer<FlightDataProvider>(builder: (context, provider, _) {
           return ListView.separated(
             itemBuilder: (context, index) {
@@ -32,6 +32,7 @@ class FlightsListWidget extends StatelessWidget {
                     : 'Direct';
               }
               return Card(
+                color: Colors.white,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
@@ -118,7 +119,7 @@ class FlightsListWidget extends StatelessWidget {
                             ),
                             //total Duration
                             Text(
-                              'Travel time: $duration',
+                              'Travel time: $duration h',
                             ),
                           ],
                         )

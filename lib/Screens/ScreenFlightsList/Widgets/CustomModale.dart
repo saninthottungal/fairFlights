@@ -1,6 +1,5 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class CustomModaleWidget extends StatelessWidget {
   const CustomModaleWidget({super.key});

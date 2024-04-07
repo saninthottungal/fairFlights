@@ -13,20 +13,25 @@ class FlightsListWidget extends StatelessWidget {
         padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
         child: ListView.separated(
           itemBuilder: (context, index) {
-            final flightData = provider.flightDatas[index];
-            final flights = flightData.segment?.first.flight;
+            final flightData = provider.flightDatas.first.proposals?[index];
+            final flights = flightData?.segment?.first.flight;
             final arrivalTime =
-                flightData.segment?.first.flight?.first.departureTime;
-            final landTime = flightData.segment?.first.flight?.last.arrivalTime;
-            final duration =
-                ((flightData.totalDuration)! / 60).toStringAsFixed(1);
-            final layoverTime = flightData.segmentDurations?.first;
+                flightData?.segment?.first.flight?.first.departureTime;
+            final landTime =
+                flightData?.segment?.first.flight?.last.arrivalTime;
+            String? duration;
+            if (flightData?.totalDuration != null) {
+              duration = ((flightData?.totalDuration)! / 60).toStringAsFixed(1);
+            }
+            final layoverTime = flightData?.segmentDurations?.first;
             String? maxStops;
 
-            if (flightData.isDirect != null) {
-              maxStops = !flightData.isDirect!
-                  ? '${flightData.maxStops} layovers'
-                  : 'Direct';
+            if (flightData != null) {
+              if (flightData.isDirect != null) {
+                maxStops = !flightData.isDirect!
+                    ? '${flightData.maxStops} layovers'
+                    : 'Direct';
+              }
             }
             return Card(
               color: Colors.white,
@@ -42,7 +47,7 @@ class FlightsListWidget extends StatelessWidget {
                           //price
 
                           Text(
-                            '\u20B9${provider.flightDatas[index].terms?.cost?.unifiedPrice}',
+                            '\u20B9${provider.flightDatas.first.proposals?[index].terms?.cost?.unifiedPrice}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: AppColor.customBlue,

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:flight_booking/Models/FlightDataModel/proposals.dart';
+import 'package:flight_booking/Models/FlightDataModel/flight_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
 import 'package:flight_booking/Models/FlightSearchPostModel/FlightSearchPostModel.dart';
@@ -20,7 +20,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class FlightDataProvider extends ChangeNotifier {
-  List<Proposals> flightDatas = [];
+  List<FlightDataModel> flightDatas = [];
   bool isLoading = true;
   String loadingText = '';
 
@@ -130,17 +130,14 @@ class FlightDataProvider extends ChangeNotifier {
       throw GenericException();
     }
 
-    final proposals = flightList.first['proposals'];
-    final proposalsAsjosn = jsonEncode(proposals);
-    log(proposalsAsjosn);
-    if (proposals is List) {
-      flightDatas = proposals.map((element) {
-        final flightData = element as Map<String, dynamic>;
-        return Proposals.fromJson(flightData);
-      }).toList();
-    } else {
-      //exception handling
-    }
+    final flightDataAsJson = jsonEncode(flightList);
+    log(flightDataAsJson);
+
+    flightDatas = flightList.map((element) {
+      return FlightDataModel.fromJson(element);
+    }).toList();
+    log(flightDatas.toString());
+
     isLoading = false;
     await Future.delayed(Durations.medium1);
     notifyListeners();

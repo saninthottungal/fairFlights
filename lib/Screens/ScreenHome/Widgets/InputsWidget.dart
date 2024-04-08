@@ -295,7 +295,7 @@ class InputsWidget extends StatelessWidget {
 
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const ScreenFlightsList()));
-              await provider.getFlightData(context);
+              provider.getFlightData(context);
             },
             color: const Color.fromARGB(255, 26, 52, 192),
             pressedOpacity: 0.9,

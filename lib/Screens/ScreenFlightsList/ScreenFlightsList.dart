@@ -1,3 +1,4 @@
+import 'package:flight_booking/Models/FlightDataModel/proposals.dart';
 import 'package:flight_booking/Providers/FlightProviders/DataLoadingProvider.dart';
 import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
 import 'package:flight_booking/Screens/ScreenFlightsList/Widgets/AppBar.dart';
@@ -29,41 +30,38 @@ class ScreenFlightsList extends StatelessWidget {
               body: SafeArea(
                 child: Consumer<FlightDataProvider>(
                     builder: (context, provider, _) {
-                  print(provider.numberOfProposals);
                   return Padding(
                     padding:
                         const EdgeInsets.only(top: 10, left: 10, right: 10),
                     child: ListView.separated(
                       itemBuilder: (context, index) {
-                        final flightData =
-                            provider.flightDatas.first.proposals?[index];
-                        final flights = flightData?.segment?.first.flight;
+                        final proposals = provider.flightDatas
+                            .fold<List<Proposals>>([],
+                                (previousValue, element) {
+                          previousValue
+                              .addAll(element.proposals as Iterable<Proposals>);
+                          return previousValue;
+                        });
+                        final flightData = proposals[index];
+                        final flights = flightData.segment?.first.flight;
                         final arrivalTime = flightData
-                            ?.segment?.first.flight?.first.departureTime;
+                            .segment?.first.flight?.first.departureTime;
                         final landTime =
-                            flightData?.segment?.first.flight?.last.arrivalTime;
+                            flightData.segment?.first.flight?.last.arrivalTime;
                         String? duration;
-                        if (flightData?.totalDuration != null) {
-                          duration = ((flightData?.totalDuration)! / 60)
+                        if (flightData.totalDuration != null) {
+                          duration = ((flightData.totalDuration)! / 60)
                               .toStringAsFixed(1);
                         }
-                        final layoverTime = flightData?.segmentDurations?.first;
+                        final layoverTime = flightData.segmentDurations?.first;
                         String? maxStops;
 
-                        if (flightData != null) {
-                          if (flightData.isDirect != null) {
-                            maxStops = !flightData.isDirect!
-                                ? '${flightData.maxStops} layovers'
-                                : 'Direct';
-                          }
+                        if (flightData.isDirect != null) {
+                          maxStops = !flightData.isDirect!
+                              ? '${flightData.maxStops} layovers'
+                              : 'Direct';
                         }
 
-                        // for (var flightData in provider.flightDatas) {
-                        //   if (flightData.numberOfProposal != null) {
-                        //     noOfFlights =
-                        //         noOfFlights + flightData.numberOfProposal!;
-                        //   }
-                        // }
                         return Card(
                           color: Colors.white,
                           child: Padding(
@@ -80,7 +78,7 @@ class ScreenFlightsList extends StatelessWidget {
                                       //price
 
                                       Text(
-                                        '\u20B9',
+                                        '\u20B9${flightData.terms?.cost?.unifiedPrice}',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: AppColor.customBlue,

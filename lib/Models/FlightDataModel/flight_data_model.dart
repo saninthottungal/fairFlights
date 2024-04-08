@@ -12,11 +12,13 @@ class FlightDataModel {
   Airline? airlines;
   @JsonKey(name: 'segments')
   List<AirlineSegments>? segments;
+  int? numberOfProposal;
 
   FlightDataModel({
     this.airlines,
     this.proposals,
     this.segments,
+    this.numberOfProposal,
   });
 
   factory FlightDataModel.fromJson(Map<String, dynamic> json) =>

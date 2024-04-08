@@ -51,7 +51,8 @@ class FlightSearch {
     bool isFound = false;
     Response response;
 
-    final List<dynamic> data = [];
+    final List<dynamic> dataFromAPI = [];
+    final sortedData = [];
     final List<Map<String, dynamic>> dataAsMap = [];
     while (!isFound) {
       try {
@@ -68,15 +69,7 @@ class FlightSearch {
 
       if (response.data is List) {
         final dataList = response.data as List;
-        //log(dataList.toString());
-
-        final firstElement = dataList.first as Map<String, dynamic>;
-        if (firstElement['proposals'] is List) {
-          List<dynamic> proposals = firstElement['proposals'] as List;
-          if (proposals.isNotEmpty) {
-            data.addAll(dataList);
-          } else {}
-        }
+        dataFromAPI.addAll(dataList);
         final lastElement = dataList.last as Map<String, dynamic>;
 
         if (lastElement.keys.first == 'search_id') {
@@ -88,8 +81,20 @@ class FlightSearch {
         //exception handling
       }
     }
-
-    for (var element in data) {
+    for (final tempData in dataFromAPI) {
+      final firstElement = tempData as Map<String, dynamic>;
+      if (firstElement.keys.first == "proposals") {
+        if (firstElement['proposals'] is List) {
+          List<dynamic> proposals = firstElement['proposals'] as List;
+          if (proposals.isNotEmpty) {
+            sortedData.add(tempData);
+          } else {
+            //exception handling
+          }
+        }
+      }
+    }
+    for (var element in sortedData) {
       if (element is Map<String, dynamic>) {
         dataAsMap.add(element);
       } else {}

@@ -20,6 +20,7 @@ class FlightDataProvider extends ChangeNotifier {
   List<FlightDataModel> flightDatas = [];
   bool isLoading = true;
   String loadingText = '';
+  int numberOfProposals = 0;
 
   set setLoadingText(String text) {
     loadingText = text;
@@ -125,20 +126,23 @@ class FlightDataProvider extends ChangeNotifier {
       throw GenericException();
     }
 
-    List<dynamic> proposals = [];
-    // final proposalsAsjosn = jsonEncode(flightList);
-    // log(proposalsAsjosn);
-    for (Map<String, dynamic> flightdata in flightList) {
-      if (flightdata.containsKey('proposals')) {
-        List<dynamic> proposalsFromData =
-            flightdata['proposals'] as List<dynamic>;
-        proposals.addAll(proposalsFromData);
-      }
-    }
+    // List<dynamic> proposals = [];
+    // for (Map<String, dynamic> flightdata in flightList) {
+    //   if (flightdata.containsKey('proposals')) {
+    //     List<dynamic> proposalsFromData =
+    //         flightdata['proposals'] as List<dynamic>;
+    //     proposals.addAll(proposalsFromData);
+    //   }
+    // }
 
-    flightDatas = proposals.map((element) {
+    flightDatas = flightList.map((element) {
       return FlightDataModel.fromJson(element);
     }).toList();
+    for (final data in flightDatas) {
+      if (data.numberOfProposal != null) {
+        numberOfProposals = numberOfProposals = data.numberOfProposal!;
+      }
+    }
 
     isLoading = false;
     await Future.delayed(Durations.medium1);

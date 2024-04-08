@@ -2,6 +2,7 @@ import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
 import 'package:flight_booking/Core/Widgets/CustomSnackbar.dart';
 import 'package:flight_booking/Providers/CalendarProvider/CalendarProvider.dart';
+import 'package:flight_booking/Providers/FlightProviders/DataLoadingProvider.dart';
 import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TravellerClassProvider.dart';
@@ -287,15 +288,17 @@ class InputsWidget extends StatelessWidget {
                     message: "Network connection unavailable");
                 return;
               }
-              final provider =
+              final dataProvider =
                   Provider.of<FlightDataProvider>(context, listen: false);
+              final dataLoadingProvider =
+                  Provider.of<DataLoadingProvider>(context, listen: false);
 
-              provider.flightDatas.clear();
-              provider.isLoading = true;
+              dataProvider.flightDatas.clear();
+              dataLoadingProvider.isLoading = true;
 
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const ScreenFlightsList()));
-              provider.getFlightData(context);
+              dataProvider.getFlightData(context);
             },
             color: const Color.fromARGB(255, 26, 52, 192),
             pressedOpacity: 0.9,

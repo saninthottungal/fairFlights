@@ -1,6 +1,7 @@
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Providers/CalendarProvider/CalendarProvider.dart';
 import 'package:flight_booking/Providers/CitySearchProviders/CitySearchProvider.dart';
+import 'package:flight_booking/Providers/FlightProviders/DataLoadingProvider.dart';
 import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TravellerClassProvider.dart';
@@ -51,6 +52,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => FlightDataProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DataLoadingProvider(),
         ),
       ],
       child: MaterialApp(

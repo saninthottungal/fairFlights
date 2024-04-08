@@ -1,3 +1,4 @@
+import 'package:flight_booking/Providers/FlightProviders/DataLoadingProvider.dart';
 import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
 import 'package:flight_booking/Screens/ScreenFlightsList/Widgets/AppBar.dart';
 import 'package:flight_booking/Screens/ScreenFlightsList/Widgets/CustomModale.dart';
@@ -11,7 +12,7 @@ class ScreenFlightsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FlightDataProvider>(builder: (context, flightProvider, _) {
+    return Consumer<DataLoadingProvider>(builder: (context, flightProvider, _) {
       return flightProvider.isLoading
           ? const IsLoadingWidget()
           : Scaffold(
@@ -28,6 +29,7 @@ class ScreenFlightsList extends StatelessWidget {
               body: SafeArea(
                 child: Consumer<FlightDataProvider>(
                     builder: (context, provider, _) {
+                  print(provider.numberOfProposals);
                   return Padding(
                     padding:
                         const EdgeInsets.only(top: 10, left: 10, right: 10),
@@ -171,7 +173,7 @@ class ScreenFlightsList extends StatelessWidget {
                       separatorBuilder: (context, index) {
                         return const SizedBox(height: 4);
                       },
-                      itemCount: 0,
+                      itemCount: provider.numberOfProposals,
                     ),
                   );
                 }),

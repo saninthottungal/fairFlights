@@ -12,7 +12,7 @@ class FlightDataModel {
   Airline? airlines;
   @JsonKey(name: 'segments')
   List<AirlineSegments>? segments;
-  int? numberOfProposal;
+  int? numberOfProposal = 0;
 
   FlightDataModel({
     this.airlines,

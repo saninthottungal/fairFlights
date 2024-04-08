@@ -7,7 +7,8 @@ part of 'flight_data_model.dart';
 // **************************************************************************
 
 FlightDataModel _$FlightDataModelFromJson(Map<String, dynamic> json) {
-  final proposals = (json['proposals'] as List<dynamic>?)?.map((e) {
+  final tempProposals = (json['proposals'] as List<dynamic>?);
+  final proposals = tempProposals?.map((e) {
     return Proposals.fromJson(e as Map<String, dynamic>);
   }).toList();
 
@@ -19,7 +20,7 @@ FlightDataModel _$FlightDataModelFromJson(Map<String, dynamic> json) {
       segments: (json['segments'] as List<dynamic>?)
           ?.map((e) => AirlineSegments.fromJson(e as Map<String, dynamic>))
           .toList(),
-      numberOfProposal: proposals?.length);
+      numberOfProposal: tempProposals?.length);
 }
 
 Map<String, dynamic> _$FlightDataModelToJson(FlightDataModel instance) =>

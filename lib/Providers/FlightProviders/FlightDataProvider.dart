@@ -1,4 +1,5 @@
 import 'package:flight_booking/Models/FlightDataModel/flight_data_model.dart';
+import 'package:flight_booking/Providers/FlightProviders/DataLoadingProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
 import 'package:flight_booking/Models/FlightSearchPostModel/FlightSearchPostModel.dart';
@@ -18,7 +19,6 @@ import 'package:provider/provider.dart';
 
 class FlightDataProvider extends ChangeNotifier {
   List<FlightDataModel> flightDatas = [];
-  bool isLoading = true;
   String loadingText = '';
   int numberOfProposals = 0;
 
@@ -138,13 +138,15 @@ class FlightDataProvider extends ChangeNotifier {
     flightDatas = flightList.map((element) {
       return FlightDataModel.fromJson(element);
     }).toList();
+
     for (final data in flightDatas) {
       if (data.numberOfProposal != null) {
-        numberOfProposals = numberOfProposals = data.numberOfProposal!;
+        numberOfProposals = numberOfProposals + data.numberOfProposal!;
       }
     }
 
-    isLoading = false;
+    Provider.of<DataLoadingProvider>(context, listen: false).setIsLoading =
+        false;
     await Future.delayed(Durations.medium1);
     notifyListeners();
   }

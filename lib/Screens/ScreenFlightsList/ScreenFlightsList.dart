@@ -1,4 +1,3 @@
-import 'package:flight_booking/Models/FlightDataModel/proposals.dart';
 import 'package:flight_booking/Providers/FlightProviders/DataLoadingProvider.dart';
 import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
 import 'package:flight_booking/Screens/ScreenFlightsList/Widgets/AppBar.dart';
@@ -35,25 +34,19 @@ class ScreenFlightsList extends StatelessWidget {
                         const EdgeInsets.only(top: 10, left: 10, right: 10),
                     child: ListView.separated(
                       itemBuilder: (context, index) {
-                        final proposals = provider.flightDatas
-                            .fold<List<Proposals>>([],
-                                (previousValue, element) {
-                          previousValue
-                              .addAll(element.proposals as Iterable<Proposals>);
-                          return previousValue;
-                        });
-                        final flightData = proposals[index];
+                        final flightData = provider.proposals[index];
                         final flights = flightData.segment?.first.flight;
-                        final arrivalTime = flightData
+                        final departureTime = flightData
                             .segment?.first.flight?.first.departureTime;
-                        final landTime =
-                            flightData.segment?.first.flight?.last.arrivalTime;
+                        final arrivalTime =
+                            flightData.segment?.last.flight?.last.arrivalTime;
                         String? duration;
                         if (flightData.totalDuration != null) {
                           duration = ((flightData.totalDuration)! / 60)
                               .toStringAsFixed(1);
                         }
                         String layoverTime = '';
+                        bool isDirect = false;
                         String? maxStops;
                         if (flightData.segment?.first.transfers?.first
                                 .durationSeconds !=
@@ -65,6 +58,7 @@ class ScreenFlightsList extends StatelessWidget {
                         }
 
                         if (flightData.isDirect != null) {
+                          isDirect = flightData.isDirect!;
                           maxStops = !flightData.isDirect!
                               ? '${flightData.maxStops} layovers'
                               : 'Direct';
@@ -117,7 +111,7 @@ class ScreenFlightsList extends StatelessWidget {
                                             children: [
                                               //arrival time
                                               Text(
-                                                arrivalTime ?? "",
+                                                departureTime ?? "",
                                                 style: const TextStyle(
                                                     fontSize: 16),
                                               ),
@@ -135,7 +129,7 @@ class ScreenFlightsList extends StatelessWidget {
                                             children: [
                                               Text(
                                                 //landtime
-                                                landTime ?? "",
+                                                arrivalTime ?? "",
                                                 style: const TextStyle(
                                                     fontSize: 16),
                                               ),
@@ -159,7 +153,7 @@ class ScreenFlightsList extends StatelessWidget {
                                           ),
                                           //to change to segment time layover
                                           Text(
-                                            '$layoverTime h',
+                                            isDirect ? '' : '$layoverTime h',
                                             style: const TextStyle(),
                                           ),
                                         ],

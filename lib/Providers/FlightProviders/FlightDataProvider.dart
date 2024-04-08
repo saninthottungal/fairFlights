@@ -1,4 +1,5 @@
 import 'package:flight_booking/Models/FlightDataModel/flight_data_model.dart';
+import 'package:flight_booking/Models/FlightDataModel/proposals.dart';
 import 'package:flight_booking/Providers/FlightProviders/DataLoadingProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
@@ -19,12 +20,52 @@ import 'package:provider/provider.dart';
 
 class FlightDataProvider extends ChangeNotifier {
   List<FlightDataModel> flightDatas = [];
+  List<Proposals> proposals = [];
   String loadingText = '';
   int numberOfProposals = 0;
 
   set setLoadingText(String text) {
     loadingText = text;
     notifyListeners();
+  }
+
+  void sortFlights(SortValues value) {
+    switch (value) {
+      case SortValues.none:
+        proposals
+            .sort((a, b) => a.segmentsRating!.compareTo(b.segmentsRating!));
+        notifyListeners();
+        break;
+      case SortValues.cheapestFirst:
+        proposals.sort(((a, b) => a.terms!.cost!.unifiedPrice!
+            .compareTo(b.terms!.cost!.unifiedPrice!)));
+        notifyListeners();
+        break;
+
+      case SortValues.tripDuration:
+        proposals.sort((a, b) => a.totalDuration!.compareTo(b.totalDuration!));
+        notifyListeners();
+        break;
+      case SortValues.rating:
+        proposals
+            .sort((a, b) => a.segmentsRating!.compareTo(b.segmentsRating!));
+        notifyListeners();
+        break;
+      case SortValues.departureTime:
+        proposals.sort((a, b) => a
+            .segment!.first.flight!.first.departureTimestamp!
+            .toInt()
+            .compareTo(
+                b.segment!.first.flight!.first.departureTimestamp!.toInt()));
+        notifyListeners();
+        break;
+      case SortValues.arrivalTime:
+        proposals.sort((a, b) => a.segment!.last.flight!.last.arrivalTimestamp!
+            .toInt()
+            .compareTo(b.segment!.last.flight!.last.arrivalTimestamp!.toInt()));
+        notifyListeners();
+        break;
+    }
   }
 
   Future<void> getFlightData(BuildContext context) async {
@@ -144,6 +185,10 @@ class FlightDataProvider extends ChangeNotifier {
         numberOfProposals = numberOfProposals + data.numberOfProposal!;
       }
     }
+    proposals = flightDatas.fold<List<Proposals>>([], (previousValue, element) {
+      previousValue.addAll(element.proposals as Iterable<Proposals>);
+      return previousValue;
+    });
 
     Provider.of<DataLoadingProvider>(context, listen: false).setIsLoading =
         false;

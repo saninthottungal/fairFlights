@@ -4,6 +4,7 @@ import 'package:flight_booking/Core/Widgets/CustomSnackbar.dart';
 import 'package:flight_booking/Providers/CalendarProvider/CalendarProvider.dart';
 import 'package:flight_booking/Providers/FlightProviders/DataLoadingProvider.dart';
 import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
+import 'package:flight_booking/Providers/FlightProviders/SortProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TravellerClassProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
@@ -294,9 +295,12 @@ class InputsWidget extends StatelessWidget {
                   Provider.of<FlightDataProvider>(context, listen: false);
               final dataLoadingProvider =
                   Provider.of<DataLoadingProvider>(context, listen: false);
+              final sortProvider =
+                  Provider.of<SortProvider>(context, listen: false);
 
               dataProvider.flightDatas.clear();
               dataLoadingProvider.isLoading = true;
+              sortProvider.selectedGroupValue = SortValues.none;
 
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const ScreenFlightsList()));

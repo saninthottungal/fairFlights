@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flight_booking/Models/FlightDataModel/flight_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
@@ -30,7 +27,6 @@ class FlightDataProvider extends ChangeNotifier {
   }
 
   Future<void> getFlightData(BuildContext context) async {
-    setLoadingText = 'creating a request...';
     final travellerClassProvider =
         Provider.of<TravellerClassProvider>(context, listen: false);
     final tripClass =
@@ -72,7 +68,6 @@ class FlightDataProvider extends ChangeNotifier {
       segments.add(segment1);
       segments.add(segment2);
     }
-    setLoadingText = "Getting Ip address...";
     try {
       userIp = await CheckNetConnectivity().getIpAddress();
     } on Network404Exception {
@@ -130,17 +125,21 @@ class FlightDataProvider extends ChangeNotifier {
       throw GenericException();
     }
 
-    final proposals = flightList.first['proposals'];
-    final proposalsAsjosn = jsonEncode(proposals);
-    log(proposalsAsjosn);
-    if (proposals is List) {
-      flightDatas = proposals.map((element) {
-        final flightData = element as Map<String, dynamic>;
-        return FlightDataModel.fromJson(flightData);
-      }).toList();
-    } else {
-      //exception handling
+    List<dynamic> proposals = [];
+    // final proposalsAsjosn = jsonEncode(flightList);
+    // log(proposalsAsjosn);
+    for (Map<String, dynamic> flightdata in flightList) {
+      if (flightdata.containsKey('proposals')) {
+        List<dynamic> proposalsFromData =
+            flightdata['proposals'] as List<dynamic>;
+        proposals.addAll(proposalsFromData);
+      }
     }
+
+    flightDatas = proposals.map((element) {
+      return FlightDataModel.fromJson(element);
+    }).toList();
+
     isLoading = false;
     await Future.delayed(Durations.medium1);
     notifyListeners();

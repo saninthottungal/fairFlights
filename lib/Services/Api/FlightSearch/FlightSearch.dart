@@ -59,6 +59,7 @@ class FlightSearch {
           baseUrl + getUrl,
           queryParameters: {'uuid': searchId},
         );
+        // log(response.toString());
       } on DioException {
         throw DioRequestException();
       } catch (_) {
@@ -67,22 +68,31 @@ class FlightSearch {
 
       if (response.data is List) {
         final dataList = response.data as List;
-        data.clear();
-        data.addAll(dataList);
+        //log(dataList.toString());
 
-        final lastElement = dataList.last;
-        if (lastElement.length == 1) {
-          if (lastElement.containsKey('search_id')) {
-            isFound = true;
-          }
+        final firstElement = dataList.first as Map<String, dynamic>;
+        if (firstElement['proposals'] is List) {
+          List<dynamic> proposals = firstElement['proposals'] as List;
+          if (proposals.isNotEmpty) {
+            data.addAll(dataList);
+          } else {}
         }
+        final lastElement = dataList.last as Map<String, dynamic>;
+
+        if (lastElement.keys.first == 'search_id') {
+          isFound = true;
+        } else {
+          //exception handling
+        }
+      } else {
+        //exception handling
       }
     }
 
     for (var element in data) {
       if (element is Map<String, dynamic>) {
         dataAsMap.add(element);
-      }
+      } else {}
     }
 
     return dataAsMap;

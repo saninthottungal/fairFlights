@@ -193,8 +193,10 @@ class InputsWidget extends StatelessWidget {
                                   isScrollControlled: true,
                                   context: context,
                                   builder: (ctx) {
-                                    return const SingleChildScrollView(
-                                      child: ModaleContainer(),
+                                    return SingleChildScrollView(
+                                      child: ModaleContainer(
+                                        ctx: ctx,
+                                      ),
                                     );
                                   });
                             },

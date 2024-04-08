@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ModaleContainer extends StatelessWidget {
-  const ModaleContainer({super.key});
+  const ModaleContainer({super.key, required this.ctx});
+  final BuildContext ctx;
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +115,7 @@ class ModaleContainer extends StatelessWidget {
                   );
                 }),
                 const SizedBox(height: 8),
-                Consumer<CounterProvider>(builder: (context, counter, _) {
+                Consumer<CounterProvider>(builder: (ctx, counter, _) {
                   return Counter(
                     title: 'Infants',
                     subtitle: 'Under 2',

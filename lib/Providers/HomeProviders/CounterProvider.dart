@@ -31,11 +31,11 @@ class CounterProvider extends ChangeNotifier {
   }
 
   void setInfantCount(int value) {
-    if (value > infant && travellersCount < 9) {
+    if (value > infant && travellersCount < 9 && value <= adult) {
       infant = value;
     } else if (value < infant && infant > 0) {
       infant = value;
-    } else {}
+    }
     notifyListeners();
   }
 }

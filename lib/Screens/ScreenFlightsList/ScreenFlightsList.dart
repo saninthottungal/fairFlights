@@ -53,8 +53,16 @@ class ScreenFlightsList extends StatelessWidget {
                           duration = ((flightData.totalDuration)! / 60)
                               .toStringAsFixed(1);
                         }
-                        final layoverTime = flightData.segmentDurations?.first;
+                        String layoverTime = '';
                         String? maxStops;
+                        if (flightData.segment?.first.transfers?.first
+                                .durationSeconds !=
+                            null) {
+                          layoverTime = (flightData.segment!.first.transfers!
+                                      .first.durationSeconds! /
+                                  3600)
+                              .toStringAsFixed(1);
+                        }
 
                         if (flightData.isDirect != null) {
                           maxStops = !flightData.isDirect!
@@ -151,7 +159,7 @@ class ScreenFlightsList extends StatelessWidget {
                                           ),
                                           //to change to segment time layover
                                           Text(
-                                            '$layoverTime',
+                                            '$layoverTime h',
                                             style: const TextStyle(),
                                           ),
                                         ],

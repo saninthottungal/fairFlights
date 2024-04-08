@@ -6,9 +6,8 @@ part 'terms.g.dart';
 
 @JsonSerializable()
 class Terms {
-  Terms({this.cost});
-
   Cost? cost;
+  Terms({this.cost});
 
   factory Terms.fromJson(Map<String, dynamic> json) => _$TermsFromJson(json);
 

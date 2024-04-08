@@ -3,6 +3,7 @@ import 'package:flight_booking/Providers/CalendarProvider/CalendarProvider.dart'
 import 'package:flight_booking/Providers/CitySearchProviders/CitySearchProvider.dart';
 import 'package:flight_booking/Providers/FlightProviders/DataLoadingProvider.dart';
 import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
+import 'package:flight_booking/Providers/FlightProviders/SortProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TravellerClassProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
@@ -54,6 +55,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => DataLoadingProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SortProvider(),
         ),
       ],
       child: MaterialApp(

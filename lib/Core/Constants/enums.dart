@@ -19,3 +19,12 @@ enum TripWay {
   departureWay,
   returnWay,
 }
+
+enum SortValues {
+  none,
+  cheapestFirst,
+  tripDuration,
+  rating,
+  departureTime,
+  arrivalTime,
+}

@@ -1,8 +1,11 @@
+import 'package:flight_booking/Core/Constants/enums.dart';
 import 'package:flight_booking/Providers/FlightProviders/DataLoadingProvider.dart';
 import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
+import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
 import 'package:flight_booking/Screens/ScreenFlightsList/Widgets/AppBar.dart';
 import 'package:flight_booking/Screens/ScreenFlightsList/Widgets/CustomModale.dart';
 import 'package:flight_booking/Screens/ScreenFlightsList/Widgets/LoadingWidget.dart';
+import 'package:flight_booking/Screens/ScreenFlightsList/Widgets/tripDataWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flight_booking/Core/Constants/colors.dart';
@@ -34,35 +37,97 @@ class ScreenFlightsList extends StatelessWidget {
                         const EdgeInsets.only(top: 10, left: 10, right: 10),
                     child: ListView.separated(
                       itemBuilder: (context, index) {
+                        //proposals per index
                         final flightData = provider.proposals[index];
-                        final flights = flightData.segment?.first.flight;
-                        final departureTime = flightData
-                            .segment?.first.flight?.first.departureTime;
-                        final arrivalTime =
-                            flightData.segment?.last.flight?.last.arrivalTime;
-                        String? duration;
-                        if (flightData.totalDuration != null) {
-                          duration = ((flightData.totalDuration)! / 60)
-                              .toStringAsFixed(1);
+
+                        //oneWay
+                        final oneWaySegment = flightData.segment?.first;
+
+                        final oneWayDepartureTime =
+                            oneWaySegment?.flight?.first.departureTime;
+                        final oneWayDeparture =
+                            oneWaySegment?.flight?.first.departure;
+                        final oneWayArrivalTime =
+                            oneWaySegment?.flight?.last.arrivalTime;
+                        final oneWayArrival =
+                            oneWaySegment?.flight?.last.arrival;
+                        bool oneWayIsDirect = false;
+                        String? oneWayMaxStops;
+                        String? oneWayLayoverTime;
+                        String? oneWayDuration = '';
+
+                        //functions
+
+                        if (oneWaySegment != null) {
+                          oneWayDuration =
+                              (flightData.segmentDurations!.first / 60)
+                                  .toStringAsFixed(1);
                         }
-                        String layoverTime = '';
-                        bool isDirect = false;
-                        String? maxStops;
-                        if (flightData.segment?.first.transfers?.first
-                                .durationSeconds !=
+
+                        if (oneWaySegment?.transfers?.first.durationSeconds !=
                             null) {
-                          layoverTime = (flightData.segment!.first.transfers!
-                                      .first.durationSeconds! /
-                                  3600)
-                              .toStringAsFixed(1);
+                          oneWayLayoverTime =
+                              (oneWaySegment!.flight!.last.delay! / 60)
+                                  .toStringAsFixed(1);
+                        }
+                        if (flightData.isDirect != null) {
+                          if (flightData.isDirect! ||
+                              oneWayLayoverTime == null) {
+                            oneWayMaxStops = 'Direct';
+                          } else {
+                            oneWayMaxStops = '${flightData.maxStops} layovers';
+                          }
+                        }
+
+                        //roundtrip
+                        final roundWaySegment = flightData.segment?.last;
+
+                        final roundWayDepartureTime =
+                            roundWaySegment?.flight?.first.departureTime;
+                        final roundWayDeparture =
+                            roundWaySegment?.flight?.first.departure;
+                        final roundWayArrivalTime =
+                            roundWaySegment?.flight?.last.arrivalTime;
+                        final roundWayArrival =
+                            roundWaySegment?.flight?.last.arrival;
+                        bool roundWayIsDirect = false;
+                        String? roundWayMaxStops;
+                        String? roundWayLayoverTime;
+                        String? roundWayDuration = '';
+
+                        //functions
+
+                        if (roundWaySegment != null) {
+                          roundWayDuration =
+                              (flightData.segmentDurations!.last / 60)
+                                  .toStringAsFixed(1);
+                        }
+
+                        if (roundWaySegment?.transfers?.first.durationSeconds !=
+                            null) {
+                          roundWayLayoverTime =
+                              (roundWaySegment!.flight!.last.delay! / 60)
+                                  .toStringAsFixed(1);
                         }
 
                         if (flightData.isDirect != null) {
-                          isDirect = flightData.isDirect!;
-                          maxStops = !flightData.isDirect!
-                              ? '${flightData.maxStops} layovers'
-                              : 'Direct';
+                          roundWayIsDirect = flightData.isDirect!;
+
+                          if (flightData.isDirect != null) {
+                            if (flightData.isDirect! ||
+                                roundWayLayoverTime == null) {
+                              roundWayMaxStops = 'Direct';
+                            } else {
+                              roundWayMaxStops =
+                                  '${flightData.maxStops} layovers';
+                            }
+                          }
                         }
+
+                        final TripType tripType = Provider.of<TripChipProvider>(
+                                context,
+                                listen: false)
+                            .value;
 
                         return Card(
                           color: Colors.white,
@@ -93,77 +158,37 @@ class ScreenFlightsList extends StatelessWidget {
                                       CircleAvatar(
                                         backgroundColor: Colors.transparent,
                                         backgroundImage: NetworkImage(
-                                          "http://pics.avs.io/250/250/${flights?.first.operatedBy ?? flights?.first.operatingCarrier}.png",
+                                          "http://pics.avs.io/250/250/${oneWaySegment?.flight?.first.operatedBy ?? oneWaySegment?.flight?.first.operatingCarrier}.png",
                                           scale: 1,
                                         ),
                                       ),
                                     ],
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              //arrival time
-                                              Text(
-                                                departureTime ?? "",
-                                                style: const TextStyle(
-                                                    fontSize: 16),
-                                              ),
-                                              //departure place
-                                              Text(
-                                                "${flights?.first.departure}",
-                                                style: const TextStyle(
-                                                    color: Colors.black45,
-                                                    fontSize: 13),
-                                              ),
-                                            ],
-                                          ),
-                                          const Text(" - "),
-                                          Column(
-                                            children: [
-                                              Text(
-                                                //landtime
-                                                arrivalTime ?? "",
-                                                style: const TextStyle(
-                                                    fontSize: 16),
-                                              ),
-                                              //arrival place
-                                              Text(
-                                                '${flights?.last.arrival}',
-                                                style: const TextStyle(
-                                                    color: Colors.black45),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          Text(
-                                            //maxStops
-                                            '$maxStops',
-                                            style:
-                                                const TextStyle(fontSize: 16),
-                                          ),
-                                          //to change to segment time layover
-                                          Text(
-                                            isDirect ? '' : '$layoverTime h',
-                                            style: const TextStyle(),
-                                          ),
-                                        ],
-                                      ),
-                                      //total Duration
-                                      Text(
-                                        'Travel time: $duration h',
-                                      ),
-                                    ],
-                                  )
+                                  TripDataWidget(
+                                    isDirect: oneWayIsDirect,
+                                    departureTime: oneWayDepartureTime,
+                                    maxStops: oneWayMaxStops,
+                                    layoverTime: oneWayLayoverTime,
+                                    arrivalTime: oneWayArrivalTime,
+                                    duration: oneWayDuration,
+                                    departure: oneWayDeparture,
+                                    arrival: oneWayArrival,
+                                  ),
+                                  tripType == TripType.oneWay
+                                      ? const SizedBox(width: 0, height: 0)
+                                      : const SizedBox(height: 20),
+                                  tripType == TripType.oneWay
+                                      ? const SizedBox(width: 0, height: 0)
+                                      : TripDataWidget(
+                                          isDirect: roundWayIsDirect,
+                                          departureTime: roundWayDepartureTime,
+                                          maxStops: roundWayMaxStops,
+                                          layoverTime: roundWayLayoverTime,
+                                          arrivalTime: roundWayArrivalTime,
+                                          duration: roundWayDuration,
+                                          departure: roundWayDeparture,
+                                          arrival: roundWayArrival,
+                                        ),
                                 ],
                               ),
                             ),

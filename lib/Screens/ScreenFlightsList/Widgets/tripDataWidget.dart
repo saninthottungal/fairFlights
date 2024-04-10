@@ -1,26 +1,10 @@
+import 'package:flight_booking/Models/FlightModel.dart';
 import 'package:flutter/material.dart';
 
 class TripDataWidget extends StatelessWidget {
-  const TripDataWidget({
-    super.key,
-    required this.departureTime,
-    required this.departure,
-    required this.arrivalTime,
-    required this.arrival,
-    required this.maxStops,
-    required this.isDirect,
-    required this.layoverTime,
-    required this.duration,
-  });
+  const TripDataWidget({super.key, required this.flightModel});
 
-  final String? departureTime;
-  final String? departure;
-  final String? arrivalTime;
-  final String? arrival;
-  final String? maxStops;
-  final bool isDirect;
-  final String? layoverTime;
-  final String? duration;
+  final FlightModel? flightModel;
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +18,12 @@ class TripDataWidget extends StatelessWidget {
               children: [
                 //arrival time
                 Text(
-                  departureTime ?? "",
+                  flightModel?.departureTime ?? "",
                   style: const TextStyle(fontSize: 16),
                 ),
                 //departure place
                 Text(
-                  departure ?? '',
+                  flightModel?.departure ?? '',
                   style: const TextStyle(color: Colors.black45, fontSize: 13),
                 ),
               ],
@@ -49,12 +33,12 @@ class TripDataWidget extends StatelessWidget {
               children: [
                 Text(
                   //landtime
-                  arrivalTime ?? "",
+                  flightModel?.arrivalTime ?? "",
                   style: const TextStyle(fontSize: 16),
                 ),
                 //arrival place
                 Text(
-                  arrival ?? '',
+                  flightModel?.arrival ?? '',
                   style: const TextStyle(color: Colors.black45),
                 ),
               ],
@@ -62,9 +46,9 @@ class TripDataWidget extends StatelessWidget {
           ],
         ),
 
-        isDirect || layoverTime == null
+        flightModel!.isDirect || flightModel?.layoverTime == null
             ? Text(
-                maxStops ?? '',
+                flightModel?.maxStops ?? '',
                 style: const TextStyle(
                     fontSize: 16, color: Color.fromARGB(255, 41, 148, 45)),
               )
@@ -72,19 +56,21 @@ class TripDataWidget extends StatelessWidget {
                 children: [
                   Text(
                     //maxStops
-                    maxStops ?? '',
+                    flightModel?.maxStops ?? '',
                     style: const TextStyle(fontSize: 16),
                   ),
                   //layover time
                   Text(
-                    layoverTime == null ? '' : '$layoverTime h',
+                    flightModel?.layoverTime == null
+                        ? ''
+                        : '${flightModel?.layoverTime} h',
                     style: const TextStyle(),
                   ),
                 ],
               ),
         //total Duration
         Text(
-          'Travel time: $duration h',
+          'Travel time: ${flightModel?.duration} h',
         ),
       ],
     );

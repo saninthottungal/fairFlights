@@ -76,7 +76,7 @@ class ScreenFlightsList extends StatelessWidget {
                                       //price
 
                                       Text(
-                                        '\u20B9${proposal.terms?.cost?.unifiedPrice}',
+                                        '\u20B9${oneWay.price}',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: AppColor.customBlue,

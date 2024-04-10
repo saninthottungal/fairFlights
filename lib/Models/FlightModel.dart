@@ -10,6 +10,7 @@ class FlightModel {
   bool isDirect = false;
   String? layoverTime;
   String? duration;
+  String? price;
 
   FlightModel(
     this.arrival,
@@ -20,6 +21,7 @@ class FlightModel {
     this.isDirect,
     this.layoverTime,
     this.maxStops,
+    this.price,
   );
 
   factory FlightModel.fromFlightDataModel({
@@ -41,6 +43,7 @@ class FlightModel {
     String? maxStops;
     String? layoverTime;
     String? duration = '';
+    String? price = proposal.terms?.cost?.unifiedPrice.toString();
 
     if (segment != null) {
       var durationInMinutes =
@@ -72,6 +75,7 @@ class FlightModel {
       isDirect,
       layoverTime,
       maxStops,
+      price,
     );
   }
 }

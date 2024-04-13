@@ -1,6 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flight_booking/Services/Exception/NetworkExceptions.dart';
-import 'package:network_info_plus/network_info_plus.dart';
+import 'package:get_ip_address/get_ip_address.dart';
 
 class CheckNetConnectivity {
   Future<bool> checknetConnectivity() async {
@@ -19,10 +19,10 @@ class CheckNetConnectivity {
   }
 
   Future<String?> getIpAddress() async {
-    final networkInfo = NetworkInfo();
-    String? ipAddress;
+    dynamic ipAddress;
     try {
-      ipAddress = await networkInfo.getWifiIP();
+      ipAddress = await IpAddress().getIpAddress();
+
       return ipAddress;
     } catch (_) {
       throw Network404Exception();

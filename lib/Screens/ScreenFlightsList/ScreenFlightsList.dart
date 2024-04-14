@@ -3,6 +3,7 @@ import 'package:flight_booking/Models/FlightModel.dart';
 import 'package:flight_booking/Providers/FlightProviders/DataLoadingProvider.dart';
 import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
+import 'package:flight_booking/Screens/ScreenFlight/ScreenFlight.dart';
 import 'package:flight_booking/Screens/ScreenFlightsList/Widgets/AppBar.dart';
 import 'package:flight_booking/Screens/ScreenFlightsList/Widgets/CustomModale.dart';
 import 'package:flight_booking/Screens/ScreenFlightsList/Widgets/LoadingWidget.dart';
@@ -60,53 +61,59 @@ class ScreenFlightsList extends StatelessWidget {
                                 tripWay: TripWay.returnWay,
                               );
 
-                        return Card(
-                          color: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SizedBox(
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      //price
+                        return InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const ScreenFlight()));
+                          },
+                          child: Card(
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        //price
 
-                                      Text(
-                                        '\u20B9${oneWay.price}',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColor.customBlue,
-                                          fontSize: 20,
+                                        Text(
+                                          '\u20B9${oneWay.price}',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColor.customBlue,
+                                            fontSize: 20,
+                                          ),
                                         ),
-                                      ),
 
-                                      //logo
+                                        //logo
 
-                                      CircleAvatar(
-                                        backgroundColor: Colors.transparent,
-                                        backgroundImage: NetworkImage(
-                                          "http://pics.avs.io/250/250/${proposal.segment?.first.flight?.first.operatedBy ?? proposal.segment?.first.flight?.first.operatingCarrier}.png",
-                                          scale: 1,
+                                        CircleAvatar(
+                                          backgroundColor: Colors.transparent,
+                                          backgroundImage: NetworkImage(
+                                            "http://pics.avs.io/250/250/${proposal.segment?.first.flight?.first.operatedBy ?? proposal.segment?.first.flight?.first.operatingCarrier}.png",
+                                            scale: 1,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  TripDataWidget(
-                                    flightModel: oneWay,
-                                  ),
-                                  tripType == TripType.oneWay
-                                      ? const SizedBox(width: 0, height: 0)
-                                      : const SizedBox(height: 20),
-                                  tripType == TripType.oneWay
-                                      ? const SizedBox(width: 0, height: 0)
-                                      : TripDataWidget(
-                                          flightModel: roundWay,
-                                        ),
-                                ],
+                                      ],
+                                    ),
+                                    TripDataWidget(
+                                      flightModel: oneWay,
+                                    ),
+                                    tripType == TripType.oneWay
+                                        ? const SizedBox(width: 0, height: 0)
+                                        : const SizedBox(height: 20),
+                                    tripType == TripType.oneWay
+                                        ? const SizedBox(width: 0, height: 0)
+                                        : TripDataWidget(
+                                            flightModel: roundWay,
+                                          ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),

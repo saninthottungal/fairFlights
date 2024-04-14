@@ -110,6 +110,7 @@ class FlightDataProvider extends ChangeNotifier {
       segments.add(segment1);
       segments.add(segment2);
     }
+    setLoadingText = 'Getting Ip Address...';
     try {
       userIp = await CheckNetConnectivity().getIpAddress();
     } on Network404Exception {
@@ -193,6 +194,7 @@ class FlightDataProvider extends ChangeNotifier {
     Provider.of<DataLoadingProvider>(context, listen: false).setIsLoading =
         false;
     await Future.delayed(Durations.medium1);
+    setLoadingText = ' ';
     notifyListeners();
   }
 

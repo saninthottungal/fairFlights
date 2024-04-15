@@ -81,27 +81,6 @@ class SegmentWidget extends StatelessWidget {
           ],
         ),
       ),
-      Card(
-        elevation: 0,
-        color: Colors.black12,
-        child: ListTile(
-          leading: CircleAvatar(
-            child: Icon(Icons.assist_walker),
-          ),
-          title: Text(
-            "Layover in Dallas",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          subtitle: Text(
-            "02h 15m",
-            style: TextStyle(
-              color: Colors.black54,
-            ),
-          ),
-        ),
-      )
     ]);
   }
 }

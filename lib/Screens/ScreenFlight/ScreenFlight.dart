@@ -1,9 +1,13 @@
+import 'package:flight_booking/Models/FlightDataModel/proposals.dart';
+import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Screens/ScreenFlight/Widgets/SegmentWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ScreenFlight extends StatelessWidget {
-  const ScreenFlight({super.key});
+  final Proposals proposal;
+  const ScreenFlight({super.key, required this.proposal});
 
   @override
   Widget build(BuildContext context) {
@@ -14,32 +18,33 @@ class ScreenFlight extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const SizedBox(
+              SizedBox(
                 width: double.infinity,
                 child: Padding(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Text(
-                    "5000",
+                    '\u20B9${proposal.terms?.cost?.unifiedPrice}',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ),
-              const ListTile(
+              ListTile(
                 title: Row(
                   children: [
                     Text(
-                      "Las Vegas",
-                      style: TextStyle(
+                      '${Provider.of<FromToProvider>(context, listen: false).from.cityName}',
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text(
+                    const Text(
                       " - ",
                       style: TextStyle(
                         fontSize: 24,
@@ -47,8 +52,8 @@ class ScreenFlight extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Kochi",
-                      style: TextStyle(
+                      '${Provider.of<FromToProvider>(context, listen: false).to.cityName}',
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
@@ -56,32 +61,57 @@ class ScreenFlight extends StatelessWidget {
                   ],
                 ),
                 subtitle: Text(
-                  "Travel time : 31h 31m",
-                  style: TextStyle(fontSize: 16, color: Colors.black54),
+                  "Travel time : ${proposal.totalDuration}",
+                  style: const TextStyle(fontSize: 16, color: Colors.black54),
                 ),
               ),
-              const Card(
-                margin: EdgeInsets.symmetric(horizontal: 12),
+              Card(
+                margin: const EdgeInsets.only(left: 12, right: 12, bottom: 20),
                 color: Colors.white,
-                child: Column(
-                  children: [
-                    SegmentWidget(),
-                    SegmentWidget(),
-                  ],
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return const SegmentWidget();
+                  },
+                  separatorBuilder: (context, index) {
+                    return const Card(
+                      elevation: 0,
+                      color: Colors.black12,
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          child: Icon(Icons.assist_walker),
+                        ),
+                        title: Text(
+                          "Layover in Dallas",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        subtitle: Text(
+                          "02h 15m",
+                          style: TextStyle(
+                            color: Colors.black54,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  itemCount: 3,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: SizedBox(
-                  width: width * 0.95,
-                  child: CupertinoButton(
-                      color: Colors.green,
-                      child: const Text("Buy for 520"),
-                      onPressed: () {}),
-                ),
-              ),
+              const SizedBox(height: 60)
             ],
           ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: SizedBox(
+        width: width * 0.9,
+        child: CupertinoButton(
+          color: Colors.green,
+          child: Text("Buy for \u20B9${proposal.terms?.cost?.unifiedPrice}"),
+          onPressed: () {},
         ),
       ),
     );

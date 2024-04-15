@@ -63,8 +63,10 @@ class ScreenFlightsList extends StatelessWidget {
 
                         return InkWell(
                           onTap: () {
+                            //  final proposalAs =
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const ScreenFlight()));
+                                builder: (context) =>
+                                    ScreenFlight(proposal: proposal)));
                           },
                           child: Card(
                             color: Colors.white,

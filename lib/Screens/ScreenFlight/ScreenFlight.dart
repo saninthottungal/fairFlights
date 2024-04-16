@@ -1,6 +1,7 @@
 import 'package:flight_booking/Models/FlightDataModel/proposals.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Screens/ScreenFlight/Widgets/SegmentWidget.dart';
+import 'package:flight_booking/Screens/ScreenFlight/Widgets/SeparatorWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +24,8 @@ class ScreenFlight extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: Padding(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 20, right: 20, bottom: 10),
                   child: Text(
                     '\u20B9${proposal.terms?.cost?.unifiedPrice}',
                     textAlign: TextAlign.center,
@@ -34,11 +36,13 @@ class ScreenFlight extends StatelessWidget {
                   ),
                 ),
               ),
+              const Text("Best Price For 1 Passenger"),
+              const SizedBox(height: 20),
               ListTile(
                 title: Row(
                   children: [
                     Text(
-                      '${Provider.of<FromToProvider>(context, listen: false).from.cityName}',
+                      '${Provider.of<FromToProvider>(context, listen: false).from.cityName ?? Provider.of<FromToProvider>(context, listen: false).from.name}',
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -52,7 +56,7 @@ class ScreenFlight extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${Provider.of<FromToProvider>(context, listen: false).to.cityName}',
+                      '${Provider.of<FromToProvider>(context, listen: false).to.cityName ?? Provider.of<FromToProvider>(context, listen: false).to.cityName}',
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -72,32 +76,15 @@ class ScreenFlight extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return const SegmentWidget();
+                    final flight = proposal.segment?.first.flight![index];
+                    final transfer = proposal.segment!.first.transfers!.first;
+                    return SegmentWidget(flight: flight, transfer: transfer);
                   },
                   separatorBuilder: (context, index) {
-                    return const Card(
-                      elevation: 0,
-                      color: Colors.black12,
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          child: Icon(Icons.assist_walker),
-                        ),
-                        title: Text(
-                          "Layover in Dallas",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        subtitle: Text(
-                          "02h 15m",
-                          style: TextStyle(
-                            color: Colors.black54,
-                          ),
-                        ),
-                      ),
-                    );
+                    final flight = proposal.segment?.first.flight![index];
+                    return SeparatorWidget(flight: flight);
                   },
-                  itemCount: 3,
+                  itemCount: proposal.segment!.first.flight!.length,
                 ),
               ),
               const SizedBox(height: 60)

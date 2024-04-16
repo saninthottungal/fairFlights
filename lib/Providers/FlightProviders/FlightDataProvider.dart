@@ -1,4 +1,5 @@
 import 'package:flight_booking/Models/FlightDataModel/AirlineDetails.dart';
+import 'package:flight_booking/Models/FlightDataModel/AirportDetails.dart';
 import 'package:flight_booking/Models/FlightDataModel/flight_data_model.dart';
 import 'package:flight_booking/Models/FlightDataModel/proposals.dart';
 import 'package:flight_booking/Providers/FlightProviders/DataLoadingProvider.dart';
@@ -23,6 +24,7 @@ class FlightDataProvider extends ChangeNotifier {
   List<FlightDataModel> flightDatas = [];
   List<Proposals> proposals = [];
   Map<String, AirlineDetails> airlines = {};
+  Map<String, AirportDetails> airports = {};
 
   String loadingText = '';
   int numberOfProposals = 0;
@@ -181,6 +183,14 @@ class FlightDataProvider extends ChangeNotifier {
       if (flightData.airlines != null) {
         for (var entry in flightData.airlines!.entries) {
           airlines[entry.key] = entry.value as AirlineDetails;
+        }
+      }
+    }
+
+    for (var flightData in flightDatas) {
+      if (flightData.airports != null) {
+        for (var entry in flightData.airports!.entries) {
+          airports[entry.key] = entry.value as AirportDetails;
         }
       }
     }

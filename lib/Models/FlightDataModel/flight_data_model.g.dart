@@ -7,12 +7,14 @@ part of 'flight_data_model.dart';
 // **************************************************************************
 
 FlightDataModel _$FlightDataModelFromJson(Map<String, dynamic> json) {
+  //proposals
   final tempProposals = (json['proposals'] as List<dynamic>?);
   final proposals = tempProposals?.map((e) {
     return Proposals.fromJson(e as Map<String, dynamic>);
   }).toList();
-  final airlinesAsJson = json['airlines'] as Map<String, dynamic>;
   //airlines
+  final airlinesAsJson = json['airlines'] as Map<String, dynamic>;
+
   final Map<String, AirlineDetails> airlines = {};
   airlinesAsJson.forEach(
     (key, value) {
@@ -22,12 +24,23 @@ FlightDataModel _$FlightDataModelFromJson(Map<String, dynamic> json) {
     },
   );
 
+  //airports
+  final airportsAsJson = json['airports'] as Map<String, dynamic>;
+  final Map<String, AirportDetails> airports = {};
+  airportsAsJson.forEach(
+    (key, value) {
+      final airportDetails = AirportDetails.fromJson(value);
+      airports[key] = airportDetails;
+    },
+  );
+
   return FlightDataModel(
     airlines: json['airlines'] == null ? null : airlines,
     proposals: proposals,
     segments: (json['segments'] as List<dynamic>?)
         ?.map((e) => AirlineSegments.fromJson(e as Map<String, dynamic>))
         .toList(),
+    airports: airports,
     numberOfProposal: tempProposals?.length,
   );
 }

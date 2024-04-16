@@ -25,5 +25,6 @@ class AirlineDetails {
     this.name,
   });
 
-  static fromJson(Map<String, dynamic> json) {}
+  factory AirlineDetails.fromJson(Map<String, dynamic> json) =>
+      _$AirlineDetailsFromJson(json);
 }

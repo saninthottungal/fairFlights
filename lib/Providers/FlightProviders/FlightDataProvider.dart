@@ -21,6 +21,7 @@ import 'package:provider/provider.dart';
 class FlightDataProvider extends ChangeNotifier {
   List<FlightDataModel> flightDatas = [];
   List<Proposals> proposals = [];
+
   String loadingText = '';
   int numberOfProposals = 0;
 

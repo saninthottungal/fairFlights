@@ -11,21 +11,24 @@ FlightDataModel _$FlightDataModelFromJson(Map<String, dynamic> json) {
   final proposals = tempProposals?.map((e) {
     return Proposals.fromJson(e as Map<String, dynamic>);
   }).toList();
+  final airlinesAsJson = json['airlines'] as Map<String, dynamic>;
+  final Map<String, dynamic> airlines = {};
+  airlinesAsJson.forEach(
+    (key, value) {
+      final airlineDetails = AirlineDetails.fromJson(value);
+      final airline = {key: airlineDetails};
+      airlines.addAll(airline);
+    },
+  );
+
+  print(airlines);
 
   return FlightDataModel(
-      airlines: json['airlines'] == null
-          ? null
-          : Airline.fromJson(json['airlines'] as Map<String, dynamic>),
-      proposals: proposals,
-      segments: (json['segments'] as List<dynamic>?)
-          ?.map((e) => AirlineSegments.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      numberOfProposal: tempProposals?.length);
+    airlines: json['airlines'] == null ? null : airlines,
+    proposals: proposals,
+    segments: (json['segments'] as List<dynamic>?)
+        ?.map((e) => AirlineSegments.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    numberOfProposal: tempProposals?.length,
+  );
 }
-
-Map<String, dynamic> _$FlightDataModelToJson(FlightDataModel instance) =>
-    <String, dynamic>{
-      'proposals': instance.proposals,
-      'airlines': instance.airlines,
-      'segments': instance.segments,
-    };

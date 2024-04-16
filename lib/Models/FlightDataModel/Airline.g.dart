@@ -1,17 +1,14 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
+// // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'Airline.dart';
+// part of 'Airline.dart';
 
-// **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
+// // **************************************************************************
+// // JsonSerializableGenerator
+// // **************************************************************************
 
-Airline _$AirlineFromJson(Map<String, dynamic> json) => Airline(
-      details: json['details'] == null
-          ? null
-          : AirlineDetails.fromJson(json['details'] as Map<String, dynamic>),
-    );
+// Airline _$AirlineFromJson(Map<String, dynamic> json) {
+//   return Airline(
 
-Map<String, dynamic> _$AirlineToJson(Airline instance) => <String, dynamic>{
-      'details': instance.details,
-    };
+//     AirlineDetails.fromJson(json['details'] as Map<String, dynamic>),
+//   );
+// }

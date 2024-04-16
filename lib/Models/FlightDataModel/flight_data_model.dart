@@ -1,4 +1,4 @@
-import 'package:flight_booking/Models/FlightDataModel/Airline.dart';
+import 'package:flight_booking/Models/FlightDataModel/AirlineDetails.dart';
 import 'package:flight_booking/Models/FlightDataModel/ArilineSegments.dart';
 import 'package:flight_booking/Models/FlightDataModel/proposals.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -9,7 +9,7 @@ class FlightDataModel {
   @JsonKey(name: 'proposals')
   List<Proposals>? proposals;
   @JsonKey(name: 'airlines')
-  Airline? airlines;
+  Map<String, dynamic>? airlines;
   @JsonKey(name: 'segments')
   List<AirlineSegments>? segments;
   int? numberOfProposal = 0;

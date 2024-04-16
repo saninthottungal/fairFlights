@@ -1,12 +1,10 @@
 import 'package:flight_booking/Models/FlightDataModel/flight.dart';
-import 'package:flight_booking/Models/FlightDataModel/transfer.dart';
 import 'package:flutter/material.dart';
 
 class SegmentWidget extends StatelessWidget {
-  const SegmentWidget(
-      {super.key, required this.flight, required this.transfer});
+  const SegmentWidget({super.key, required this.flight, required this.carrier});
   final Flight? flight;
-  final Transfer transfer;
+  final String carrier;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +18,7 @@ class SegmentWidget extends StatelessWidget {
           ),
         ),
         title: Text(
-          '${transfer.airlines}',
+          carrier,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.green,
@@ -46,7 +44,7 @@ class SegmentWidget extends StatelessWidget {
             ),
             const SizedBox(width: 45),
             Text(
-              transfer.airlines!.first,
+              carrier,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),

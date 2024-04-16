@@ -3,7 +3,7 @@ import 'package:flight_booking/Models/FlightDataModel/AirportDetails.dart';
 import 'package:flight_booking/Models/FlightDataModel/ArilineSegments.dart';
 import 'package:flight_booking/Models/FlightDataModel/proposals.dart';
 import 'package:json_annotation/json_annotation.dart';
-part 'flight_data_model.g.dart';
+part 'FlightDataModel.g.dart';
 
 @JsonSerializable()
 class FlightDataModel {

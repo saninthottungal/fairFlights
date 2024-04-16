@@ -1,6 +1,6 @@
 import 'package:flight_booking/Models/FlightDataModel/AirlineDetails.dart';
 import 'package:flight_booking/Models/FlightDataModel/AirportDetails.dart';
-import 'package:flight_booking/Models/FlightDataModel/flight_data_model.dart';
+import 'package:flight_booking/Models/FlightDataModel/FlightDataModel.dart';
 import 'package:flight_booking/Models/FlightDataModel/proposals.dart';
 import 'package:flight_booking/Providers/FlightProviders/DataLoadingProvider.dart';
 import 'package:flutter/material.dart';

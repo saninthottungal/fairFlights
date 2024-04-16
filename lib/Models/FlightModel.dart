@@ -1,81 +1,100 @@
-import 'package:flight_booking/Core/Constants/enums.dart';
-import 'package:flight_booking/Models/FlightDataModel/proposals.dart';
+import 'package:flight_booking/Models/FlightDataModel/AirlineDetails.dart';
+import 'package:flight_booking/Models/FlightDataModel/AirportDetails.dart';
+import 'package:flight_booking/Models/FlightDataModel/flight.dart';
+import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
+import 'package:intl/intl.dart';
 
 class FlightModel {
-  String? departureTime;
-  String? departure;
-  String? arrivalTime;
-  String? arrival;
-  String? maxStops;
-  bool isDirect = false;
-  String? layoverTime;
+  AirlineDetails? airline;
+  AirportDetails? departure;
+  AirportDetails? arrival;
   String? duration;
-  String? price;
+  String? departureTime;
+  String? departureDate;
+  String? arrivalTime;
+  String? arrivalDate;
 
-  FlightModel(
+  FlightModel({
+    this.airline,
     this.arrival,
+    this.arrivalDate,
     this.arrivalTime,
-    this.departure,
+    this.departureDate,
     this.departureTime,
     this.duration,
-    this.isDirect,
-    this.layoverTime,
-    this.maxStops,
-    this.price,
-  );
+    this.departure,
+  });
 
-  factory FlightModel.fromFlightDataModel({
-    required Proposals proposal,
-    required TripType tripType,
-    required TripWay tripWay,
+  factory FlightModel.fromFlight({
+    required Flight? flight,
+    required FlightDataProvider flightDataProvider,
   }) {
-    final segment =
-        tripType == TripType.oneWay || tripWay == TripWay.departureWay
-            ? proposal.segment?.first
-            : proposal.segment?.last;
-    final departureTime = segment?.flight?.first.departureTime;
+    AirlineDetails? airline;
+    AirportDetails? departure;
+    AirportDetails? arrival;
+    String? duration;
+    String? departureTime;
+    String? departureDate;
+    String? arrivalTime;
+    String? arrivalDate;
 
-    final departure = segment?.flight?.first.departure;
+    String formatDate(String date) {
+      DateTime dateTime = DateTime.parse(date);
+      String formattedDate = DateFormat('dd MMM, EEE').format(dateTime);
+      return formattedDate;
+    }
 
-    final arrivalTime = segment?.flight?.last.arrivalTime;
-    final arrival = segment?.flight?.last.arrival;
-    bool isDirect = false;
-    String? maxStops;
-    String? layoverTime;
-    String? duration = '';
-    String? price = proposal.terms?.cost?.unifiedPrice.toString();
-
-    if (segment != null) {
-      var durationInMinutes =
-          tripType == TripType.oneWay || tripWay == TripWay.departureWay
-              ? proposal.segmentDurations!.first
-              : proposal.segmentDurations!.last;
+    if (flight != null) {
+      //airline
+      airline = flightDataProvider.airlines.entries
+          .firstWhere((mapEntry) =>
+              mapEntry.key ==
+              (flight.operatingCarrier ?? flight.marketingCarrier))
+          .value;
+      //departure
+      String? iata = flight.departure;
+      if (iata != null) {
+        departure = flightDataProvider.airports.entries
+            .firstWhere((mapEntry) => mapEntry.key == iata)
+            .value;
+      }
+      //arrival
+      iata = flight.arrival;
+      if (iata != null) {
+        arrival = flightDataProvider.airports.entries
+            .firstWhere((mapEntry) => mapEntry.key == iata)
+            .value;
+      }
+      //arrivalTime
+      arrivalTime = flight.arrivalTime;
+      //arrivalDate
+      String? date = flight.departureDate;
+      if (date != null) {
+        final formattedDate = formatDate(date);
+        arrivalDate = formattedDate;
+      }
+      //duration
+      var durationInMinutes = flight.duration!;
       duration = (durationInMinutes / 60).toStringAsFixed(1);
-    }
-
-    if (segment?.transfers?.first.durationSeconds != null) {
-      var layoverTimeInMinutes = segment!.flight!.last.delay!;
-      layoverTime = (layoverTimeInMinutes / 60).toStringAsFixed(1);
-    }
-    if (proposal.isDirect != null) {
-      isDirect = proposal.isDirect!;
-      if (isDirect || layoverTime == null) {
-        maxStops = 'Direct';
-      } else {
-        maxStops = '${proposal.maxStops} layovers';
+      //departureTime
+      departureTime = flight.departureTime;
+      //departureDate
+      date = flight.departureDate;
+      if (date != null) {
+        final formattedDate = formatDate(date);
+        departureDate = formattedDate;
       }
     }
 
     return FlightModel(
-      arrival,
-      arrivalTime,
-      departure,
-      departureTime,
-      duration,
-      isDirect,
-      layoverTime,
-      maxStops,
-      price,
+      airline: airline,
+      arrival: arrival,
+      arrivalDate: arrivalDate,
+      arrivalTime: arrivalTime,
+      departure: departure,
+      departureDate: departureDate,
+      departureTime: departureTime,
+      duration: duration,
     );
   }
 }

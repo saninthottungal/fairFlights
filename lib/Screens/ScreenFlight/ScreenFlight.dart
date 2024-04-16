@@ -75,12 +75,13 @@ class ScreenFlight extends StatelessWidget {
                 child: ListView.separated(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
+                  itemBuilder: (ctx, index) {
                     final flight = proposal.segment?.first.flight![index];
                     final carriers = proposal.carriers!.first;
+
                     return SegmentWidget(flight: flight, carrier: carriers);
                   },
-                  separatorBuilder: (context, index) {
+                  separatorBuilder: (ctx, index) {
                     final flight = proposal.segment?.first.flight![index];
                     return SeparatorWidget(flight: flight);
                   },

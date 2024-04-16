@@ -1,10 +1,10 @@
-import 'package:flight_booking/Models/FlightModel.dart';
+import 'package:flight_booking/Models/FlightListModel.dart';
 import 'package:flutter/material.dart';
 
 class TripDataWidget extends StatelessWidget {
   const TripDataWidget({super.key, required this.flightModel});
 
-  final FlightModel? flightModel;
+  final FlightListModel? flightModel;
 
   @override
   Widget build(BuildContext context) {

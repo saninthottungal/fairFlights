@@ -1,5 +1,5 @@
 import 'package:flight_booking/Core/Constants/enums.dart';
-import 'package:flight_booking/Models/FlightModel.dart';
+import 'package:flight_booking/Models/FlightListModel.dart';
 import 'package:flight_booking/Providers/FlightProviders/DataLoadingProvider.dart';
 import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
@@ -47,15 +47,16 @@ class ScreenFlightsList extends StatelessWidget {
                                 listen: false)
                             .value;
 
-                        FlightModel oneWay = FlightModel.fromFlightDataModel(
+                        FlightListModel oneWay =
+                            FlightListModel.fromFlightDataModel(
                           proposal: proposal,
                           tripType: tripType,
                           tripWay: TripWay.departureWay,
                         );
 
-                        FlightModel? roundWay = tripType == TripType.oneWay
+                        FlightListModel? roundWay = tripType == TripType.oneWay
                             ? null
-                            : FlightModel.fromFlightDataModel(
+                            : FlightListModel.fromFlightDataModel(
                                 proposal: proposal,
                                 tripType: tripType,
                                 tripWay: TripWay.returnWay,
@@ -63,7 +64,6 @@ class ScreenFlightsList extends StatelessWidget {
 
                         return InkWell(
                           onTap: () {
-                            //  final proposalAs =
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) =>
                                     ScreenFlight(proposal: proposal)));

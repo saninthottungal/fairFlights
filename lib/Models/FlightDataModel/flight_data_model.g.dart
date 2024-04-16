@@ -12,7 +12,8 @@ FlightDataModel _$FlightDataModelFromJson(Map<String, dynamic> json) {
     return Proposals.fromJson(e as Map<String, dynamic>);
   }).toList();
   final airlinesAsJson = json['airlines'] as Map<String, dynamic>;
-  final Map<String, dynamic> airlines = {};
+  //airlines
+  final Map<String, AirlineDetails> airlines = {};
   airlinesAsJson.forEach(
     (key, value) {
       final airlineDetails = AirlineDetails.fromJson(value);
@@ -20,8 +21,6 @@ FlightDataModel _$FlightDataModelFromJson(Map<String, dynamic> json) {
       airlines.addAll(airline);
     },
   );
-
-  print(airlines);
 
   return FlightDataModel(
     airlines: json['airlines'] == null ? null : airlines,

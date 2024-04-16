@@ -1,5 +1,4 @@
 import 'package:flight_booking/Models/FlightDataModel/proposals.dart';
-import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Screens/ScreenFlight/Widgets/SegmentWidget.dart';
 import 'package:flight_booking/Screens/ScreenFlight/Widgets/SeparatorWidget.dart';
@@ -79,17 +78,6 @@ class ScreenFlight extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final flight = proposal.segment?.first.flight![index];
                     final carriers = proposal.carriers!.first;
-                    // final airlines =
-                    //     Provider.of<FlightDataProvider>(context, listen: false)
-                    //         .airlines;
-
-                    // final carrier = airlines
-                    //     .firstWhere((airline) {
-                    //       return airline.details!.iata == carriers;
-                    //     })
-                    //     .details!
-                    //     .name!;
-
                     return SegmentWidget(flight: flight, carrier: carriers);
                   },
                   separatorBuilder: (context, index) {

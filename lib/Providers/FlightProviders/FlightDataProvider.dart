@@ -1,3 +1,4 @@
+import 'package:flight_booking/Models/FlightDataModel/AirlineDetails.dart';
 import 'package:flight_booking/Models/FlightDataModel/flight_data_model.dart';
 import 'package:flight_booking/Models/FlightDataModel/proposals.dart';
 import 'package:flight_booking/Providers/FlightProviders/DataLoadingProvider.dart';
@@ -21,6 +22,7 @@ import 'package:provider/provider.dart';
 class FlightDataProvider extends ChangeNotifier {
   List<FlightDataModel> flightDatas = [];
   List<Proposals> proposals = [];
+  Map<String, AirlineDetails> airlines = {};
 
   String loadingText = '';
   int numberOfProposals = 0;
@@ -80,6 +82,8 @@ class FlightDataProvider extends ChangeNotifier {
     final fromToProvider = Provider.of<FromToProvider>(context, listen: false);
     final calendarProvider =
         Provider.of<CalendarProvider>(context, listen: false);
+    final dataLoadingProvider =
+        Provider.of<DataLoadingProvider>(context, listen: false);
 
     final marker = dotenv.env['API_MARKER'];
     String? searchId;
@@ -169,18 +173,17 @@ class FlightDataProvider extends ChangeNotifier {
       throw GenericException();
     }
 
-    // List<dynamic> proposals = [];
-    // for (Map<String, dynamic> flightdata in flightList) {
-    //   if (flightdata.containsKey('proposals')) {
-    //     List<dynamic> proposalsFromData =
-    //         flightdata['proposals'] as List<dynamic>;
-    //     proposals.addAll(proposalsFromData);
-    //   }
-    // }
-
     flightDatas = flightList.map((element) {
       return FlightDataModel.fromJson(element);
     }).toList();
+
+    for (var flightData in flightDatas) {
+      if (flightData.airlines != null) {
+        for (var entry in flightData.airlines!.entries) {
+          airlines[entry.key] = entry.value as AirlineDetails;
+        }
+      }
+    }
 
     for (final data in flightDatas) {
       if (data.numberOfProposal != null) {
@@ -192,8 +195,7 @@ class FlightDataProvider extends ChangeNotifier {
       return previousValue;
     });
 
-    Provider.of<DataLoadingProvider>(context, listen: false).setIsLoading =
-        false;
+    dataLoadingProvider.setIsLoading = false;
     await Future.delayed(Durations.medium1);
     setLoadingText = ' ';
     notifyListeners();

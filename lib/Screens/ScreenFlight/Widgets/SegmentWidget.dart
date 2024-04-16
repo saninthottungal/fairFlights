@@ -1,5 +1,7 @@
 import 'package:flight_booking/Models/FlightDataModel/flight.dart';
+import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SegmentWidget extends StatelessWidget {
   const SegmentWidget({super.key, required this.flight, required this.carrier});
@@ -8,6 +10,11 @@ class SegmentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final airlineProvider =
+        Provider.of<FlightDataProvider>(context, listen: false).airlines;
+    final airline = airlineProvider.entries.firstWhere(
+      (element) => element.key == carrier,
+    );
     return Column(children: [
       ListTile(
         leading: CircleAvatar(
@@ -18,7 +25,7 @@ class SegmentWidget extends StatelessWidget {
           ),
         ),
         title: Text(
-          carrier,
+          airline.value.name ?? '',
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.green,

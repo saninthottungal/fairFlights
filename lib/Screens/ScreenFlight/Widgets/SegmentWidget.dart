@@ -1,38 +1,31 @@
-import 'package:flight_booking/Models/FlightDataModel/flight.dart';
-import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
+import 'package:flight_booking/Models/FlightModel.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SegmentWidget extends StatelessWidget {
-  const SegmentWidget({super.key, required this.flight, required this.carrier});
-  final Flight? flight;
-  final String carrier;
+  const SegmentWidget({super.key, required this.flightData});
+  final FlightModel flightData;
 
   @override
   Widget build(BuildContext context) {
-    final airlineProvider =
-        Provider.of<FlightDataProvider>(context, listen: false).airlines;
-    final airline = airlineProvider.entries.firstWhere(
-      (element) => element.key == carrier,
-    );
     return Column(children: [
       ListTile(
         leading: CircleAvatar(
           backgroundColor: Colors.transparent,
           backgroundImage: NetworkImage(
-            "http://pics.avs.io/250/250/${flight?.operatedBy ?? flight?.operatingCarrier}.png",
+            "http://pics.avs.io/250/250/${flightData.airline?.iata}.png",
             scale: 1,
           ),
         ),
         title: Text(
-          airline.value.name ?? '',
-          style: const TextStyle(
+          flightData.airline?.name ?? flightData.airline?.allianceName ?? '',
+          style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.green,
+            color: Color(
+                int.parse(flightData.airline?.brandColor ?? '', radix: 16)),
           ),
         ),
         subtitle: Text(
-          '${(flight!.duration! / 60).toStringAsFixed(1)} hours',
+          '${flightData.duration} hours',
           style: const TextStyle(
             color: Colors.black54,
           ),
@@ -43,7 +36,7 @@ class SegmentWidget extends StatelessWidget {
         title: Row(
           children: [
             Text(
-              '${flight!.departureTime}',
+              '${flightData.departureTime}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 17,
@@ -51,7 +44,7 @@ class SegmentWidget extends StatelessWidget {
             ),
             const SizedBox(width: 45),
             Text(
-              carrier,
+              flightData.departure?.city ?? flightData.departure?.name ?? '',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
@@ -60,9 +53,9 @@ class SegmentWidget extends StatelessWidget {
         ),
         subtitle: Row(
           children: [
-            Text(flight!.departureDate!),
+            Text(flightData.departureDate!),
             const SizedBox(width: 21),
-            Text(flight!.departure!)
+            Text(flightData.departure?.cityCode ?? '')
           ],
         ),
       ),
@@ -71,7 +64,7 @@ class SegmentWidget extends StatelessWidget {
         title: Row(
           children: [
             Text(
-              '${flight!.arrivalTime}',
+              '${flightData.arrivalTime}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 17,
@@ -79,7 +72,7 @@ class SegmentWidget extends StatelessWidget {
             ),
             const SizedBox(width: 45),
             Text(
-              flight!.arrival!,
+              flightData.arrival?.city ?? '',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
@@ -88,9 +81,9 @@ class SegmentWidget extends StatelessWidget {
         ),
         subtitle: Row(
           children: [
-            Text(flight!.departureDate!),
+            Text(flightData.departureDate!),
             const SizedBox(width: 21),
-            Text(flight!.arrival!)
+            Text(flightData.arrival?.cityCode ?? '')
           ],
         ),
       ),

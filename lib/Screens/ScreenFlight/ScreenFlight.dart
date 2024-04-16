@@ -1,4 +1,6 @@
 import 'package:flight_booking/Models/FlightDataModel/proposals.dart';
+import 'package:flight_booking/Models/FlightModel.dart';
+import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Screens/ScreenFlight/Widgets/SegmentWidget.dart';
 import 'package:flight_booking/Screens/ScreenFlight/Widgets/SeparatorWidget.dart';
@@ -56,7 +58,7 @@ class ScreenFlight extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${Provider.of<FromToProvider>(context, listen: false).to.cityName ?? Provider.of<FromToProvider>(context, listen: false).to.cityName}',
+                      '${Provider.of<FromToProvider>(context, listen: false).to.cityName ?? Provider.of<FromToProvider>(context, listen: false).to.name}',
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -76,10 +78,13 @@ class ScreenFlight extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (ctx, index) {
+                    final flightDataProvider =
+                        Provider.of<FlightDataProvider>(context, listen: false);
                     final flight = proposal.segment?.first.flight![index];
-                    final carriers = proposal.carriers!.first;
+                    final flightData = FlightModel.fromFlight(
+                        flight: flight, flightDataProvider: flightDataProvider);
 
-                    return SegmentWidget(flight: flight, carrier: carriers);
+                    return SegmentWidget(flightData: flightData);
                   },
                   separatorBuilder: (ctx, index) {
                     final flight = proposal.segment?.first.flight![index];

@@ -44,9 +44,9 @@ class ContainerWidget extends StatelessWidget {
                     Text(
                       time ?? '',
                       style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 17,
-                      ),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 17,
+                          color: Color.fromARGB(200, 0, 0, 0)),
                     ),
                     Text(
                       date ?? '',
@@ -63,6 +63,7 @@ class ContainerWidget extends StatelessWidget {
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 17,
+                        color: Color.fromARGB(200, 0, 0, 0),
                       ),
                     ),
                     Text(

@@ -13,6 +13,7 @@ class FlightModel {
   String? departureDate;
   String? arrivalTime;
   String? arrivalDate;
+  DateTime? arrivalTimeAsDateTime;
 
   FlightModel({
     this.airline,
@@ -23,6 +24,7 @@ class FlightModel {
     this.departureTime,
     this.duration,
     this.departure,
+    this.arrivalTimeAsDateTime,
   });
 
   factory FlightModel.fromFlight({
@@ -37,11 +39,33 @@ class FlightModel {
     String? departureDate;
     String? arrivalTime;
     String? arrivalDate;
-
+    DateTime? arrivalTimeAsDateTime;
+    DateTime? arrivalDateAsDateTime;
     String formatDate(String date) {
       DateTime dateTime = DateTime.parse(date);
+      arrivalDateAsDateTime = dateTime;
       String formattedDate = DateFormat('dd MMM, EEE').format(dateTime);
       return formattedDate;
+    }
+
+    String? formatTime(String? timeFromFlight) {
+      if (timeFromFlight != null) {
+        List<String> parts = timeFromFlight.split(':');
+        int year = arrivalDateAsDateTime!.year;
+        int month = arrivalDateAsDateTime!.month;
+        int day = arrivalDateAsDateTime!.day;
+
+        int hour = int.parse(parts[0]);
+        int minute = int.parse(parts[1]);
+
+        DateTime time = DateTime(year, month, day, hour, minute);
+        //arrivaltimeasdatetime
+        arrivalTimeAsDateTime = time;
+        String formattedTime = DateFormat('hh:mm a').format(time);
+        return formattedTime;
+      } else {
+        return null;
+      }
     }
 
     if (flight != null) {
@@ -65,25 +89,29 @@ class FlightModel {
             .firstWhere((mapEntry) => mapEntry.key == iata)
             .value;
       }
-      //arrivalTime
-      arrivalTime = flight.arrivalTime;
+
       //arrivalDate
       String? date = flight.departureDate;
       if (date != null) {
         final formattedDate = formatDate(date);
         arrivalDate = formattedDate;
       }
+      //arrivalTime
+      arrivalTime = formatTime(
+        flight.arrivalTime,
+      );
       //duration
       var durationInMinutes = flight.duration!;
       duration = (durationInMinutes / 60).toStringAsFixed(1);
-      //departureTime
-      departureTime = flight.departureTime;
       //departureDate
       date = flight.departureDate;
       if (date != null) {
         final formattedDate = formatDate(date);
         departureDate = formattedDate;
       }
+      //departureTime
+      departureTime = formatTime(flight.departureTime);
+
       //airportNameArrival
       if (arrival!.name != null) {
         if (arrival.name!.length > 15) {
@@ -107,6 +135,7 @@ class FlightModel {
       departureDate: departureDate,
       departureTime: departureTime,
       duration: duration,
+      arrivalTimeAsDateTime: arrivalTimeAsDateTime,
     );
   }
 }

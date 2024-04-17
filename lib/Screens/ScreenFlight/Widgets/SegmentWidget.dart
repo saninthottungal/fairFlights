@@ -21,7 +21,7 @@ class SegmentWidget extends StatelessWidget {
           flightData.airline?.name ?? flightData.airline?.allianceName ?? '',
           style: const TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Colors.lightGreen,
           ),
         ),
         subtitle: Text(

@@ -1,28 +1,30 @@
-import 'package:flight_booking/Models/FlightDataModel/flight.dart';
+import 'package:flight_booking/Models/FlightModel.dart';
 import 'package:flutter/material.dart';
 
 class SeparatorWidget extends StatelessWidget {
-  const SeparatorWidget({super.key, required this.flight});
+  const SeparatorWidget(
+      {super.key, required this.flightData, required this.duration});
 
-  final Flight? flight;
+  final FlightModel flightData;
+  final String duration;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
-      color: Colors.black12,
+      color: const Color.fromARGB(255, 221, 222, 223),
       child: ListTile(
         leading: const CircleAvatar(
-          child: Icon(Icons.assist_walker),
+          child: Icon(Icons.directions_walk),
         ),
         title: Text(
-          "Layover in ${flight!.arrival!}",
+          "Layover in ${flightData.arrival?.city ?? ''}",
           style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
         subtitle: Text(
-          '${flight!.number}',
+          '$duration hours',
           style: const TextStyle(
             color: Colors.black54,
           ),

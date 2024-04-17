@@ -14,6 +14,8 @@ class ScreenFlight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final flightDataProvider =
+        Provider.of<FlightDataProvider>(context, listen: false);
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 238, 240, 242),
@@ -32,7 +34,7 @@ class ScreenFlight extends StatelessWidget {
                     '\u20B9${proposal.terms?.cost?.unifiedPrice}',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      fontSize: 40,
+                      fontSize: 35,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -46,21 +48,21 @@ class ScreenFlight extends StatelessWidget {
                     Text(
                       '${Provider.of<FromToProvider>(context, listen: false).from.cityName ?? Provider.of<FromToProvider>(context, listen: false).from.name}',
                       style: const TextStyle(
-                        fontSize: 24,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const Text(
                       " - ",
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       '${Provider.of<FromToProvider>(context, listen: false).to.cityName ?? Provider.of<FromToProvider>(context, listen: false).to.name}',
                       style: const TextStyle(
-                        fontSize: 24,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -72,14 +74,13 @@ class ScreenFlight extends StatelessWidget {
                 ),
               ),
               Card(
+                elevation: 0,
                 margin: const EdgeInsets.only(left: 12, right: 12, bottom: 20),
                 color: Colors.white,
                 child: ListView.separated(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (ctx, index) {
-                    final flightDataProvider =
-                        Provider.of<FlightDataProvider>(context, listen: false);
                     final flight = proposal.segment?.first.flight![index];
                     final flightData = FlightModel.fromFlight(
                         flight: flight, flightDataProvider: flightDataProvider);
@@ -87,8 +88,28 @@ class ScreenFlight extends StatelessWidget {
                     return SegmentWidget(flightData: flightData);
                   },
                   separatorBuilder: (ctx, index) {
-                    final flight = proposal.segment?.first.flight![index];
-                    return SeparatorWidget(flight: flight);
+                    final flight1 = proposal.segment?.first.flight![index];
+                    final flightData1 = FlightModel.fromFlight(
+                        flight: flight1,
+                        flightDataProvider: flightDataProvider);
+                    final flight2 = proposal.segment?.first.flight![index + 1];
+                    final flightData2 = FlightModel.fromFlight(
+                        flight: flight2,
+                        flightDataProvider: flightDataProvider);
+                    int? durationInMinutes;
+                    String duration = '';
+                    if (flightData2.arrivalTimeAsDateTime != null &&
+                        flightData1.arrivalTimeAsDateTime != null) {
+                      durationInMinutes = flightData2.arrivalTimeAsDateTime!
+                          .difference(flightData1.arrivalTimeAsDateTime!)
+                          .inMinutes;
+                    }
+                    if (durationInMinutes != null) {
+                      duration = (durationInMinutes / 60).toStringAsFixed(1);
+                    }
+
+                    return SeparatorWidget(
+                        flightData: flightData1, duration: duration);
                   },
                   itemCount: proposal.segment!.first.flight!.length,
                 ),

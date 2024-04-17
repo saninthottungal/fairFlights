@@ -17,6 +17,9 @@ class ScreenFlight extends StatelessWidget {
     final flightDataProvider =
         Provider.of<FlightDataProvider>(context, listen: false);
     final width = MediaQuery.of(context).size.width;
+    final fromToProvider = Provider.of<FromToProvider>(context, listen: false);
+    final firstSegmentDuration =
+        (proposal.segmentDurations!.first / 60).toStringAsFixed(1);
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 238, 240, 242),
       appBar: AppBar(),
@@ -29,9 +32,9 @@ class ScreenFlight extends StatelessWidget {
                 width: double.infinity,
                 child: Padding(
                   padding: const EdgeInsets.only(
-                      top: 20, left: 20, right: 20, bottom: 10),
+                      top: 20, left: 20, right: 20, bottom: 5),
                   child: Text(
-                    '\u20B9${proposal.terms?.cost?.unifiedPrice}',
+                    '\u20B9${proposal.terms?.cost?.unifiedPrice ?? '00'}',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 35,
@@ -46,7 +49,7 @@ class ScreenFlight extends StatelessWidget {
                 title: Row(
                   children: [
                     Text(
-                      '${Provider.of<FromToProvider>(context, listen: false).from.cityName ?? Provider.of<FromToProvider>(context, listen: false).from.name}',
+                      '${fromToProvider.from.cityName ?? fromToProvider.from.name}',
                       style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -60,7 +63,7 @@ class ScreenFlight extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${Provider.of<FromToProvider>(context, listen: false).to.cityName ?? Provider.of<FromToProvider>(context, listen: false).to.name}',
+                      '${fromToProvider.to.cityName ?? fromToProvider.to.name}',
                       style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -69,7 +72,7 @@ class ScreenFlight extends StatelessWidget {
                   ],
                 ),
                 subtitle: Text(
-                  "Travel time : ${proposal.totalDuration}",
+                  "Travel time : $firstSegmentDuration hours",
                   style: const TextStyle(fontSize: 16, color: Colors.black54),
                 ),
               ),

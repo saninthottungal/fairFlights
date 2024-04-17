@@ -43,6 +43,4 @@ class Proposals {
   factory Proposals.fromJson(Map<String, dynamic> json) {
     return _$FlightDataModelFromJson(json);
   }
-
-  Proposals.fromFlight(Proposals proposal) {}
 }

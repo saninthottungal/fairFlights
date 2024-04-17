@@ -195,15 +195,17 @@ class FlightDataProvider extends ChangeNotifier {
       }
     }
 
-    for (final data in flightDatas) {
-      if (data.numberOfProposal != null) {
-        numberOfProposals = numberOfProposals + data.numberOfProposal!;
-      }
-    }
+    // for (final data in flightDatas) {
+    //   if (data.numberOfProposal != null) {
+    //     numberOfProposals = numberOfProposals + data.numberOfProposal!;
+    //   }
+    // }
     proposals = flightDatas.fold<List<Proposals>>([], (previousValue, element) {
       previousValue.addAll(element.proposals as Iterable<Proposals>);
       return previousValue;
     });
+
+    numberOfProposals = proposals.length;
 
     dataLoadingProvider.setIsLoading = false;
     await Future.delayed(Durations.medium1);

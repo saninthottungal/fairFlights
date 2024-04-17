@@ -1,4 +1,5 @@
 import 'package:flight_booking/Models/FlightModel.dart';
+import 'package:flight_booking/Screens/ScreenFlight/Widgets/ContainerWidget.dart';
 import 'package:flutter/material.dart';
 
 class SegmentWidget extends StatelessWidget {
@@ -30,64 +31,24 @@ class SegmentWidget extends StatelessWidget {
           ),
         ),
       ),
-      ListTile(
-        leading: const CircleAvatar(child: Icon(Icons.face)),
-        title: Row(
-          children: [
-            Text(
-              '${flightData.departureTime}',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 17,
-              ),
-            ),
-            const SizedBox(width: 45),
-            Text(
-              flightData.departure?.city ?? flightData.departure?.name ?? '',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        subtitle: Row(
-          children: [
-            Text(flightData.departureDate!),
-            const SizedBox(width: 21),
-            Text(
-                '${flightData.departure?.name}...,${flightData.departure?.cityCode}')
-          ],
-        ),
+      ContainerWidget(
+        time: flightData.departureTime,
+        date: flightData.departureDate,
+        city: flightData.departure?.city,
+        cityCode: flightData.departure?.cityCode,
+        airportName: flightData.departure?.name,
+        isFirst: true,
+        isLast: false,
       ),
-      ListTile(
-        leading: const CircleAvatar(child: Icon(Icons.face)),
-        title: Row(
-          children: [
-            Text(
-              '${flightData.arrivalTime}',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 17,
-              ),
-            ),
-            const SizedBox(width: 45),
-            Text(
-              flightData.arrival?.city ?? '',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        subtitle: Row(
-          children: [
-            Text(flightData.departureDate!),
-            const SizedBox(width: 21),
-            Text(
-                '${flightData.arrival?.name}...,${flightData.arrival?.cityCode}')
-          ],
-        ),
-      ),
+      ContainerWidget(
+        time: flightData.arrivalTime,
+        date: flightData.arrivalDate,
+        city: flightData.arrival?.city,
+        cityCode: flightData.arrival?.cityCode,
+        airportName: flightData.arrival?.name,
+        isFirst: false,
+        isLast: true,
+      )
     ]);
   }
 }

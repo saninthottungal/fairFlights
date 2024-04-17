@@ -18,10 +18,9 @@ class SegmentWidget extends StatelessWidget {
         ),
         title: Text(
           flightData.airline?.name ?? flightData.airline?.allianceName ?? '',
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
-            color: Color(
-                int.parse(flightData.airline?.brandColor ?? '', radix: 16)),
+            color: Colors.black,
           ),
         ),
         subtitle: Text(
@@ -55,7 +54,8 @@ class SegmentWidget extends StatelessWidget {
           children: [
             Text(flightData.departureDate!),
             const SizedBox(width: 21),
-            Text(flightData.departure?.cityCode ?? '')
+            Text(
+                '${flightData.departure?.name}...,${flightData.departure?.cityCode}')
           ],
         ),
       ),
@@ -83,7 +83,8 @@ class SegmentWidget extends StatelessWidget {
           children: [
             Text(flightData.departureDate!),
             const SizedBox(width: 21),
-            Text(flightData.arrival?.cityCode ?? '')
+            Text(
+                '${flightData.arrival?.name}...,${flightData.arrival?.cityCode}')
           ],
         ),
       ),

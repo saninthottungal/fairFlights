@@ -84,6 +84,18 @@ class FlightModel {
         final formattedDate = formatDate(date);
         departureDate = formattedDate;
       }
+      //airportNameArrival
+      if (arrival!.name != null) {
+        if (arrival.name!.length > 15) {
+          arrival.name = arrival.name!.substring(0, 15);
+        }
+      }
+      //airportNamedeparture
+      if (departure!.name != null) {
+        if (departure.name!.length > 15) {
+          departure.name = departure.name!.substring(0, 15);
+        }
+      }
     }
 
     return FlightModel(

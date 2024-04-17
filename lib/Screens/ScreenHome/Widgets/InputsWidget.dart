@@ -303,8 +303,8 @@ class InputsWidget extends StatelessWidget {
               sortProvider.selectedGroupValue = SortValues.none;
 
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ScreenFlightsList()));
-              dataProvider.getFlightData(context);
+                builder: (context) => const ScreenFlightsList(),
+              ));
             },
             color: const Color.fromARGB(255, 26, 52, 192),
             pressedOpacity: 0.9,

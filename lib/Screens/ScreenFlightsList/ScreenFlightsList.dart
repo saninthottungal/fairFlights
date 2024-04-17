@@ -19,7 +19,7 @@ class ScreenFlightsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<DataLoadingProvider>(builder: (context, flightProvider, _) {
       return flightProvider.isLoading
-          ? const IsLoadingWidget()
+          ? IsLoadingWidget()
           : Scaffold(
               backgroundColor: const Color.fromARGB(255, 238, 240, 242),
               appBar: CustomAppBar(

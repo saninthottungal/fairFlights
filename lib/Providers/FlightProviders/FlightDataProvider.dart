@@ -155,7 +155,7 @@ class FlightDataProvider extends ChangeNotifier {
       throw UserIpNotFoundException();
     }
     if (apiKey == null) {
-      ApiKeyNotFoundException();
+      throw ApiKeyNotFoundException();
     }
 
     try {

@@ -2,6 +2,7 @@ import 'package:flight_booking/Core/Constants/enums.dart';
 import 'package:flight_booking/Models/FlightDataModel/proposals.dart';
 import 'package:flight_booking/Models/FlightModel.dart';
 import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
+import 'package:flight_booking/Providers/HomeProviders/CounterProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
 import 'package:flight_booking/Screens/ScreenFlight/Widgets/SegmentWidget.dart';
@@ -25,6 +26,8 @@ class ScreenFlight extends StatelessWidget {
     final secondSegmentDuration =
         (proposal.segmentDurations!.last / 60).toStringAsFixed(1);
     final tripProvider = Provider.of<TripChipProvider>(context, listen: false);
+    final countprovider =
+        Provider.of<CounterProvider>(context, listen: false).total;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 238, 240, 242),
       appBar: AppBar(),
@@ -48,7 +51,7 @@ class ScreenFlight extends StatelessWidget {
                   ),
                 ),
               ),
-              const Text("Best Price For 1 Passenger"),
+              Text("Best Price For $countprovider Passenger"),
               const SizedBox(height: 20),
               ListTile(
                 title: Row(

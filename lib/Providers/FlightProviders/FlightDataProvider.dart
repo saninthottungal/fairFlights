@@ -25,6 +25,7 @@ class FlightDataProvider extends ChangeNotifier {
   List<Proposals> proposals = [];
   Map<String, AirlineDetails> airlines = {};
   Map<String, AirportDetails> airports = {};
+  String? searchId;
 
   String loadingText = '';
   int numberOfProposals = 0;
@@ -88,7 +89,6 @@ class FlightDataProvider extends ChangeNotifier {
         Provider.of<DataLoadingProvider>(context, listen: false);
 
     final marker = dotenv.env['API_MARKER'];
-    String? searchId;
     List<Map<String, dynamic>> flightList;
     String? userIp;
 

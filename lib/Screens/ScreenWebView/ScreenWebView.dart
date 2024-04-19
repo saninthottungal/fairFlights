@@ -1,8 +1,11 @@
+import 'package:flight_booking/Screens/ScreenWebView/Widgets/WebViewWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ScreenWebView extends StatefulWidget {
-  const ScreenWebView({super.key});
+  const ScreenWebView({super.key, required this.agencyLink});
+
+  final String agencyLink;
 
   @override
   State<ScreenWebView> createState() => _ScreenWebViewState();
@@ -13,16 +16,48 @@ class _ScreenWebViewState extends State<ScreenWebView> {
   @override
   void initState() {
     controller.setJavaScriptMode(JavaScriptMode.unrestricted);
-    controller.loadRequest(Uri.parse("https://www.google.com"));
+    controller.loadRequest(Uri.parse(widget.agencyLink));
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final messenger = ScaffoldMessenger.of(context);
     return Scaffold(
-      appBar: AppBar(),
-      body: WebViewWidget(controller: controller),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () async {
+                await controller.reload();
+              },
+              icon: const Icon(Icons.replay_outlined)),
+          IconButton(
+              onPressed: () async {
+                if (await controller.canGoBack()) {
+                  await controller.goBack();
+                } else {
+                  messenger.showSnackBar(
+                      const SnackBar(content: Text("no previous pages found")));
+                }
+              },
+              icon: const Icon(Icons.arrow_back_ios)),
+          IconButton(
+              onPressed: () async {
+                if (await controller.canGoForward()) {
+                  await controller.goForward();
+                } else {
+                  messenger.showSnackBar(
+                      const SnackBar(content: Text("no forward pages found")));
+                }
+              },
+              icon: const Icon(Icons.arrow_forward_ios)),
+          const SizedBox(width: 10)
+        ],
+      ),
+      body: SafeArea(
+        child: CustomWebViewWidget(controller: controller),
+      ),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart
 import 'package:flight_booking/Providers/HomeProviders/CounterProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
+import 'package:flight_booking/Providers/WebViewProvider/WebViewProvider.dart';
 import 'package:flight_booking/Screens/ScreenFlight/Widgets/SegmentWidget.dart';
 import 'package:flight_booking/Screens/ScreenFlight/Widgets/SeparatorWidget.dart';
 import 'package:flight_booking/Screens/ScreenWebView/ScreenWebView.dart';
@@ -18,6 +19,7 @@ class ScreenFlight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final messenger = ScaffoldMessenger.of(context);
     final flightDataProvider =
         Provider.of<FlightDataProvider>(context, listen: false);
     final width = MediaQuery.of(context).size.width;
@@ -224,10 +226,24 @@ class ScreenFlight extends StatelessWidget {
         width: width * 0.9,
         child: CupertinoButton(
           color: Colors.green,
+          pressedOpacity: 0.9,
           child: Text("Buy for \u20B9${proposal.terms?.cost?.unifiedPrice}"),
-          onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const ScreenWebView()));
+          onPressed: () async {
+            final webViewProvider =
+                Provider.of<WebViewProvider>(context, listen: false);
+            final agencyLink = await webViewProvider.agencyLinkRequest(
+              urlCode: proposal.terms?.cost?.url,
+              sId: flightDataProvider.searchId,
+            );
+
+            if (agencyLink != null) {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ScreenWebView(agencyLink: agencyLink),
+              ));
+            } else {
+              messenger.showSnackBar(const SnackBar(
+                  content: Text("Could't load Agency Website. try later")));
+            }
           },
         ),
       ),

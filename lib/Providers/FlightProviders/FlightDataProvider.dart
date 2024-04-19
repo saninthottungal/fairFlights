@@ -73,7 +73,7 @@ class FlightDataProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> getFlightData(BuildContext context) async {
+  Future<String?> getFlightData(BuildContext context) async {
     final travellerClassProvider =
         Provider.of<TravellerClassProvider>(context, listen: false);
     final tripClass =
@@ -121,9 +121,11 @@ class FlightDataProvider extends ChangeNotifier {
     try {
       userIp = await CheckNetConnectivity().getIpAddress();
     } on Network404Exception {
-      throw Network404Exception();
+      dataLoadingProvider.setExceptionThrown = true;
+      return "Network connection Lost.";
     } on GenericException {
-      throw GenericException();
+      dataLoadingProvider.setExceptionThrown = true;
+      return '';
     }
     final postModel = FlightSearchPostModel(
       marker: marker,
@@ -141,21 +143,26 @@ class FlightDataProvider extends ChangeNotifier {
     );
 
     if (marker == null) {
-      throw MarkerNotFoundException();
+      dataLoadingProvider.setExceptionThrown = true;
+      return "couldn't load app components.";
     }
     if (passengers.adults == null ||
         passengers.children == null ||
         passengers.infants == null) {
-      throw PassengersNotFoundException();
+      dataLoadingProvider.setExceptionThrown = true;
+      return "passengers details not found.";
     }
     if (segments.isEmpty || segments.length > 2) {
-      throw SegmentsErrorException();
+      dataLoadingProvider.setExceptionThrown = true;
+      return "Internal Error, contact dev.";
     }
     if (userIp == null) {
-      throw UserIpNotFoundException();
+      dataLoadingProvider.setExceptionThrown = true;
+      return "Could't fetch IP Address, try again later.";
     }
     if (apiKey == null) {
-      throw ApiKeyNotFoundException();
+      dataLoadingProvider.setExceptionThrown = true;
+      return "couldn't load app components.";
     }
 
     try {
@@ -164,15 +171,20 @@ class FlightDataProvider extends ChangeNotifier {
       setLoadingText = 'searching the best flights for you...';
       flightList = await flightSearch.getRequest(searchId);
     } on Network404Exception {
-      throw Network404Exception();
+      dataLoadingProvider.setExceptionThrown = true;
+      return "Network connection Lost.";
     } on SignatureFormationException {
-      throw SignatureFormationException();
+      dataLoadingProvider.setExceptionThrown = true;
+      return "couldn't load app components.";
     } on SearchIdNotFoundException {
-      throw SearchIdNotFoundException();
+      dataLoadingProvider.setExceptionThrown = true;
+      return "couldn't form a request. try later.";
     } on DioRequestException {
-      throw DioRequestException();
+      dataLoadingProvider.setExceptionThrown = true;
+      return "Network connection timed out.";
     } on GenericException {
-      throw GenericException();
+      dataLoadingProvider.setExceptionThrown = true;
+      return "Internal Error, contact dev.";
     }
 
     flightDatas = flightList.map((element) {
@@ -195,11 +207,6 @@ class FlightDataProvider extends ChangeNotifier {
       }
     }
 
-    // for (final data in flightDatas) {
-    //   if (data.numberOfProposal != null) {
-    //     numberOfProposals = numberOfProposals + data.numberOfProposal!;
-    //   }
-    // }
     proposals = flightDatas.fold<List<Proposals>>([], (previousValue, element) {
       previousValue.addAll(element.proposals as Iterable<Proposals>);
       return previousValue;
@@ -211,6 +218,7 @@ class FlightDataProvider extends ChangeNotifier {
     await Future.delayed(Durations.medium1);
     setLoadingText = ' ';
     notifyListeners();
+    return null;
   }
 
   String formatDateSegment(DateTime dateTime) {

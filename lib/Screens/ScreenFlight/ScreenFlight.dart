@@ -7,6 +7,7 @@ import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
 import 'package:flight_booking/Screens/ScreenFlight/Widgets/SegmentWidget.dart';
 import 'package:flight_booking/Screens/ScreenFlight/Widgets/SeparatorWidget.dart';
+import 'package:flight_booking/Screens/ScreenWebView/ScreenWebView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -224,7 +225,10 @@ class ScreenFlight extends StatelessWidget {
         child: CupertinoButton(
           color: Colors.green,
           child: Text("Buy for \u20B9${proposal.terms?.cost?.unifiedPrice}"),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const ScreenWebView()));
+          },
         ),
       ),
     );

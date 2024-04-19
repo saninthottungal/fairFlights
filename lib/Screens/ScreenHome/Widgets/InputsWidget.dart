@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flight_booking/Core/Constants/colors.dart';
 import 'package:flight_booking/Core/Constants/enums.dart';
 import 'package:flight_booking/Core/Widgets/CustomSnackbar.dart';
@@ -283,14 +285,6 @@ class InputsWidget extends StatelessWidget {
           const SizedBox(height: 23),
           CupertinoButton(
             onPressed: () async {
-              final isNetworkAvailable =
-                  await CheckNetConnectivity().checknetConnectivity();
-              if (!isNetworkAvailable) {
-                CustomSnackbar.show(
-                    context: context,
-                    message: "Network connection unavailable");
-                return;
-              }
               final dataProvider =
                   Provider.of<FlightDataProvider>(context, listen: false);
               final dataLoadingProvider =
@@ -301,10 +295,20 @@ class InputsWidget extends StatelessWidget {
               dataProvider.flightDatas.clear();
               dataLoadingProvider.isLoading = true;
               sortProvider.selectedGroupValue = SortValues.none;
-
+              dataLoadingProvider.setExceptionThrown = false;
+              if (!await CheckNetConnectivity().checknetConnectivity()) {
+                CustomSnackbar.show(
+                    context: context, message: "No network connection!");
+                return;
+              }
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const ScreenFlightsList(),
               ));
+
+              String? message = await dataProvider.getFlightData(context);
+              if (message != null) {
+                CustomSnackbar.show(context: context, message: message);
+              }
             },
             color: const Color.fromARGB(255, 26, 52, 192),
             pressedOpacity: 0.9,

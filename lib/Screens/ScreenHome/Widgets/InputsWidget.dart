@@ -10,13 +10,10 @@ import 'package:flight_booking/Providers/FlightProviders/SortProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TravellerClassProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
-import 'package:flight_booking/Screens/ScreenCalendar/ScreenCalendar.dart';
-import 'package:flight_booking/Screens/ScreenFlightsList/ScreenFlightsList.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomCard.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/CustomChip.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/FromToColumn.dart';
 import 'package:flight_booking/Screens/ScreenHome/Widgets/ModaleContainer.dart';
-import 'package:flight_booking/Screens/ScreenSearch/ScreenSearch.dart';
 import 'package:flight_booking/Services/Connectivty/CheckConnectivty.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,8 +37,7 @@ class InputsWidget extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () async {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ScreenSearch()));
+                    Navigator.of(context).pushNamed('/search');
                   },
                   child: FromToColumn(
                     cityCode: fromToProvider.from.code ?? 'DXB',
@@ -62,8 +58,7 @@ class InputsWidget extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ScreenSearch()));
+                    Navigator.of(context).pushNamed('/search');
                   },
                   child: FromToColumn(
                     cityCode: fromToProvider.to.code ?? "COK",
@@ -152,11 +147,7 @@ class InputsWidget extends StatelessWidget {
                                   context,
                                   listen: false);
                               provider.way = TripWay.departureWay;
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const ScreenCalendar(),
-                                ),
-                              );
+                              Navigator.of(context).pushNamed('/calendar');
                             },
                           );
                         }),
@@ -251,10 +242,8 @@ class InputsWidget extends StatelessWidget {
                                         Provider.of<CalendarProvider>(context,
                                             listen: false);
                                     provider.way = TripWay.returnWay;
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const ScreenCalendar()));
+                                    Navigator.of(context)
+                                        .pushNamed('/calendar');
                                   },
                                   title: Consumer<CalendarProvider>(
                                       builder: (context, provider, _) {
@@ -301,9 +290,7 @@ class InputsWidget extends StatelessWidget {
                     context: context, message: "No network connection!");
                 return;
               }
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const ScreenFlightsList(),
-              ));
+              Navigator.of(context).pushNamed('/flightsList');
 
               String? message = await dataProvider.getFlightData(context);
               if (message != null) {

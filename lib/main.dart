@@ -10,6 +10,10 @@ import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/CounterProvider.dart';
 import 'package:flight_booking/Providers/HomeProviders/ClassChipProvider.dart';
 import 'package:flight_booking/Providers/WebViewProvider/WebViewProvider.dart';
+import 'package:flight_booking/Screens/ScreenCalendar/ScreenCalendar.dart';
+import 'package:flight_booking/Screens/ScreenFlightsList/ScreenFlightsList.dart';
+import 'package:flight_booking/Screens/ScreenHome/ScreenHome.dart';
+import 'package:flight_booking/Screens/ScreenSearch/ScreenSearch.dart';
 import 'package:flight_booking/Screens/ScreenSplash/ScreenSplash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -90,6 +94,13 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
+        routes: {
+          '/splash': (context) => const ScreenSplash(),
+          '/home': (context) => const ScreenHome(),
+          '/search': (context) => ScreenSearch(),
+          '/flightsList': (context) => const ScreenFlightsList(),
+          '/calendar': (context) => const ScreenCalendar(),
+        },
         home: const ScreenSplash(),
       ),
     );

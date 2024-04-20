@@ -1,3 +1,4 @@
+import 'package:flight_booking/Screens/ScreenWebView/Widgets/LoadingWidget.dart';
 import 'package:flight_booking/Screens/ScreenWebView/Widgets/WebViewWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -13,10 +14,18 @@ class ScreenWebView extends StatefulWidget {
 
 class _ScreenWebViewState extends State<ScreenWebView> {
   final WebViewController controller = WebViewController();
+  bool isLoaded = false;
   @override
   void initState() {
     controller.setJavaScriptMode(JavaScriptMode.unrestricted);
     controller.loadRequest(Uri.parse(widget.agencyLink));
+    controller.setNavigationDelegate(NavigationDelegate(
+      onPageFinished: (url) {
+        setState(() {
+          isLoaded = true;
+        });
+      },
+    ));
 
     super.initState();
   }
@@ -55,9 +64,9 @@ class _ScreenWebViewState extends State<ScreenWebView> {
           const SizedBox(width: 10)
         ],
       ),
-      body: SafeArea(
-        child: CustomWebViewWidget(controller: controller),
-      ),
+      body: isLoaded
+          ? CustomWebViewWidget(controller: controller)
+          : const LoadingWidget(),
     );
   }
 }

@@ -211,7 +211,7 @@ class ScreenFlight extends StatelessWidget {
                           return SeparatorWidget(
                               flightData: flightData1, duration: duration);
                         },
-                        itemCount: proposal.segment!.first.flight!.length,
+                        itemCount: proposal.segment!.last.flight!.length,
                       ),
                     ),
               tripProvider.value == TripType.oneWay

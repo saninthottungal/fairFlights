@@ -7,12 +7,8 @@ class CustomWebViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        WebViewWidget(
-          controller: controller,
-        ),
-      ],
+    return WebViewWidget(
+      controller: controller,
     );
   }
 }

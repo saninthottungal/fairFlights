@@ -262,9 +262,9 @@ class ScreenFlight extends StatelessWidget {
               urlCode: proposal.terms?.cost?.url,
               sId: flightDataProvider.searchId,
             );
+            Navigator.pop(context);
 
             if (agencyLink != null) {
-              Navigator.pop(context);
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => ScreenWebView(agencyLink: agencyLink),
               ));

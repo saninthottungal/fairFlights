@@ -230,6 +230,18 @@ class ScreenFlight extends StatelessWidget {
           pressedOpacity: 0.9,
           child: Text("Buy for \u20B9${proposal.terms?.cost?.unifiedPrice}"),
           onPressed: () async {
+            showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (ctx) {
+                  return const Dialog.fullscreen(
+                    backgroundColor: Colors.transparent,
+                    insetAnimationDuration: Duration(seconds: 1),
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                });
             final agencyProvider =
                 Provider.of<AgencyProvider>(context, listen: false);
             agencyProvider.setPrice =
@@ -252,6 +264,7 @@ class ScreenFlight extends StatelessWidget {
             );
 
             if (agencyLink != null) {
+              Navigator.pop(context);
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => ScreenWebView(agencyLink: agencyLink),
               ));

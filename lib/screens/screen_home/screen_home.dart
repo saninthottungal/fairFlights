@@ -1,7 +1,6 @@
 import 'package:flight_booking/screens/screen_home/Widgets/inputs_widget.dart';
 import 'package:flight_booking/screens/screen_home/Widgets/TabBarWidget.dart';
 import 'package:flight_booking/screens/screen_home/Widgets/drawer_home.dart';
-import 'package:flight_booking/screens/screen_hotel/screen_hotel.dart';
 import 'package:flight_booking/screens/screen_passport/screen_passport.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +27,7 @@ class _ScreenHomeState extends State<ScreenHome> with TickerProviderStateMixin {
       appBar: AppBar(
         // APP bar Title
         title: const Text(
-          "Let's Travel",
+          "Fairflights",
         ),
       ),
 
@@ -59,7 +58,9 @@ class _ScreenHomeState extends State<ScreenHome> with TickerProviderStateMixin {
                       InputsWidget(),
                     ],
                   ),
-                  const ScreenHotel(),
+                  const Center(
+                    child: Text("Support"),
+                  ),
                   const Center(
                     child: Text("Visa"),
                   ),

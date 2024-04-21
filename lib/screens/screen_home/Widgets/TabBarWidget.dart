@@ -12,56 +12,36 @@ class TabBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TabBar(
       labelStyle: const TextStyle(fontWeight: FontWeight.w900),
-      isScrollable: true,
+      // isScrollable: true,
       controller: tabController,
-      tabAlignment: TabAlignment.center,
+      tabAlignment: TabAlignment.fill,
       unselectedLabelStyle: const TextStyle(
         fontWeight: FontWeight.w400,
       ),
-      tabs: const [
-        Tab(
-          child: Row(
-            children: [
-              Icon(
-                Icons.flight,
-                size: 15,
-              ),
-              Text("Flights")
-            ],
-          ),
+      tabs: [
+        const Tab(
+          icon: Icon(Icons.flight),
+          iconMargin: EdgeInsets.all(0),
+          text: 'Flights',
+        ),
+        const Tab(
+          icon: Icon(Icons.support_agent),
+          iconMargin: EdgeInsets.all(0),
+          text: 'Support',
+        ),
+        const Tab(
+          icon: Icon(Icons.credit_card),
+          iconMargin: EdgeInsets.all(0),
+          text: 'Visa',
         ),
         Tab(
-          child: Row(
-            children: [
-              Icon(
-                Icons.bed,
-                size: 15,
-              ),
-              Text("Hotels")
-            ],
+          icon: Image.asset(
+            'assets/passicon.png',
+            height: 26,
+            width: 24,
           ),
-        ),
-        Tab(
-          child: Row(
-            children: [
-              Icon(
-                Icons.credit_card,
-                size: 15,
-              ),
-              Text("Visa")
-            ],
-          ),
-        ),
-        Tab(
-          child: Row(
-            children: [
-              Icon(
-                Icons.library_books,
-                size: 15,
-              ),
-              Text("Passport")
-            ],
-          ),
+          iconMargin: const EdgeInsets.all(0),
+          text: 'Passport',
         ),
       ],
     );

@@ -1,20 +1,21 @@
-import 'package:flight_booking/Core/Constants/colors.dart';
-import 'package:flight_booking/Providers/CalendarProvider/CalendarProvider.dart';
-import 'package:flight_booking/Providers/CitySearchProviders/CitySearchProvider.dart';
-import 'package:flight_booking/Providers/FlightProviders/DataLoadingProvider.dart';
-import 'package:flight_booking/Providers/FlightProviders/FlightDataProvider.dart';
-import 'package:flight_booking/Providers/FlightProviders/SortProvider.dart';
-import 'package:flight_booking/Providers/HomeProviders/FromToProvider.dart';
-import 'package:flight_booking/Providers/HomeProviders/TravellerClassProvider.dart';
-import 'package:flight_booking/Providers/HomeProviders/TripChipProvider.dart';
-import 'package:flight_booking/Providers/HomeProviders/CounterProvider.dart';
-import 'package:flight_booking/Providers/HomeProviders/ClassChipProvider.dart';
-import 'package:flight_booking/Providers/WebViewProvider/WebViewProvider.dart';
-import 'package:flight_booking/Screens/ScreenCalendar/ScreenCalendar.dart';
-import 'package:flight_booking/Screens/ScreenFlightsList/ScreenFlightsList.dart';
-import 'package:flight_booking/Screens/ScreenHome/ScreenHome.dart';
-import 'package:flight_booking/Screens/ScreenSearch/ScreenSearch.dart';
-import 'package:flight_booking/Screens/ScreenSplash/ScreenSplash.dart';
+import 'package:flight_booking/core/constants/colors.dart';
+import 'package:flight_booking/providers/agency_provider.dart';
+import 'package:flight_booking/providers/calendar_provider/calendar_provider.dart';
+import 'package:flight_booking/providers/city_search_provider/city_search_provider.dart';
+import 'package:flight_booking/providers/flight_providers/data_loading_provider.dart';
+import 'package:flight_booking/providers/flight_providers/flight_data_provider.dart';
+import 'package:flight_booking/providers/flight_providers/sort_provider.dart';
+import 'package:flight_booking/providers/home_providers/from_to_provider.dart';
+import 'package:flight_booking/providers/home_providers/traveller_class_provider.dart';
+import 'package:flight_booking/providers/home_providers/trip_chip_provider.dart';
+import 'package:flight_booking/providers/home_providers/counter_provider.dart';
+import 'package:flight_booking/providers/home_providers/class_chip_provider.dart';
+import 'package:flight_booking/providers/web_view_provider/web_view_provider.dart';
+import 'package:flight_booking/screens/screen_calendar/screen_calendar.dart';
+import 'package:flight_booking/screens/screen_flights_list/screen_flights_list.dart';
+import 'package:flight_booking/screens/screen_home/screen_home.dart';
+import 'package:flight_booking/screens/screen_search/screen_search.dart';
+import 'package:flight_booking/screens/screen_splash/screen_splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
@@ -66,7 +67,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => WebViewProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AgencyProvider(),
+        ),
       ],
       child: MaterialApp(
         title: 'Fare Flights',

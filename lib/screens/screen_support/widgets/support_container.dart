@@ -3,17 +3,22 @@ import 'package:flutter/material.dart';
 class SupportContainerWidget extends StatelessWidget {
   final Color bgColor;
   final String imagePath;
+  final String title;
+  final IconData titleIcon;
   const SupportContainerWidget({
     super.key,
     required this.bgColor,
     required this.imagePath,
+    required this.title,
+    required this.titleIcon,
   });
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Container(
       margin: const EdgeInsets.all(10),
-      width: 255,
+      width: width * 0.67, //255
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: Colors.white,
@@ -34,16 +39,16 @@ class SupportContainerWidget extends StatelessWidget {
               color: bgColor,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Visa Booking",
-                  style: TextStyle(fontSize: 20),
+                  title,
+                  style: const TextStyle(fontSize: 20),
                 ),
-                Icon(Icons.perm_identity)
+                Icon(titleIcon),
               ],
             ),
           ),

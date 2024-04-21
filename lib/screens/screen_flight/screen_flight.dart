@@ -1,6 +1,7 @@
 import 'package:flight_booking/core/constants/enums.dart';
 import 'package:flight_booking/models/flight_data_model/proposals.dart';
 import 'package:flight_booking/models/flight_model.dart';
+import 'package:flight_booking/providers/agency_provider.dart';
 import 'package:flight_booking/providers/flight_providers/flight_data_provider.dart';
 import 'package:flight_booking/providers/home_providers/counter_provider.dart';
 import 'package:flight_booking/providers/home_providers/from_to_provider.dart';
@@ -229,6 +230,20 @@ class ScreenFlight extends StatelessWidget {
           pressedOpacity: 0.9,
           child: Text("Buy for \u20B9${proposal.terms?.cost?.unifiedPrice}"),
           onPressed: () async {
+            final agencyProvider =
+                Provider.of<AgencyProvider>(context, listen: false);
+            agencyProvider.setPrice =
+                '\u20B9${proposal.terms?.cost?.unifiedPrice ?? 00}';
+            final flight = proposal.segment?.first.flight?.first;
+            final flightData = FlightModel.fromFlight(
+              flight: flight,
+              flightDataProvider: flightDataProvider,
+            );
+            final airline = flightData.airline?.name ??
+                flightData.airline?.allianceName ??
+                '';
+            agencyProvider.setAirline = airline;
+
             final webViewProvider =
                 Provider.of<WebViewProvider>(context, listen: false);
             final agencyLink = await webViewProvider.agencyLinkRequest(

@@ -12,6 +12,7 @@ class TabBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TabBar(
       labelStyle: const TextStyle(fontWeight: FontWeight.w900),
+
       // isScrollable: true,
       controller: tabController,
       tabAlignment: TabAlignment.fill,

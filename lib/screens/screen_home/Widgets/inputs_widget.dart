@@ -301,6 +301,7 @@ class InputsWidget extends StatelessWidget {
             pressedOpacity: 0.9,
             child: const Text("Search Flights"),
           ),
+          const SizedBox(height: 10),
         ],
       ),
     );

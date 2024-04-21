@@ -11,7 +11,7 @@ class ScreenSupport extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 238, 240, 242),
       body: Padding(
-        padding: const EdgeInsets.only(top: 15, bottom: 15, left: 12),
+        padding: const EdgeInsets.only(top: 15, bottom: 15),
         child: Column(
           children: [
             Expanded(
@@ -19,6 +19,7 @@ class ScreenSupport extends StatelessWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: const [
+                  SizedBox(width: 12),
                   SupportContainerWidget(
                     bgColor: Color.fromARGB(255, 8, 6, 100),
                     imagePath: 'assets/visaimage.png',
@@ -45,7 +46,7 @@ class ScreenSupport extends StatelessWidget {
               child: Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-                margin: const EdgeInsets.only(right: 22, top: 20, left: 10),
+                margin: const EdgeInsets.only(right: 22, top: 20, left: 22),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.white,

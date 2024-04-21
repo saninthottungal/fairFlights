@@ -12,8 +12,6 @@ class TabBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TabBar(
       labelStyle: const TextStyle(fontWeight: FontWeight.w900),
-
-      // isScrollable: true,
       controller: tabController,
       tabAlignment: TabAlignment.fill,
       unselectedLabelStyle: const TextStyle(
@@ -30,11 +28,6 @@ class TabBarWidget extends StatelessWidget {
           iconMargin: EdgeInsets.all(0),
           text: 'Support',
         ),
-        const Tab(
-          icon: Icon(Icons.credit_card),
-          iconMargin: EdgeInsets.all(0),
-          text: 'Visa',
-        ),
         Tab(
           icon: Image.asset(
             'assets/passicon.png',
@@ -43,6 +36,11 @@ class TabBarWidget extends StatelessWidget {
           ),
           iconMargin: const EdgeInsets.all(0),
           text: 'Passport',
+        ),
+        const Tab(
+          icon: Icon(Icons.credit_card),
+          iconMargin: EdgeInsets.all(0),
+          text: 'Visa',
         ),
       ],
     );

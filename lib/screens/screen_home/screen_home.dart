@@ -60,10 +60,10 @@ class _ScreenHomeState extends State<ScreenHome> with TickerProviderStateMixin {
                     ],
                   ),
                   const ScreenSupport(),
+                  const ScreenPassport(),
                   const Center(
                     child: Text("Visa"),
-                  ),
-                  const ScreenPassport()
+                  )
                 ],
               ),
             ),

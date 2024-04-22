@@ -3,6 +3,7 @@ import 'package:flight_booking/screens/screen_home/Widgets/TabBarWidget.dart';
 import 'package:flight_booking/screens/screen_home/Widgets/drawer_home.dart';
 import 'package:flight_booking/screens/screen_passport/screen_passport.dart';
 import 'package:flight_booking/screens/screen_support/screen_support.dart';
+import 'package:flight_booking/screens/screen_visa/screen_visa.dart';
 import 'package:flutter/material.dart';
 
 class ScreenHome extends StatefulWidget {
@@ -25,10 +26,11 @@ class _ScreenHomeState extends State<ScreenHome> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     precacheImage(const AssetImage('assets/bluebg.jpg'), context);
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 238, 240, 242),
       appBar: AppBar(
-        // APP bar Title
         title: const Text(
           "Fairflights",
+          style: TextStyle(),
         ),
       ),
 
@@ -61,9 +63,7 @@ class _ScreenHomeState extends State<ScreenHome> with TickerProviderStateMixin {
                   ),
                   const ScreenSupport(),
                   const ScreenPassport(),
-                  const Center(
-                    child: Text("Visa"),
-                  )
+                  const ScreenVisa(),
                 ],
               ),
             ),

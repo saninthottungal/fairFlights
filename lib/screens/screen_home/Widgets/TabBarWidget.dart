@@ -38,7 +38,7 @@ class TabBarWidget extends StatelessWidget {
           text: 'Passport',
         ),
         const Tab(
-          icon: Icon(Icons.credit_card),
+          icon: Icon(Icons.badge_outlined),
           iconMargin: EdgeInsets.all(0),
           text: 'Visa',
         ),

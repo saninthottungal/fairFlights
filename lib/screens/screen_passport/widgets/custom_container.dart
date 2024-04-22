@@ -7,7 +7,7 @@ class CustomContainerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 18),
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 18),
       child: Card(
         elevation: 5,
         child: Container(

@@ -20,9 +20,9 @@ class CustomButtonWidget extends StatelessWidget {
         style: ButtonStyle(
           backgroundColor: MaterialStatePropertyAll(AppColor.customBlue),
         ),
-        child: const Text(
-          "Next",
-          style: TextStyle(color: Colors.white),
+        child: Text(
+          childTitle,
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );

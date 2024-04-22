@@ -270,7 +270,8 @@ class ScreenFlight extends StatelessWidget {
               ));
             } else {
               messenger.showSnackBar(const SnackBar(
-                  content: Text("Could't load Agency Website. try later")));
+                  backgroundColor: Colors.red,
+                  content: Text("Network error occured, try later.")));
             }
           },
         ),

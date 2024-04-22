@@ -34,12 +34,18 @@ class WebViewProvider extends ChangeNotifier {
     }
 
     if (customAgencyRequestLink != null) {
-      final response = await dio.getUri(Uri.parse(customAgencyRequestLink!));
-
-      if (response.data is Map<String, dynamic>) {
-        final data = response.data as Map<String, dynamic>;
-        if (data.containsKey('url')) {
-          setAgencyLink = data['url'];
+      Response? response;
+      try {
+        response = await dio.getUri(Uri.parse(customAgencyRequestLink!));
+      } catch (_) {
+        response = null;
+      }
+      if (response != null) {
+        if (response.data is Map<String, dynamic>) {
+          final data = response.data as Map<String, dynamic>;
+          if (data.containsKey('url')) {
+            setAgencyLink = data['url'];
+          }
         }
       }
     }

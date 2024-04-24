@@ -10,37 +10,39 @@ class TabBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final widht = MediaQuery.of(context).size.width;
     return TabBar(
+      labelPadding: EdgeInsets.symmetric(horizontal: widht * 0.03),
       labelStyle: const TextStyle(fontWeight: FontWeight.w900),
       controller: tabController,
-      tabAlignment: TabAlignment.fill,
+      isScrollable: true,
+      tabAlignment: TabAlignment.center,
       unselectedLabelStyle: const TextStyle(
         fontWeight: FontWeight.w400,
       ),
       tabs: [
         const Tab(
-          icon: Icon(Icons.flight),
-          iconMargin: EdgeInsets.all(0),
-          text: 'Flights',
+          child: Row(
+            children: [Icon(Icons.flight), Text("Flights")],
+          ),
         ),
         const Tab(
-          icon: Icon(Icons.support_agent),
-          iconMargin: EdgeInsets.all(0),
-          text: 'Support',
+          child: Row(
+            children: [Icon(Icons.support_agent), Text("Support")],
+          ),
         ),
         Tab(
-          icon: Image.asset(
-            'assets/images/passicon.png',
-            height: 26,
-            width: 24,
+          child: Row(
+            children: [
+              Image.asset('assets/images/passicon.png', height: 26, width: 24),
+              const Text("Passport")
+            ],
           ),
-          iconMargin: const EdgeInsets.all(0),
-          text: 'Passport',
         ),
         const Tab(
-          icon: Icon(Icons.badge_outlined),
-          iconMargin: EdgeInsets.all(0),
-          text: 'Visa',
+          child: Row(
+            children: [Icon(Icons.badge_outlined), Text("Visa")],
+          ),
         ),
       ],
     );

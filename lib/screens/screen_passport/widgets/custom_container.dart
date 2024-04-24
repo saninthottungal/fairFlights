@@ -16,7 +16,7 @@ class CustomContainerWidget extends StatelessWidget {
             color: Colors.white70,
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             child: Column(children: children),
           ),
         ),

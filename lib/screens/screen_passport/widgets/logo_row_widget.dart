@@ -16,8 +16,8 @@ class LogoRowWidget extends StatelessWidget {
       children: [
         Image.asset(
           imagePath,
-          height: 55,
-          width: 55,
+          height: 63,
+          width: 63,
         ),
         const SizedBox(width: 5),
         Text(

@@ -49,7 +49,7 @@ class CustomDrawerHeader extends StatelessWidget {
       decoration: const BoxDecoration(
           image: DecorationImage(
         image: AssetImage(
-          "assets/bluebg.jpg",
+          "assets/images/bluebg.jpg",
         ),
         fit: BoxFit.fill,
       )),

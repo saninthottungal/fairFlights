@@ -23,7 +23,6 @@ class _ScreenHomeState extends State<ScreenHome> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    precacheImage(const AssetImage('assets/bluebg.jpg'), context);
     return Scaffold(
       appBar: AppBar(
         // APP bar Title
@@ -48,7 +47,7 @@ class _ScreenHomeState extends State<ScreenHome> with TickerProviderStateMixin {
                       Positioned(
                         left: 65,
                         child: Image.asset(
-                          'assets/air.png',
+                          'assets/images/air.png',
 
                           height: 250,
                           width: 250,

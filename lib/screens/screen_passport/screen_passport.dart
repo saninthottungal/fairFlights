@@ -26,7 +26,7 @@ class ScreenPassport extends StatelessWidget {
                   // mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Image.asset(
-                      'assets/passport.png',
+                      'assets/images/passport.png',
                       height: 55,
                       width: 55,
                     ),

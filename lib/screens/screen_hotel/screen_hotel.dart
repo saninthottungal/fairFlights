@@ -11,14 +11,7 @@ class ScreenHotel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SizedBox(
-          width: double.infinity,
-          height: 350,
-          child: Image.asset(
-            'assets/hotel.jpg',
-            fit: BoxFit.cover,
-          ),
-        ),
+        SizedBox(width: double.infinity, height: 350, child: Text("data")),
         SingleChildScrollView(
           child: Column(
             children: [

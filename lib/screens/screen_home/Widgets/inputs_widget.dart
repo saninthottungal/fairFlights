@@ -43,6 +43,7 @@ class InputsWidget extends StatelessWidget {
                     cityCode: fromToProvider.from.code ?? 'DXB',
                     cityName: fromToProvider.from.countryName ??
                         "United Arab Emirates",
+                    leading: 'FROM',
                   ),
                 ),
                 IconButton(
@@ -63,6 +64,7 @@ class InputsWidget extends StatelessWidget {
                   child: FromToColumn(
                     cityCode: fromToProvider.to.code ?? "COK",
                     cityName: fromToProvider.to.countryName ?? "Kochi",
+                    leading: "TO",
                   ),
                 ),
               ],

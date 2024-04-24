@@ -14,6 +14,8 @@ import 'package:flight_booking/providers/web_view_provider/web_view_provider.dar
 import 'package:flight_booking/screens/screen_calendar/screen_calendar.dart';
 import 'package:flight_booking/screens/screen_flights_list/screen_flights_list.dart';
 import 'package:flight_booking/screens/screen_home/screen_home.dart';
+import 'package:flight_booking/screens/screen_auth/screen_auth.dart';
+import 'package:flight_booking/screens/screen_login/screen_login.dart';
 import 'package:flight_booking/screens/screen_search/screen_search.dart';
 import 'package:flight_booking/screens/screen_splash/screen_splash.dart';
 import 'package:flutter/material.dart';
@@ -102,6 +104,7 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.bold,
               fontSize: 24,
               fontFamily: 'customFont',
+              letterSpacing: 1,
             ),
           ),
         ),
@@ -111,6 +114,8 @@ class MyApp extends StatelessWidget {
           '/search': (context) => ScreenSearch(),
           '/flightsList': (context) => const ScreenFlightsList(),
           '/calendar': (context) => const ScreenCalendar(),
+          '/auth': (context) => const ScreenAuth(),
+          '/login': (context) => const ScreenLogin(),
         },
         home: const ScreenSplash(),
       ),

@@ -31,8 +31,6 @@ class _ScreenHomeState extends State<ScreenHome> with TickerProviderStateMixin {
           "fairflights",
         ),
       ),
-
-      // Tabs
       body: Column(
         children: [
           TabBarWidget(tabController: tabController),

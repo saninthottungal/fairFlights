@@ -5,19 +5,21 @@ class FromToColumn extends StatelessWidget {
     super.key,
     required this.cityCode,
     required this.cityName,
+    required this.leading,
   });
 
   final String cityCode;
   final String cityName;
+  final String leading;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        const Text(
-          "FROM",
-          style: TextStyle(
+        Text(
+          leading,
+          style: const TextStyle(
             letterSpacing: 2,
             fontWeight: FontWeight.w400,
             fontSize: 14,

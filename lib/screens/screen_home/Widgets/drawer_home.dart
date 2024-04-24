@@ -58,7 +58,9 @@ class CustomDrawerHeader extends StatelessWidget {
       child: CupertinoButton(
         pressedOpacity: 0.9,
         //alignment: Alignment.bottomCenter,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed('/auth');
+        },
         color: Colors.white,
 
         child: const Text(

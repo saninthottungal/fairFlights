@@ -20,19 +20,19 @@ class ScreenSupport extends StatelessWidget {
                 SizedBox(width: 12),
                 SupportContainerWidget(
                   bgColor: Color.fromARGB(255, 8, 6, 100),
-                  imagePath: 'assets/visaimage.png',
+                  imagePath: 'assets/images/visaimage.png',
                   title: 'Visa Booking',
                   titleIcon: Icons.badge_outlined,
                 ),
                 SupportContainerWidget(
-                  bgColor: Color.fromARGB(255, 103, 15, 76),
-                  imagePath: 'assets/flightbookimage.png',
+                  bgColor: Color.fromRGBO(103, 15, 76, 1),
+                  imagePath: 'assets/images/flightbookimage.png',
                   title: 'Flight Booking',
                   titleIcon: Icons.airplane_ticket_outlined,
                 ),
                 SupportContainerWidget(
                   bgColor: Color.fromARGB(255, 0, 87, 91),
-                  imagePath: 'assets/passportimage.png',
+                  imagePath: 'assets/images/passportimage.png',
                   title: 'Passport Appoinment',
                   titleIcon: Icons.assignment_outlined,
                 ),

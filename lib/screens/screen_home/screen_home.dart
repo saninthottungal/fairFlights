@@ -1,5 +1,5 @@
 import 'package:flight_booking/screens/screen_home/Widgets/inputs_widget.dart';
-import 'package:flight_booking/screens/screen_home/Widgets/TabBarWidget.dart';
+import 'package:flight_booking/screens/screen_home/Widgets/tab_bar_widget.dart';
 import 'package:flight_booking/screens/screen_home/Widgets/drawer_home.dart';
 import 'package:flight_booking/screens/screen_passport/screen_passport.dart';
 import 'package:flight_booking/screens/screen_support/screen_support.dart';
@@ -28,8 +28,7 @@ class _ScreenHomeState extends State<ScreenHome> with TickerProviderStateMixin {
       backgroundColor: const Color.fromARGB(255, 238, 240, 242),
       appBar: AppBar(
         title: const Text(
-          "Fairflights",
-          style: TextStyle(),
+          "fairflights",
         ),
       ),
 

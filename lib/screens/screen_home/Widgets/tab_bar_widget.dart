@@ -30,7 +30,7 @@ class TabBarWidget extends StatelessWidget {
         ),
         Tab(
           icon: Image.asset(
-            'assets/passicon.png',
+            'assets/images/passicon.png',
             height: 26,
             width: 24,
           ),

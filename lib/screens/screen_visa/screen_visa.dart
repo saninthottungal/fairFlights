@@ -13,7 +13,7 @@ class ScreenVisa extends StatelessWidget {
       child: CustomContainerWidget(
         children: [
           const LogoRowWidget(
-              imagePath: 'assets/visa.png', title: 'Tourist Visa'),
+              imagePath: 'assets/images/visa.png', title: 'Tourist Visa'),
           const CardField(title: 'Name', icon: Icons.person),
           const CardField(title: "Email", icon: Icons.mail),
           const CardField(title: "Mobile", icon: Icons.phone),

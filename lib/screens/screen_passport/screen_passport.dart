@@ -15,7 +15,7 @@ class ScreenPassport extends StatelessWidget {
         child: CustomContainerWidget(
       children: [
         const LogoRowWidget(
-            imagePath: 'assets/passport.png',
+            imagePath: 'assets/images/passport.png',
             title: "Passport\nAppointment 1599/Rs only"),
         const SizedBox(height: 15),
         const CardField(title: "Name", icon: Icons.person),

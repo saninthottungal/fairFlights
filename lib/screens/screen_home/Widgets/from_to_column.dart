@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class FromToColumn extends StatelessWidget {
-  const FromToColumn(
-      {super.key, required this.cityCode, required this.cityName});
+  const FromToColumn({
+    super.key,
+    required this.cityCode,
+    required this.cityName,
+  });
 
   final String cityCode;
   final String cityName;
@@ -19,16 +22,14 @@ class FromToColumn extends StatelessWidget {
             fontWeight: FontWeight.w400,
             fontSize: 14,
             color: Colors.white,
-            // overflow: TextOverflow.ellipsis,
           ),
         ),
         Text(
           cityCode,
           style: const TextStyle(
-            fontWeight: FontWeight.w900,
+            fontWeight: FontWeight.bold,
             fontSize: 45,
             letterSpacing: 2,
-            fontStyle: FontStyle.italic,
             color: Colors.white,
           ),
         ),

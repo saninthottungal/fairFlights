@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1093533823288",
+    "project_id": "fairflights-e8487",
+    "storage_bucket": "fairflights-e8487.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093533823288:android:a1fbcded5ea5e7ce6351cd",
+        "android_client_info": {
+          "package_name": "com.example.flight_booking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQAb8TkDMPBjxDQpa6shgk8kZ1pewBCn4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

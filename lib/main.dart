@@ -81,8 +81,15 @@ class MyApp extends StatelessWidget {
           textTheme: const TextTheme(
               bodyLarge: TextStyle(
                 color: Colors.white,
+                fontFamily: 'customFont',
               ),
-              bodySmall: TextStyle(color: Colors.black)),
+              bodyMedium: TextStyle(
+                fontFamily: 'customFont',
+              ),
+              bodySmall: TextStyle(
+                color: Colors.black,
+                fontFamily: 'customFont',
+              )),
           iconButtonTheme: const IconButtonThemeData(
               style: ButtonStyle(
                   iconColor: MaterialStatePropertyAll(Colors.white))),
@@ -93,8 +100,8 @@ class MyApp extends StatelessWidget {
             titleTextStyle: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
-              fontSize: 23,
-              fontStyle: FontStyle.italic,
+              fontSize: 24,
+              fontFamily: 'customFont',
             ),
           ),
         ),

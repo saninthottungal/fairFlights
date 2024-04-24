@@ -23,7 +23,11 @@ class ScreenPassport extends StatelessWidget {
         const CardField(title: "Mobile", icon: Icons.phone),
         const CardField(title: "Place", icon: Icons.location_city),
         const SizedBox(height: 15),
-        CustomButtonWidget(childTitle: 'Next', onPressed: () {})
+        CustomButtonWidget(
+          childTitle: 'Next',
+          width: 180,
+          onPressed: () {},
+        )
       ],
     ));
   }

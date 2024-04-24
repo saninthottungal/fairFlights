@@ -1,37 +1,21 @@
+import 'package:flight_booking/screens/screen_auth/widgets/auth_image_widget.dart';
+import 'package:flight_booking/screens/screen_passport/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
-
-import '../../core/constants/colors.dart';
 
 class ScreenAuth extends StatelessWidget {
   const ScreenAuth({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 35, horizontal: 15),
+        padding:
+            const EdgeInsets.only(top: 40, left: 15, right: 15, bottom: 15),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const SizedBox(width: double.infinity),
-            Container(
-              height: height * 0.4,
-              width: width * 0.7,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: Colors.blue,
-                  width: 5,
-                  strokeAlign: BorderSide.strokeAlignOutside,
-                ),
-                image: const DecorationImage(
-                  fit: BoxFit.fitHeight,
-                  image: AssetImage('assets/images/auth.jpg'),
-                ),
-              ),
-            ),
+            //image widget
+            const AuthImageWidget(),
             const Text(
               "Hello",
               style: TextStyle(
@@ -47,23 +31,12 @@ class ScreenAuth extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5),
-              child: SizedBox(
-                width: 250,
-                height: 45,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                      foregroundColor:
-                          const MaterialStatePropertyAll(Colors.white),
-                      backgroundColor:
-                          MaterialStatePropertyAll(AppColor.customBlue)),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed('/login');
-                  },
-                  child: const Text("Login"),
-                ),
-              ),
+            CustomButtonWidget(
+              childTitle: 'Login',
+              width: 250,
+              onPressed: () {
+                Navigator.of(context).pushNamed('/login');
+              },
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 5),

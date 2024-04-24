@@ -19,7 +19,11 @@ class ScreenVisa extends StatelessWidget {
           const CardField(title: "Mobile", icon: Icons.phone),
           const CardField(title: "Place", icon: Icons.location_city),
           const SizedBox(height: 15),
-          CustomButtonWidget(childTitle: 'Apply', onPressed: () {})
+          CustomButtonWidget(
+            childTitle: 'Apply',
+            width: 180,
+            onPressed: () {},
+          )
         ],
       ),
     );

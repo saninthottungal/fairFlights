@@ -1,3 +1,4 @@
+import 'package:flight_booking/core/constants/enums.dart';
 import 'package:flight_booking/providers/auth_provider/auth_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -57,19 +58,45 @@ class CustomDrawerHeader extends StatelessWidget {
         fit: BoxFit.fill,
       )),
       padding: const EdgeInsets.only(top: 105, bottom: 10, left: 30, right: 30),
-      //  margin: EdgeInsets.all(0),
       child: CupertinoButton(
         pressedOpacity: 0.9,
-        //alignment: Alignment.bottomCenter,
-        onPressed: () {
-          authProvider.user == null
+        onPressed: () async {
+          authProvider.userCurrentState == UserState.loggedOut
               ? Navigator.of(context).pushNamed('/auth')
-              : authProvider.signOut();
+              : await showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (ctx) {
+                    return AlertDialog(
+                      title: const Text(
+                        "Logout",
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                      content: const Text("Do you really want to logout?"),
+                      actions: [
+                        ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(ctx).pop();
+                            },
+                            child: const Text("Cancel")),
+                        ElevatedButton(
+                            onPressed: () async {
+                              Navigator.of(ctx).pop();
+                              await authProvider.signOut();
+                            },
+                            child: Text(
+                              "Logout",
+                              style: TextStyle(color: Colors.red.shade400),
+                            ))
+                      ],
+                    );
+                  });
         },
         color: Colors.white,
-
         child: Text(
-          authProvider.user == null ? "LOGIN" : 'LOGOUT',
+          authProvider.userCurrentState == UserState.loggedOut
+              ? "LOGIN"
+              : 'LOGOUT',
           style: TextStyle(
             color: authProvider.user == null
                 ? Colors.black54

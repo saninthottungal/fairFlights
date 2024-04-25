@@ -1,25 +1,25 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flight_booking/core/constants/enums.dart';
 import 'package:flight_booking/services/auth/auth_functions.dart';
 import 'package:flutter/material.dart';
 
 class AuthProvider extends ChangeNotifier {
   AuthProvider() {
-    getUserState();
+    setUserState();
   }
   final FirebaseAuth authInstance = FirebaseAuth.instance;
   User? user;
+  late UserState userCurrentState;
   final AuthFunctions _authFunctions =
       AuthFunctions(autInstance: FirebaseAuth.instance);
 
-  void getUserState() {
-    authInstance.authStateChanges().listen((event) {
-      user = event;
-    });
-    notifyListeners();
-  }
-
   void setUserState() {
     user = authInstance.currentUser;
+    userCurrentState = user == null
+        ? UserState.loggedOut
+        : user!.emailVerified
+            ? UserState.loggedIn
+            : UserState.loggedInEmailNotVerified;
     notifyListeners();
   }
 

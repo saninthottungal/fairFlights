@@ -33,3 +33,9 @@ enum AuthMode {
   signin,
   signup,
 }
+
+enum UserState {
+  loggedIn,
+  loggedOut,
+  loggedInEmailNotVerified,
+}

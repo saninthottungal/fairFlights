@@ -14,6 +14,7 @@ class AuthStateProvider extends ChangeNotifier {
       AuthFunctions(autInstance: FirebaseAuth.instance);
 
   void setUserState() async {
+    user = authInstance.currentUser;
     userCurrentState = user == null
         ? UserState.loggedOut
         : user!.emailVerified

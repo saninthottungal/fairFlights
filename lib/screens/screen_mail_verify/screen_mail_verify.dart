@@ -19,7 +19,9 @@ class _ScreenMailVerifyState extends State<ScreenMailVerify> {
 
   @override
   void initState() {
-    _isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+    _isEmailVerified = Provider.of<AuthStateProvider>(context, listen: false)
+        .user!
+        .emailVerified;
     if (!_isEmailVerified) {
       sendEmailVerification();
 

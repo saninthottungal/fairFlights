@@ -93,8 +93,10 @@ class MyApp extends StatelessWidget {
                 fontFamily: 'customFont',
               )),
           iconButtonTheme: const IconButtonThemeData(
-              style: ButtonStyle(
-                  iconColor: MaterialStatePropertyAll(Colors.white))),
+            style: ButtonStyle(
+              iconColor: MaterialStatePropertyAll(Colors.white),
+            ),
+          ),
           useMaterial3: true,
           appBarTheme: AppBarTheme(
             backgroundColor: AppColor.customBlue,

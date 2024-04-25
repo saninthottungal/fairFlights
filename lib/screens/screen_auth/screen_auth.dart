@@ -9,17 +9,17 @@ class ScreenAuth extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding:
-            const EdgeInsets.only(top: 40, left: 15, right: 15, bottom: 15),
+        padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            const SizedBox(height: 50),
             //image widget
             const AuthImageWidget(),
             const Text(
               "Hello",
               style: TextStyle(
-                fontSize: 40,
+                fontSize: 45,
                 fontWeight: FontWeight.bold,
               ),
             ),

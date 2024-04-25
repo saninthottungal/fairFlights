@@ -28,3 +28,9 @@ enum SortValues {
   departureTime,
   arrivalTime,
 }
+
+enum AuthMode {
+  signin,
+  signup,
+  mailVerify,
+}

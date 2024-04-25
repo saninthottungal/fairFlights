@@ -20,7 +20,7 @@ class ScreenLogin extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.only(top: 20, bottom: 10),
                 child: Text(
-                  "Sign Up",
+                  "Sign In",
                   style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,

@@ -5,14 +5,14 @@ import 'package:flight_booking/screens/screen_passport/widgets/custom_container.
 import 'package:flight_booking/screens/screen_passport/widgets/logo_row_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../providers/auth_provider/auth_provider.dart';
+import '../../providers/auth_state_provider/auth_state_provider.dart';
 
 class ScreenVisa extends StatelessWidget {
   const ScreenVisa({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
+    final authProvider = Provider.of<AuthStateProvider>(context);
     return authProvider.userCurrentState == UserState.loggedIn
         ? SingleChildScrollView(
             child: CustomContainerWidget(

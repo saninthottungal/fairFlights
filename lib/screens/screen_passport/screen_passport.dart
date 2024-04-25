@@ -1,5 +1,5 @@
 import 'package:flight_booking/core/constants/enums.dart';
-import 'package:flight_booking/providers/auth_provider/auth_provider.dart';
+import 'package:flight_booking/providers/auth_state_provider/auth_state_provider.dart';
 import 'package:flight_booking/screens/screen_passport/widgets/card_field.dart';
 import 'package:flight_booking/screens/screen_passport/widgets/custom_button.dart';
 import 'package:flight_booking/screens/screen_passport/widgets/custom_container.dart';
@@ -14,7 +14,7 @@ class ScreenPassport extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
+    final authProvider = Provider.of<AuthStateProvider>(context);
 
     return authProvider.userCurrentState == UserState.loggedIn
         ? SingleChildScrollView(

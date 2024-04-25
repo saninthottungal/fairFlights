@@ -1,7 +1,10 @@
+import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flight_booking/core/constants/colors.dart';
+import 'package:flight_booking/providers/auth_state_provider/auth_state_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class ScreenMailVerify extends StatefulWidget {
   const ScreenMailVerify({super.key});
@@ -11,6 +14,45 @@ class ScreenMailVerify extends StatefulWidget {
 }
 
 class _ScreenMailVerifyState extends State<ScreenMailVerify> {
+  Timer? _timer;
+  bool _isEmailVerified = false;
+
+  @override
+  void initState() {
+    _isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+    if (!_isEmailVerified) {
+      sendEmailVerification();
+
+      _timer = Timer.periodic(const Duration(seconds: 3), (_) {
+        checkEmailVerified();
+      });
+    }
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  sendEmailVerification() async {
+    final provider = Provider.of<AuthStateProvider>(context, listen: false);
+    await provider.sendEmailVerification();
+  }
+
+  checkEmailVerified() async {
+    final provider = Provider.of<AuthStateProvider>(context, listen: false);
+    await provider.reloadUser();
+    if (_isEmailVerified) {
+      _timer?.cancel();
+      Navigator.of(context).pushNamed('/home');
+    }
+    setState(() {
+      _isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;

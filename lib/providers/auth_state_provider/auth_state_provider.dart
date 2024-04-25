@@ -3,8 +3,8 @@ import 'package:flight_booking/core/constants/enums.dart';
 import 'package:flight_booking/services/auth/auth_functions.dart';
 import 'package:flutter/material.dart';
 
-class AuthProvider extends ChangeNotifier {
-  AuthProvider() {
+class AuthStateProvider extends ChangeNotifier {
+  AuthStateProvider() {
     setUserState();
   }
   final FirebaseAuth authInstance = FirebaseAuth.instance;
@@ -13,8 +13,7 @@ class AuthProvider extends ChangeNotifier {
   final AuthFunctions _authFunctions =
       AuthFunctions(autInstance: FirebaseAuth.instance);
 
-  void setUserState() {
-    user = authInstance.currentUser;
+  void setUserState() async {
     userCurrentState = user == null
         ? UserState.loggedOut
         : user!.emailVerified
@@ -52,6 +51,12 @@ class AuthProvider extends ChangeNotifier {
   //passwordReset
   Future<void> resetPassword({required String email}) async {
     await _authFunctions.resetPassword(email: email);
+    setUserState();
+  }
+
+  //reloadUser
+  Future<void> reloadUser() async {
+    await _authFunctions.reloadUser();
     setUserState();
   }
 }

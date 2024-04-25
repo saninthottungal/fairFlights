@@ -230,6 +230,7 @@ class ScreenFlight extends StatelessWidget {
           pressedOpacity: 0.9,
           child: Text("Buy for \u20B9${proposal.terms?.cost?.unifiedPrice}"),
           onPressed: () async {
+            final navigator = Navigator.of(context);
             showDialog(
                 barrierDismissible: false,
                 context: context,
@@ -262,10 +263,10 @@ class ScreenFlight extends StatelessWidget {
               urlCode: proposal.terms?.cost?.url,
               sId: flightDataProvider.searchId,
             );
-            Navigator.pop(context);
+            navigator.pop();
 
             if (agencyLink != null) {
-              Navigator.of(context).push(MaterialPageRoute(
+              navigator.push(MaterialPageRoute(
                 builder: (context) => ScreenWebView(agencyLink: agencyLink),
               ));
             } else {

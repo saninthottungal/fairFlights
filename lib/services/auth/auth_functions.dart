@@ -29,6 +29,15 @@ class AuthFunctions {
 
   //mailVerification
   Future<void> mailVerification() async {
-    await _autInstance.currentUser!.sendEmailVerification();
+    if (_autInstance.currentUser != null) {
+      await _autInstance.currentUser!.sendEmailVerification();
+    }
+  }
+
+  //reload
+  Future<void> reloadUser() async {
+    if (_autInstance.currentUser != null) {
+      await _autInstance.currentUser!.reload();
+    }
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flight_booking/core/constants/enums.dart';
-import 'package:flight_booking/providers/auth_provider/auth_mode_provider.dart';
-import 'package:flight_booking/providers/auth_provider/auth_provider.dart';
-import 'package:flight_booking/providers/auth_provider/pass_provider.dart';
+import 'package:flight_booking/providers/auth_state_provider/auth_mode_provider.dart';
+import 'package:flight_booking/providers/auth_state_provider/auth_state_provider.dart';
+import 'package:flight_booking/providers/auth_state_provider/pass_provider.dart';
 import 'package:flight_booking/screens/screen_auth/widgets/auth_image_widget.dart';
 import 'package:flight_booking/screens/screen_login/widgets/custom_textfield.dart';
 import 'package:flight_booking/screens/screen_passport/widgets/custom_button.dart';
@@ -18,7 +18,7 @@ class ScreenLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     final authMode = Provider.of<AuthModeProvider>(context).selectedMode;
     final isPassVisible = Provider.of<PassProvider>(context).isVisible;
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final authProvider = Provider.of<AuthStateProvider>(context, listen: false);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -99,8 +99,11 @@ class ScreenLogin extends StatelessWidget {
 
                     //navigating to mail verification
                     //if condition required to check if already mail verified
-
-                    navigator.pushNamed('/mail');
+                    if (authProvider.userCurrentState == UserState.loggedIn) {
+                      navigator.pushReplacementNamed('/home');
+                    } else {
+                      navigator.pushNamed('/mail');
+                    }
                   },
                 ),
               ),

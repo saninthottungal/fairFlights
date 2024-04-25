@@ -1,5 +1,5 @@
 import 'package:flight_booking/core/constants/enums.dart';
-import 'package:flight_booking/providers/auth_provider/auth_provider.dart';
+import 'package:flight_booking/providers/auth_state_provider/auth_state_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,7 +48,7 @@ class CustomDrawerHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
+    final authProvider = Provider.of<AuthStateProvider>(context);
     return DrawerHeader(
       decoration: const BoxDecoration(
           image: DecorationImage(

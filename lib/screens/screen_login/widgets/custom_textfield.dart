@@ -7,12 +7,16 @@ class CustomTextFieldWidget extends StatelessWidget {
     required this.prefixIcon,
     this.suffixIcon,
     required this.title,
+    required this.controller,
+    required this.obscure,
   });
 
   final String hintText;
   final IconData prefixIcon;
-  final IconData? suffixIcon;
   final String title;
+  final TextEditingController controller;
+  final bool obscure;
+  final Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +36,14 @@ class CustomTextFieldWidget extends StatelessWidget {
             ),
           ),
           TextField(
+              controller: controller,
+              obscureText: obscure,
               style: const TextStyle(
                 color: Colors.black,
               ),
               decoration: InputDecoration(
                 prefixIcon: Icon(prefixIcon, color: Colors.black38),
+                suffixIcon: suffixIcon,
                 contentPadding: const EdgeInsets.all(15),
                 hintText: hintText,
                 hintStyle: const TextStyle(

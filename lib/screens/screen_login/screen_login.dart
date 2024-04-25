@@ -1,5 +1,7 @@
 import 'package:flight_booking/core/constants/enums.dart';
 import 'package:flight_booking/providers/auth_provider/auth_mode_provider.dart';
+import 'package:flight_booking/providers/auth_provider/auth_provider.dart';
+import 'package:flight_booking/providers/auth_provider/pass_provider.dart';
 import 'package:flight_booking/screens/screen_auth/widgets/auth_image_widget.dart';
 import 'package:flight_booking/screens/screen_login/widgets/custom_textfield.dart';
 import 'package:flight_booking/screens/screen_passport/widgets/custom_button.dart';
@@ -7,12 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ScreenLogin extends StatelessWidget {
-  const ScreenLogin({super.key});
+  ScreenLogin({super.key});
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final authMode =
-        Provider.of<AuthModeProvider>(context, listen: false).selectedMode;
+    final authMode = Provider.of<AuthModeProvider>(context).selectedMode;
+    final isPassVisible = Provider.of<PassProvider>(context).isVisible;
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -32,15 +38,30 @@ class ScreenLogin extends StatelessWidget {
                   ),
                 ),
               ),
-              const CustomTextFieldWidget(
+              CustomTextFieldWidget(
+                controller: emailController,
                 title: "E-Mail",
                 hintText: 'Enter E-mail',
                 prefixIcon: Icons.mail,
+                obscure: false,
               ),
-              const CustomTextFieldWidget(
+              CustomTextFieldWidget(
+                controller: passwordController,
                 title: "Password",
                 hintText: 'Enter Password',
                 prefixIcon: Icons.key,
+                obscure: !isPassVisible,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    Provider.of<PassProvider>(context, listen: false)
+                        .changeIsVisible();
+                  },
+                  icon: Icon(
+                    isPassVisible
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
+                  ),
+                ),
               ),
               authMode == AuthMode.signin
                   ? Align(
@@ -57,7 +78,23 @@ class ScreenLogin extends StatelessWidget {
                   childTitle: authMode == AuthMode.signin
                       ? 'Sign In'
                       : 'Create Account',
-                  onPressed: () {},
+                  onPressed: () async {
+                    String email = '';
+                    String password = '';
+                    if (emailController.text.trim().isNotEmpty &&
+                        passwordController.text.trim().isNotEmpty) {
+                      email = emailController.text;
+                      password = passwordController.text;
+                    } else {
+                      //errors
+                    }
+
+                    authMode == AuthMode.signin
+                        ? await authProvider.signIn(
+                            email: email, password: password)
+                        : await authProvider.signUp(
+                            email: email, password: password);
+                  },
                 ),
               ),
             ],

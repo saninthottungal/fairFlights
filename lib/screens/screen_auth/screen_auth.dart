@@ -10,7 +10,8 @@ class ScreenAuth extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthModeProvider>(context, listen: false);
+    final authModeProvider =
+        Provider.of<AuthModeProvider>(context, listen: false);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
@@ -39,7 +40,7 @@ class ScreenAuth extends StatelessWidget {
               childTitle: 'Login',
               width: 250,
               onPressed: () {
-                authProvider.setAuthMode = AuthMode.signin;
+                authModeProvider.setAuthMode = AuthMode.signin;
                 Navigator.of(context).pushNamed('/login');
               },
             ),
@@ -50,7 +51,7 @@ class ScreenAuth extends StatelessWidget {
                 height: 45,
                 child: ElevatedButton(
                   onPressed: () {
-                    authProvider.setAuthMode = AuthMode.signup;
+                    authModeProvider.setAuthMode = AuthMode.signup;
                     Navigator.of(context).pushNamed('/login');
                   },
                   child: const Text("Sign Up"),

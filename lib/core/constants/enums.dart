@@ -32,5 +32,4 @@ enum SortValues {
 enum AuthMode {
   signin,
   signup,
-  mailVerify,
 }

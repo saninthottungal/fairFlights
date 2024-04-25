@@ -1,32 +1,34 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthFunctions {
-  FirebaseAuth autInstance;
-  AuthFunctions({required this.autInstance});
+  final FirebaseAuth _autInstance;
+  AuthFunctions({required FirebaseAuth autInstance})
+      : _autInstance = autInstance;
+
   //signin
   Future<void> signIn({required String email, required String password}) async {
-    await autInstance.signInWithEmailAndPassword(
+    await _autInstance.signInWithEmailAndPassword(
         email: email, password: password);
   }
 
   //signup
   Future<void> signUp({required String email, required String password}) async {
-    await autInstance.createUserWithEmailAndPassword(
+    await _autInstance.createUserWithEmailAndPassword(
         email: email, password: password);
   }
 
   //logout
   Future<void> signOut() async {
-    await autInstance.signOut();
+    await _autInstance.signOut();
   }
 
   //resetPassword
   Future<void> resetPassword({required String email}) async {
-    await autInstance.sendPasswordResetEmail(email: email);
+    await _autInstance.sendPasswordResetEmail(email: email);
   }
 
   //mailVerification
-  Future<void> mailVerification(User user) async {
-    await user.sendEmailVerification();
+  Future<void> mailVerification() async {
+    await _autInstance.currentUser!.sendEmailVerification();
   }
 }

@@ -20,6 +20,7 @@ import 'package:flight_booking/screens/screen_flights_list/screen_flights_list.d
 import 'package:flight_booking/screens/screen_home/screen_home.dart';
 import 'package:flight_booking/screens/screen_auth/screen_auth.dart';
 import 'package:flight_booking/screens/screen_login/screen_login.dart';
+import 'package:flight_booking/screens/screen_mail_verify/screen_mail_verify.dart';
 import 'package:flight_booking/screens/screen_search/screen_search.dart';
 import 'package:flight_booking/screens/screen_splash/screen_splash.dart';
 import 'package:flutter/material.dart';
@@ -132,6 +133,7 @@ class MyApp extends StatelessWidget {
           '/calendar': (context) => const ScreenCalendar(),
           '/auth': (context) => const ScreenAuth(),
           '/login': (context) => ScreenLogin(),
+          '/mail': (context) => const ScreenMailVerify(),
         },
         home: const ScreenSplash(),
       ),

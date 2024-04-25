@@ -79,6 +79,8 @@ class ScreenLogin extends StatelessWidget {
                       ? 'Sign In'
                       : 'Create Account',
                   onPressed: () async {
+                    final navigator = Navigator.of(context);
+
                     String email = '';
                     String password = '';
                     if (emailController.text.trim().isNotEmpty &&
@@ -94,6 +96,11 @@ class ScreenLogin extends StatelessWidget {
                             email: email, password: password)
                         : await authProvider.signUp(
                             email: email, password: password);
+
+                    //navigating to mail verification
+                    //if condition required to check if already mail verified
+
+                    navigator.pushNamed('/mail');
                   },
                 ),
               ),

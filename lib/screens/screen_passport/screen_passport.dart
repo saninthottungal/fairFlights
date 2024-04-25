@@ -45,7 +45,3 @@ class ScreenPassport extends StatelessWidget {
               );
   }
 }
-
-//textformfield
-//validator
-//buider

@@ -4,6 +4,7 @@ import 'package:flight_booking/providers/agency_provider.dart';
 import 'package:flight_booking/providers/auth_state_provider/auth_mode_provider.dart';
 import 'package:flight_booking/providers/auth_state_provider/auth_state_provider.dart';
 import 'package:flight_booking/providers/auth_state_provider/pass_provider.dart';
+import 'package:flight_booking/providers/auth_state_provider/timer_provider.dart';
 import 'package:flight_booking/providers/calendar_provider/calendar_provider.dart';
 import 'package:flight_booking/providers/city_search_provider/city_search_provider.dart';
 import 'package:flight_booking/providers/flight_providers/data_loading_provider.dart';
@@ -87,6 +88,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => PassProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => TimerProvider(),
         ),
       ],
       child: MaterialApp(

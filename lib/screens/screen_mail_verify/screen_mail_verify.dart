@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flight_booking/core/constants/colors.dart';
 import 'package:flight_booking/providers/auth_state_provider/auth_state_provider.dart';
+import 'package:flight_booking/providers/auth_state_provider/timer_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,8 @@ class _ScreenMailVerifyState extends State<ScreenMailVerify> {
 
   @override
   void initState() {
+    Provider.of<TimerProvider>(context, listen: false).startTimer();
+
     _isEmailVerified = Provider.of<AuthStateProvider>(context, listen: false)
         .user!
         .emailVerified;
@@ -48,7 +51,7 @@ class _ScreenMailVerifyState extends State<ScreenMailVerify> {
     await provider.reloadUser();
     if (_isEmailVerified) {
       _timer?.cancel();
-      Navigator.of(context).pushNamed('/home');
+      Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
     }
     setState(() {
       _isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
@@ -57,6 +60,7 @@ class _ScreenMailVerifyState extends State<ScreenMailVerify> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<AuthStateProvider>(context, listen: false);
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Padding(
@@ -114,12 +118,23 @@ class _ScreenMailVerifyState extends State<ScreenMailVerify> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CupertinoButton(
-                      onPressed: () {},
-                      pressedOpacity: 0.9,
-                      color: AppColor.customBlue,
-                      child: const Text('Resend mail in 15 seconds'),
-                    ),
+                    Consumer<TimerProvider>(
+                        builder: (context, countProvider, _) {
+                      return CupertinoButton(
+                        onPressed: () {
+                          if (countProvider.timerCount == 0) {
+                            provider.sendEmailVerification();
+                            countProvider.timer?.cancel();
+                            countProvider.startTimer();
+                          }
+                        },
+                        pressedOpacity: 0.9,
+                        color: countProvider.timerCount == 0
+                            ? AppColor.customBlue
+                            : AppColor.customBlue.withOpacity(0.4),
+                        child: const Text('Resend mail'),
+                      );
+                    }),
                   ],
                 ),
               ],

@@ -9,8 +9,8 @@ class AuthImageWidget extends StatelessWidget {
     return Container(
       height: height * 0.35,
       width: double.infinity,
-      decoration: BoxDecoration(
-        image: const DecorationImage(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
           fit: BoxFit.fitHeight,
           image: AssetImage('assets/images/auth.png'),
         ),

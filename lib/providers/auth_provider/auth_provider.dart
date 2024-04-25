@@ -18,30 +18,40 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setUserState() {
+    user = authInstance.currentUser;
+    notifyListeners();
+  }
+
   //signIn
   Future<void> signIn({required String email, required String password}) async {
     await _authFunctions.signIn(email: email, password: password);
+    setUserState();
   }
 
   //signUp
   Future<void> signUp({required String email, required String password}) async {
     await _authFunctions.signUp(email: email, password: password);
+    setUserState();
   }
 
   //signout
 
   Future<void> signOut() async {
     await _authFunctions.signOut();
+    setUserState();
   }
 
   //emailverification
 
   Future<void> sendEmailVerification() async {
     await _authFunctions.mailVerification();
+    setUserState();
   }
 
   //passwordReset
   Future<void> resetPassword({required String email}) async {
     await _authFunctions.resetPassword(email: email);
+    setUserState();
   }
 }

@@ -1,5 +1,7 @@
+import 'package:flight_booking/providers/auth_provider/auth_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DrawerHome extends StatelessWidget {
   const DrawerHome({super.key});
@@ -45,6 +47,7 @@ class CustomDrawerHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
     return DrawerHeader(
       decoration: const BoxDecoration(
           image: DecorationImage(
@@ -59,13 +62,20 @@ class CustomDrawerHeader extends StatelessWidget {
         pressedOpacity: 0.9,
         //alignment: Alignment.bottomCenter,
         onPressed: () {
-          Navigator.of(context).pushNamed('/auth');
+          authProvider.user == null
+              ? Navigator.of(context).pushNamed('/auth')
+              : authProvider.signOut();
         },
         color: Colors.white,
 
-        child: const Text(
-          "LOGIN",
-          style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),
+        child: Text(
+          authProvider.user == null ? "LOGIN" : 'LOGOUT',
+          style: TextStyle(
+            color: authProvider.user == null
+                ? Colors.black54
+                : Colors.red.shade500,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

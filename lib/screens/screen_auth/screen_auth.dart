@@ -1,12 +1,16 @@
+import 'package:flight_booking/core/constants/enums.dart';
+import 'package:flight_booking/providers/auth_provider/auth_mode_provider.dart';
 import 'package:flight_booking/screens/screen_auth/widgets/auth_image_widget.dart';
 import 'package:flight_booking/screens/screen_passport/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ScreenAuth extends StatelessWidget {
   const ScreenAuth({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthModeProvider>(context, listen: false);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
@@ -24,7 +28,7 @@ class ScreenAuth extends StatelessWidget {
               ),
             ),
             const Text(
-              "Welcome to fairflights\ni'll be your mentor travel partner",
+              "Welcome to fairflights\ni'll be your mentor travel partner.",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black54,
@@ -35,6 +39,7 @@ class ScreenAuth extends StatelessWidget {
               childTitle: 'Login',
               width: 250,
               onPressed: () {
+                authProvider.setAuthMode = AuthMode.signin;
                 Navigator.of(context).pushNamed('/login');
               },
             ),
@@ -44,7 +49,10 @@ class ScreenAuth extends StatelessWidget {
                 width: 250,
                 height: 45,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    authProvider.setAuthMode = AuthMode.signup;
+                    Navigator.of(context).pushNamed('/login');
+                  },
                   child: const Text("Sign Up"),
                 ),
               ),

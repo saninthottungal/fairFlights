@@ -1,5 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flight_booking/core/constants/colors.dart';
 import 'package:flight_booking/providers/agency_provider.dart';
+import 'package:flight_booking/providers/auth_provider/auth_mode_provider.dart';
 import 'package:flight_booking/providers/calendar_provider/calendar_provider.dart';
 import 'package:flight_booking/providers/city_search_provider/city_search_provider.dart';
 import 'package:flight_booking/providers/flight_providers/data_loading_provider.dart';
@@ -23,7 +25,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized;
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await dotenv.load(fileName: '.env');
   runApp(
     const MyApp(),
@@ -72,6 +75,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => AgencyProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AuthModeProvider(),
         ),
       ],
       child: MaterialApp(

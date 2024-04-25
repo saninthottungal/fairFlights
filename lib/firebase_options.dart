@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'fairflights-e8487',
     storageBucket: 'fairflights-e8487.appspot.com',
   );
+
 }

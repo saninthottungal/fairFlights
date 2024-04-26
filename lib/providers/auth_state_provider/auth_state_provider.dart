@@ -25,6 +25,9 @@ class AuthStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //get usermail
+  String? get userMail => user?.email;
+
   //signIn
   Future<void> signIn({required String email, required String password}) async {
     await _authFunctions.signIn(email: email, password: password);

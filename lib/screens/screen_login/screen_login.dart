@@ -103,6 +103,7 @@ class ScreenLogin extends StatelessWidget {
                       navigator.pushReplacementNamed('/home');
                     } else {
                       navigator.pushNamed('/mail');
+                      await authProvider.sendEmailVerification();
                     }
                   },
                 ),

@@ -35,7 +35,7 @@ class AuthStateProvider extends ChangeNotifier {
     try {
       await _authFunctions.signIn(email: email, password: password);
     } on InvalidEmailException {
-      return 'Invalid E-mail provided.';
+      return 'Invalid E-mail entered.';
     } on UserDisabledException {
       return 'User is disabled.';
     } on UserNotFoundException {
@@ -44,6 +44,8 @@ class AuthStateProvider extends ChangeNotifier {
       return 'Wrong password entered';
     } on Network404Exception {
       return 'No network connection found.';
+    } on InvalidCredentialsException {
+      return 'Invalid login credentials entered.';
     } on TooManyRequestsException {
       return 'Too many requests. try later.';
     } on GenericException {
@@ -59,13 +61,13 @@ class AuthStateProvider extends ChangeNotifier {
     try {
       await _authFunctions.signUp(email: email, password: password);
     } on InvalidEmailException {
-      return 'Invalid E-mail provided.';
+      return 'Invalid E-mail entered.';
     } on EmailAlreadyInUseException {
-      return 'E-mail is already in use';
+      return 'E-mail is already in use.';
     } on WeakPasswordException {
-      return 'password should container atleast 6 characters';
+      return 'password should contain atleast 6 characters.';
     } on OperationNotAllowedException {
-      return 'temporarily operation blocked';
+      return 'temporarily operation blocked.';
     } on Network404Exception {
       return 'No network connection found.';
     } on TooManyRequestsException {

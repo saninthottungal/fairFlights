@@ -28,6 +28,8 @@ class AuthFunctions {
           throw UserNotFoundException();
         case 'wrong-password':
           throw WrongPasswordException();
+        case 'invalid-credential':
+          throw InvalidCredentialsException();
         default:
           throw TooManyRequestsException();
       }

@@ -8,6 +8,8 @@ class UserNotFoundException implements Exception {}
 
 class WrongPasswordException implements Exception {}
 
+class InvalidCredentialsException implements Exception {}
+
 //signup exception
 
 class EmailAlreadyInUseException implements Exception {}

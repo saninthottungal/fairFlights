@@ -150,6 +150,11 @@ class ScreenLogin extends StatelessWidget {
                         return;
                       }
                       if (context.mounted) {
+                        CustomUtilities.showSnackBar(
+                          context: context,
+                          message: 'verification mail sent.',
+                          isGreen: true,
+                        );
                         Navigator.of(context).pushNamed('/mail');
                       }
                     }

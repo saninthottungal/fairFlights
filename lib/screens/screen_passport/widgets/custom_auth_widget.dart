@@ -44,13 +44,19 @@ class CustomAuthWidget extends StatelessWidget {
                 if (message != null) {
                   if (context.mounted) {
                     CustomUtilities.showSnackBar(
-                        context: context, message: message);
+                      context: context,
+                      message: message,
+                      isGreen: false,
+                    );
                   }
                   return;
                 }
                 if (context.mounted) {
                   CustomUtilities.showSnackBar(
-                      context: context, message: 'verification mail sent.');
+                    context: context,
+                    message: 'verification mail sent.',
+                    isGreen: true,
+                  );
                 }
                 if (context.mounted) Navigator.of(context).pushNamed('/mail');
               }

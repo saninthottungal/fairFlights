@@ -90,8 +90,10 @@ class ScreenLogin extends StatelessWidget {
                       password = passwordController.text;
                     } else {
                       CustomUtilities.showSnackBar(
-                          context: context,
-                          message: "Username/password cannot be empty.");
+                        context: context,
+                        message: "Username/password cannot be empty.",
+                        isGreen: false,
+                      );
                       return;
                     }
                     if (authMode == AuthMode.signin) {
@@ -102,7 +104,10 @@ class ScreenLogin extends StatelessWidget {
                       if (message != null) {
                         if (context.mounted) {
                           CustomUtilities.showSnackBar(
-                              context: context, message: message);
+                            context: context,
+                            message: message,
+                            isGreen: false,
+                          );
                         }
                         return;
                       }
@@ -114,7 +119,10 @@ class ScreenLogin extends StatelessWidget {
                       if (message != null) {
                         if (context.mounted) {
                           CustomUtilities.showSnackBar(
-                              context: context, message: message);
+                            context: context,
+                            message: message,
+                            isGreen: false,
+                          );
                         }
                         return;
                       }
@@ -134,7 +142,10 @@ class ScreenLogin extends StatelessWidget {
                       if (message != null) {
                         if (context.mounted) {
                           CustomUtilities.showSnackBar(
-                              context: context, message: message);
+                            context: context,
+                            message: message,
+                            isGreen: false,
+                          );
                         }
                         return;
                       }

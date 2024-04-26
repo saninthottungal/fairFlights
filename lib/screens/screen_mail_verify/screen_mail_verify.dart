@@ -71,14 +71,19 @@ class ScreenMailVerify extends StatelessWidget {
                             if (message != null) {
                               if (context.mounted) {
                                 CustomUtilities.showSnackBar(
-                                    context: context, message: message);
+                                  context: context,
+                                  message: message,
+                                  isGreen: false,
+                                );
                               }
                               return;
                             }
                             if (context.mounted) {
                               CustomUtilities.showSnackBar(
-                                  context: context,
-                                  message: 'verification mail sent.');
+                                context: context,
+                                message: 'verification mail sent.',
+                                isGreen: true,
+                              );
                             }
                           }
                         },
@@ -110,7 +115,10 @@ class ScreenMailVerify extends StatelessWidget {
                         if (message != null) {
                           if (context.mounted) {
                             CustomUtilities.showSnackBar(
-                                context: context, message: message);
+                              context: context,
+                              message: message,
+                              isGreen: false,
+                            );
                           }
                           return;
                         }
@@ -124,8 +132,10 @@ class ScreenMailVerify extends StatelessWidget {
                         } else {
                           if (context.mounted) {
                             CustomUtilities.showSnackBar(
-                                context: context,
-                                message: "Your email is not verified yet.");
+                              context: context,
+                              message: "Your email is not verified yet.",
+                              isGreen: false,
+                            );
                           }
                         }
                       },

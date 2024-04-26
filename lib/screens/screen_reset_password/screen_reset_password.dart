@@ -77,8 +77,10 @@ class ScreenRestPassword extends StatelessWidget {
                             email = emailController.text;
                           } else {
                             CustomUtilities.showSnackBar(
-                                context: context,
-                                message: "email cannot be empty");
+                              context: context,
+                              message: "email cannot be empty",
+                              isGreen: false,
+                            );
                             return;
                           }
                           CustomUtilities.showBlankDialogue(context);
@@ -88,15 +90,20 @@ class ScreenRestPassword extends StatelessWidget {
                           if (message != null) {
                             if (context.mounted) {
                               CustomUtilities.showSnackBar(
-                                  context: context, message: message);
+                                context: context,
+                                message: message,
+                                isGreen: false,
+                              );
                             }
                             return;
                           }
                           if (context.mounted) {
                             CustomUtilities.showSnackBar(
-                                context: context,
-                                message:
-                                    "Password reset request is sent to $email.");
+                              context: context,
+                              message:
+                                  "Password reset request is sent to $email.",
+                              isGreen: true,
+                            );
                           }
                           if (context.mounted) Navigator.of(context).pop();
                         },

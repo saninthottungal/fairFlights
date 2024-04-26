@@ -289,7 +289,10 @@ class InputsWidget extends StatelessWidget {
               dataLoadingProvider.setExceptionThrown = false;
               if (!await CheckNetConnectivity().checknetConnectivity()) {
                 CustomUtilities.showSnackBar(
-                    context: context, message: "No network connection!");
+                  context: context,
+                  message: "No network connection!",
+                  isGreen: false,
+                );
                 return;
               }
               Navigator.of(context).pushNamed('/flightsList');
@@ -297,7 +300,10 @@ class InputsWidget extends StatelessWidget {
               String? message = await dataProvider.getFlightData(context);
               if (message != null) {
                 CustomUtilities.showSnackBar(
-                    context: context, message: message);
+                  context: context,
+                  message: message,
+                  isGreen: false,
+                );
               }
             },
             color: const Color.fromARGB(255, 26, 52, 192),

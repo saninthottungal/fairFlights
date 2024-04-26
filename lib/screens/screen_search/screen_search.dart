@@ -47,6 +47,7 @@ class ScreenSearch extends StatelessWidget {
                   CustomUtilities.showSnackBar(
                     context: scaffoldKey.currentContext!,
                     message: "No Network Connection",
+                    isGreen: false,
                   );
                 }
                 Provider.of<FromToProvider>(scaffoldKey.currentContext!,
@@ -93,6 +94,7 @@ class ScreenSearch extends StatelessWidget {
                   CustomUtilities.showSnackBar(
                     context: scaffoldKey.currentContext!,
                     message: "No Network Connection",
+                    isGreen: false,
                   );
                 }
                 Provider.of<FromToProvider>(scaffoldKey.currentContext!,

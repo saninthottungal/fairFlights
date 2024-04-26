@@ -1,5 +1,6 @@
 import 'package:flight_booking/core/constants/colors.dart';
 import 'package:flight_booking/core/constants/enums.dart';
+import 'package:flight_booking/core/widgets/custom_utilities.dart';
 import 'package:flight_booking/providers/auth_state_provider/auth_state_provider.dart';
 import 'package:flight_booking/providers/auth_state_provider/timer_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,7 +13,9 @@ class ScreenMailVerify extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthStateProvider>(context, listen: false);
-    Provider.of<TimerProvider>(context, listen: false).startTimer();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<TimerProvider>(context, listen: false).startTimer();
+    });
 
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -61,7 +64,22 @@ class ScreenMailVerify extends StatelessWidget {
                         onTap: () async {
                           if (timerProvider.timerCount == 0) {
                             timerProvider.startTimer();
-                            await authProvider.sendEmailVerification();
+                            CustomUtilities.showBlankDialogue(context);
+                            final message =
+                                await authProvider.sendEmailVerification();
+                            if (context.mounted) Navigator.of(context).pop();
+                            if (message != null) {
+                              if (context.mounted) {
+                                CustomUtilities.showSnackBar(
+                                    context: context, message: message);
+                              }
+                              return;
+                            }
+                            if (context.mounted) {
+                              CustomUtilities.showSnackBar(
+                                  context: context,
+                                  message: 'verification mail sent.');
+                            }
                           }
                         },
                         child: Text(
@@ -86,12 +104,29 @@ class ScreenMailVerify extends StatelessWidget {
                   children: [
                     CupertinoButton(
                       onPressed: () async {
-                        final navigator = Navigator.of(context);
-                        await authProvider.reloadUser();
+                        CustomUtilities.showBlankDialogue(context);
+                        final message = await authProvider.reloadUser();
+                        if (context.mounted) Navigator.pop(context);
+                        if (message != null) {
+                          if (context.mounted) {
+                            CustomUtilities.showSnackBar(
+                                context: context, message: message);
+                          }
+                          return;
+                        }
+
                         if (authProvider.userCurrentState ==
                             UserState.loggedIn) {
-                          navigator.pushNamedAndRemoveUntil(
-                              '/home', (route) => false);
+                          if (context.mounted) {
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                '/home', (route) => false);
+                          }
+                        } else {
+                          if (context.mounted) {
+                            CustomUtilities.showSnackBar(
+                                context: context,
+                                message: "Your email is not verified yet.");
+                          }
                         }
                       },
                       pressedOpacity: 0.9,

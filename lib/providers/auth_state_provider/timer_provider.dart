@@ -8,9 +8,13 @@ class TimerProvider extends ChangeNotifier {
 
   void startTimer() {
     timerCount = 30;
+    if (timer != null) {
+      if (timer!.isActive) {
+        timer!.cancel();
+      }
+    }
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (timerCount <= 0) {
-        timerCount = 30;
         timer?.cancel();
         notifyListeners();
       } else {

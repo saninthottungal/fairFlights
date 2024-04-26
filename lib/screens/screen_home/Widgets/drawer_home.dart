@@ -1,3 +1,4 @@
+import 'package:flight_booking/core/constants/colors.dart';
 import 'package:flight_booking/core/constants/enums.dart';
 import 'package:flight_booking/providers/auth_state_provider/auth_state_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -69,16 +70,31 @@ class CustomDrawerHeader extends StatelessWidget {
                   builder: (ctx) {
                     return AlertDialog(
                       title: const Text(
-                        "Logout",
+                        "Login Details",
                         style: TextStyle(fontWeight: FontWeight.w500),
                       ),
-                      content: const Text("Do you really want to logout?"),
+                      content: Text(
+                        "logged in as ${authProvider.userMail}",
+                        style: const TextStyle(fontSize: 16),
+                      ),
                       actions: [
                         ElevatedButton(
                             onPressed: () {
                               Navigator.of(ctx).pop();
                             },
                             child: const Text("Cancel")),
+                        authProvider.userCurrentState ==
+                                UserState.loggedInEmailNotVerified
+                            ? ElevatedButton(
+                                onPressed: () {
+                                  authProvider.sendEmailVerification();
+                                  Navigator.of(context).pushNamed('/mail');
+                                },
+                                child: const Text("Verify mail"))
+                            : const SizedBox(
+                                height: 0,
+                                width: 0,
+                              ),
                         ElevatedButton(
                             onPressed: () async {
                               Navigator.of(ctx).pop();
@@ -87,7 +103,7 @@ class CustomDrawerHeader extends StatelessWidget {
                             child: Text(
                               "Logout",
                               style: TextStyle(color: Colors.red.shade400),
-                            ))
+                            )),
                       ],
                     );
                   });
@@ -96,11 +112,11 @@ class CustomDrawerHeader extends StatelessWidget {
         child: Text(
           authProvider.userCurrentState == UserState.loggedOut
               ? "LOGIN"
-              : 'LOGOUT',
+              : 'LOGGED IN',
           style: TextStyle(
             color: authProvider.user == null
                 ? Colors.black54
-                : Colors.red.shade500,
+                : AppColor.customBlue,
             fontWeight: FontWeight.bold,
           ),
         ),

@@ -67,7 +67,9 @@ class ScreenLogin extends StatelessWidget {
                   ? Align(
                       alignment: Alignment.topLeft,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/reset');
+                        },
                         child: const Text("Forgot Password?"),
                       ),
                     )
@@ -88,6 +90,7 @@ class ScreenLogin extends StatelessWidget {
                       email = emailController.text;
                       password = passwordController.text;
                     } else {
+                      return;
                       //errors
                     }
 
@@ -108,6 +111,7 @@ class ScreenLogin extends StatelessWidget {
                   },
                 ),
               ),
+              const SizedBox(height: 10),
             ],
           ),
         ),

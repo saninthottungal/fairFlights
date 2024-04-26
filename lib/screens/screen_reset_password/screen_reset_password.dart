@@ -1,4 +1,5 @@
 import 'package:flight_booking/core/constants/colors.dart';
+import 'package:flight_booking/core/widgets/custom_utilities.dart';
 import 'package:flight_booking/providers/auth_state_provider/auth_state_provider.dart';
 import 'package:flight_booking/screens/screen_login/widgets/custom_textfield.dart';
 import 'package:flutter/cupertino.dart';
@@ -70,19 +71,34 @@ class ScreenRestPassword extends StatelessWidget {
                     children: [
                       CupertinoButton(
                         onPressed: () async {
-                          final navigator = Navigator.of(context);
-
                           String email = '';
 
                           if (emailController.text.trim().isNotEmpty) {
                             email = emailController.text;
                           } else {
+                            CustomUtilities.showSnackBar(
+                                context: context,
+                                message: "email cannot be empty");
                             return;
-                            //errors
                           }
-
-                          authProvider.resetPassword(email: email);
-                          navigator.pop();
+                          CustomUtilities.showBlankDialogue(context);
+                          final message =
+                              await authProvider.resetPassword(email: email);
+                          if (context.mounted) Navigator.pop(context);
+                          if (message != null) {
+                            if (context.mounted) {
+                              CustomUtilities.showSnackBar(
+                                  context: context, message: message);
+                            }
+                            return;
+                          }
+                          if (context.mounted) {
+                            CustomUtilities.showSnackBar(
+                                context: context,
+                                message:
+                                    "Password reset request is sent to $email.");
+                          }
+                          if (context.mounted) Navigator.of(context).pop();
                         },
                         pressedOpacity: 0.9,
                         color: AppColor.customBlue,

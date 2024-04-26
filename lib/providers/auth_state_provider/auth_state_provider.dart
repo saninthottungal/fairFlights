@@ -44,6 +44,8 @@ class AuthStateProvider extends ChangeNotifier {
       return 'Wrong password entered';
     } on Network404Exception {
       return 'No network connection found.';
+    } on TooManyRequestsException {
+      return 'Too many requests. try later.';
     } on GenericException {
       return 'Unknown error occured';
     }
@@ -66,6 +68,8 @@ class AuthStateProvider extends ChangeNotifier {
       return 'temporarily operation blocked';
     } on Network404Exception {
       return 'No network connection found.';
+    } on TooManyRequestsException {
+      return 'Too many requests. try later.';
     } on GenericException {
       return 'Unknown error occured';
     }
@@ -81,6 +85,8 @@ class AuthStateProvider extends ChangeNotifier {
       await _authFunctions.signOut();
     } on Network404Exception {
       return 'No network connection found.';
+    } on TooManyRequestsException {
+      return 'Too many requests. try later.';
     } on GenericException {
       return 'Unknown error occured';
     }
@@ -98,6 +104,8 @@ class AuthStateProvider extends ChangeNotifier {
       return 'No user found, try signing up.';
     } on Network404Exception {
       return 'No network connection found.';
+    } on TooManyRequestsException {
+      return 'Too many requests. try later.';
     } on GenericException {
       return 'Unknown error occured';
     }
@@ -115,6 +123,8 @@ class AuthStateProvider extends ChangeNotifier {
       return 'No user found, try signing up.';
     } on Network404Exception {
       return 'No network connection found.';
+    } on TooManyRequestsException {
+      return 'Too many requests. try later.';
     } on GenericException {
       return 'Unknown error occured';
     }
@@ -130,6 +140,8 @@ class AuthStateProvider extends ChangeNotifier {
       return 'No user found, try signing up.';
     } on Network404Exception {
       return 'No network connection found.';
+    } on TooManyRequestsException {
+      return 'Too many requests. try later.';
     } on GenericException {
       return 'Unknown error occured';
     }

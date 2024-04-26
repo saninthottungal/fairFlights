@@ -15,3 +15,5 @@ class EmailAlreadyInUseException implements Exception {}
 class WeakPasswordException implements Exception {}
 
 class OperationNotAllowedException implements Exception {}
+
+class TooManyRequestsException implements Exception {}

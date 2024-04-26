@@ -29,7 +29,7 @@ class AuthFunctions {
         case 'wrong-password':
           throw WrongPasswordException();
         default:
-          throw GenericException();
+          throw TooManyRequestsException();
       }
     } catch (_) {
       throw GenericException();
@@ -57,7 +57,7 @@ class AuthFunctions {
         case 'weak-password':
           throw WeakPasswordException();
         default:
-          throw GenericException();
+          throw TooManyRequestsException();
       }
     } catch (_) {
       throw GenericException();
@@ -94,7 +94,7 @@ class AuthFunctions {
         case 'auth/user-not-found':
           throw UserNotFoundException();
         default:
-          throw GenericException();
+          throw TooManyRequestsException();
       }
     } catch (_) {
       throw GenericException();
@@ -112,7 +112,7 @@ class AuthFunctions {
       try {
         await _autInstance.currentUser!.sendEmailVerification();
       } catch (_) {
-        throw GenericException();
+        throw TooManyRequestsException();
       }
     } else {
       throw UserNotFoundException();
@@ -130,7 +130,7 @@ class AuthFunctions {
       try {
         await _autInstance.currentUser!.reload();
       } catch (_) {
-        throw GenericException();
+        throw TooManyRequestsException();
       }
     } else {
       throw UserNotFoundException();

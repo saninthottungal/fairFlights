@@ -37,21 +37,6 @@ class ScreenPassport extends StatelessWidget {
               )
             ],
           ))
-        : authProvider.userCurrentState == UserState.loggedInEmailNotVerified
-            ? CustomAuthWidget(
-                imagePath: 'assets/images/mail.png',
-                title: 'verify email to continue',
-                onpressed: () {
-                  authProvider.sendEmailVerification();
-                  Navigator.of(context).pushNamed('/mail');
-                },
-              )
-            : CustomAuthWidget(
-                imagePath: 'assets/images/auth_bg.png',
-                title: 'please login to continue',
-                onpressed: () {
-                  Navigator.of(context).pushNamed('/auth');
-                },
-              );
+        : const CustomAuthWidget();
   }
 }

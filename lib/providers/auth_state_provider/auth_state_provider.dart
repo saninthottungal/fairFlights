@@ -1,8 +1,9 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flight_booking/core/constants/enums.dart';
 import 'package:flight_booking/services/auth/auth_functions.dart';
+import 'package:flight_booking/services/exception/auth_exceptions.dart';
+import 'package:flight_booking/services/exception/network_exceptions.dart';
 import 'package:flutter/material.dart';
 
 class AuthStateProvider extends ChangeNotifier {
@@ -29,40 +30,110 @@ class AuthStateProvider extends ChangeNotifier {
   String? get userMail => user?.email;
 
   //signIn
-  Future<void> signIn({required String email, required String password}) async {
-    await _authFunctions.signIn(email: email, password: password);
+  Future<String?> signIn(
+      {required String email, required String password}) async {
+    try {
+      await _authFunctions.signIn(email: email, password: password);
+    } on InvalidEmailException {
+      return 'Invalid E-mail provided.';
+    } on UserDisabledException {
+      return 'User is disabled.';
+    } on UserNotFoundException {
+      return 'No user found, try signing up.';
+    } on WrongPasswordException {
+      return 'Wrong password entered';
+    } on Network404Exception {
+      return 'No network connection found.';
+    } on GenericException {
+      return 'Unknown error occured';
+    }
     setUserState();
+    return null;
   }
 
   //signUp
-  Future<void> signUp({required String email, required String password}) async {
-    await _authFunctions.signUp(email: email, password: password);
+  Future<String?> signUp(
+      {required String email, required String password}) async {
+    try {
+      await _authFunctions.signUp(email: email, password: password);
+    } on InvalidEmailException {
+      return 'Invalid E-mail provided.';
+    } on EmailAlreadyInUseException {
+      return 'E-mail is already in use';
+    } on WeakPasswordException {
+      return 'password should container atleast 6 characters';
+    } on OperationNotAllowedException {
+      return 'temporarily operation blocked';
+    } on Network404Exception {
+      return 'No network connection found.';
+    } on GenericException {
+      return 'Unknown error occured';
+    }
+
     setUserState();
+    return null;
   }
 
   //signout
 
-  Future<void> signOut() async {
-    await _authFunctions.signOut();
+  Future<String?> signOut() async {
+    try {
+      await _authFunctions.signOut();
+    } on Network404Exception {
+      return 'No network connection found.';
+    } on GenericException {
+      return 'Unknown error occured';
+    }
+
     setUserState();
+    return null;
   }
 
   //emailverification
 
-  Future<void> sendEmailVerification() async {
-    await _authFunctions.mailVerification();
+  Future<String?> sendEmailVerification() async {
+    try {
+      await _authFunctions.mailVerification();
+    } on UserNotFoundException {
+      return 'No user found, try signing up.';
+    } on Network404Exception {
+      return 'No network connection found.';
+    } on GenericException {
+      return 'Unknown error occured';
+    }
     setUserState();
+    return null;
   }
 
   //passwordReset
-  Future<void> resetPassword({required String email}) async {
-    await _authFunctions.resetPassword(email: email);
+  Future<String?> resetPassword({required String email}) async {
+    try {
+      await _authFunctions.resetPassword(email: email);
+    } on InvalidEmailException {
+      return 'Invalid E-mail provided.';
+    } on UserNotFoundException {
+      return 'No user found, try signing up.';
+    } on Network404Exception {
+      return 'No network connection found.';
+    } on GenericException {
+      return 'Unknown error occured';
+    }
     setUserState();
+    return null;
   }
 
   //reloadUser
-  Future<void> reloadUser() async {
-    await _authFunctions.reloadUser();
+  Future<String?> reloadUser() async {
+    try {
+      await _authFunctions.reloadUser();
+    } on UserNotFoundException {
+      return 'No user found, try signing up.';
+    } on Network404Exception {
+      return 'No network connection found.';
+    } on GenericException {
+      return 'Unknown error occured';
+    }
     setUserState();
+    return null;
   }
 }

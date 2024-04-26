@@ -6,7 +6,6 @@ class CustomSnackbar {
       SnackBar(
         content: Text(message),
         behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.red,
       ),
     );
   }

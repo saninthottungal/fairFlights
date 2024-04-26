@@ -1,5 +1,5 @@
 import 'package:flight_booking/core/constants/enums.dart';
-import 'package:flight_booking/core/widgets/custom_snack_bar.dart';
+import 'package:flight_booking/core/widgets/custom_utilities.dart';
 import 'package:flight_booking/providers/auth_state_provider/auth_state_provider.dart';
 import 'package:flight_booking/screens/screen_passport/widgets/custom_button.dart';
 
@@ -38,25 +38,18 @@ class CustomAuthWidget extends StatelessWidget {
               if (provider.userCurrentState == UserState.loggedOut) {
                 Navigator.of(context).pushNamed('/auth');
               } else {
-                showDialog(
-                  context: context,
-                  builder: (ctx) => const Dialog.fullscreen(
-                    backgroundColor: Colors.black12,
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  ),
-                );
+                CustomUtilities.showBlankDialogue(context);
                 final message = await provider.sendEmailVerification();
                 if (context.mounted) Navigator.of(context).pop();
                 if (message != null) {
                   if (context.mounted) {
-                    CustomSnackbar.show(context: context, message: message);
+                    CustomUtilities.showSnackBar(
+                        context: context, message: message);
                   }
                   return;
                 }
                 if (context.mounted) {
-                  CustomSnackbar.show(
+                  CustomUtilities.showSnackBar(
                       context: context, message: 'verification mail sent.');
                 }
                 if (context.mounted) Navigator.of(context).pushNamed('/mail');

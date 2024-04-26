@@ -2,7 +2,7 @@
 
 import 'package:flight_booking/core/constants/colors.dart';
 import 'package:flight_booking/core/constants/enums.dart';
-import 'package:flight_booking/core/widgets/custom_snack_bar.dart';
+import 'package:flight_booking/core/widgets/custom_utilities.dart';
 import 'package:flight_booking/providers/calendar_provider/calendar_provider.dart';
 import 'package:flight_booking/providers/flight_providers/data_loading_provider.dart';
 import 'package:flight_booking/providers/flight_providers/flight_data_provider.dart';
@@ -288,7 +288,7 @@ class InputsWidget extends StatelessWidget {
               sortProvider.selectedGroupValue = SortValues.none;
               dataLoadingProvider.setExceptionThrown = false;
               if (!await CheckNetConnectivity().checknetConnectivity()) {
-                CustomSnackbar.show(
+                CustomUtilities.showSnackBar(
                     context: context, message: "No network connection!");
                 return;
               }
@@ -296,7 +296,8 @@ class InputsWidget extends StatelessWidget {
 
               String? message = await dataProvider.getFlightData(context);
               if (message != null) {
-                CustomSnackbar.show(context: context, message: message);
+                CustomUtilities.showSnackBar(
+                    context: context, message: message);
               }
             },
             color: const Color.fromARGB(255, 26, 52, 192),

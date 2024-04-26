@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flight_booking/core/constants/enums.dart';
-import 'package:flight_booking/core/widgets/custom_snack_bar.dart';
+import 'package:flight_booking/core/widgets/custom_utilities.dart';
 import 'package:flight_booking/providers/city_search_provider/city_search_provider.dart';
 import 'package:flight_booking/providers/home_providers/from_to_provider.dart';
 import 'package:flight_booking/services/api/city_search/city_search.dart';
@@ -44,7 +44,7 @@ class ScreenSearch extends StatelessWidget {
                 final value =
                     await CheckNetConnectivity().checknetConnectivity();
                 if (!value) {
-                  CustomSnackbar.show(
+                  CustomUtilities.showSnackBar(
                     context: scaffoldKey.currentContext!,
                     message: "No Network Connection",
                   );
@@ -90,7 +90,7 @@ class ScreenSearch extends StatelessWidget {
                 final value =
                     await CheckNetConnectivity().checknetConnectivity();
                 if (!value) {
-                  CustomSnackbar.show(
+                  CustomUtilities.showSnackBar(
                     context: scaffoldKey.currentContext!,
                     message: "No Network Connection",
                   );

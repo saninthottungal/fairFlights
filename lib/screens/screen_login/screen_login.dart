@@ -1,5 +1,5 @@
 import 'package:flight_booking/core/constants/enums.dart';
-import 'package:flight_booking/core/widgets/custom_snack_bar.dart';
+import 'package:flight_booking/core/widgets/custom_utilities.dart';
 import 'package:flight_booking/providers/auth_state_provider/auth_mode_provider.dart';
 import 'package:flight_booking/providers/auth_state_provider/auth_state_provider.dart';
 import 'package:flight_booking/providers/auth_state_provider/pass_provider.dart';
@@ -98,7 +98,8 @@ class ScreenLogin extends StatelessWidget {
                       final message = await authProvider.signIn(
                           email: email, password: password);
                       if (message != null) {
-                        CustomSnackbar.show(context: context, message: message);
+                        CustomUtilities.showSnackBar(
+                            context: context, message: message);
                         return;
                       }
                     } else {

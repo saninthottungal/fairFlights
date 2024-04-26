@@ -10,6 +10,7 @@ class TimerProvider extends ChangeNotifier {
     timerCount = 30;
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (timerCount <= 0) {
+        timerCount = 30;
         timer?.cancel();
         notifyListeners();
       } else {

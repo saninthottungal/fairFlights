@@ -82,8 +82,6 @@ class ScreenLogin extends StatelessWidget {
                       ? 'Sign In'
                       : 'Create Account',
                   onPressed: () async {
-                    final navigator = Navigator.of(context);
-
                     String email = '';
                     String password = '';
                     if (emailController.text.trim().isNotEmpty &&
@@ -91,29 +89,58 @@ class ScreenLogin extends StatelessWidget {
                       email = emailController.text;
                       password = passwordController.text;
                     } else {
+                      CustomUtilities.showSnackBar(
+                          context: context,
+                          message: "Username/password cannot be empty.");
                       return;
-                      //errors
                     }
                     if (authMode == AuthMode.signin) {
+                      CustomUtilities.showBlankDialogue(context);
                       final message = await authProvider.signIn(
                           email: email, password: password);
+                      if (context.mounted) Navigator.pop(context);
                       if (message != null) {
-                        CustomUtilities.showSnackBar(
-                            context: context, message: message);
+                        if (context.mounted) {
+                          CustomUtilities.showSnackBar(
+                              context: context, message: message);
+                        }
                         return;
                       }
                     } else {
-                      await authProvider.signUp(
+                      CustomUtilities.showBlankDialogue(context);
+                      final message = await authProvider.signUp(
                           email: email, password: password);
+                      if (context.mounted) Navigator.pop(context);
+                      if (message != null) {
+                        if (context.mounted) {
+                          CustomUtilities.showSnackBar(
+                              context: context, message: message);
+                        }
+                        return;
+                      }
                     }
 
-                    //navigating to mail verification
-                    //if condition required to check if already mail verified
                     if (authProvider.userCurrentState == UserState.loggedIn) {
-                      navigator.pushReplacementNamed('/home');
+                      if (context.mounted) {
+                        Navigator.of(context).pushReplacementNamed('/home');
+                      }
                     } else {
-                      navigator.pushNamed('/mail');
-                      await authProvider.sendEmailVerification();
+                      if (context.mounted) {
+                        CustomUtilities.showBlankDialogue(context);
+                      }
+                      final message =
+                          await authProvider.sendEmailVerification();
+                      if (context.mounted) Navigator.of(context).pop();
+                      if (message != null) {
+                        if (context.mounted) {
+                          CustomUtilities.showSnackBar(
+                              context: context, message: message);
+                        }
+                        return;
+                      }
+                      if (context.mounted) {
+                        Navigator.of(context).pushNamed('/mail');
+                      }
                     }
                   },
                 ),

@@ -19,3 +19,9 @@ class WeakPasswordException implements Exception {}
 class OperationNotAllowedException implements Exception {}
 
 class TooManyRequestsException implements Exception {}
+
+//google exceptions
+
+class PlatformSideException implements Exception {}
+
+class NoAccountSelectedException implements Exception {}

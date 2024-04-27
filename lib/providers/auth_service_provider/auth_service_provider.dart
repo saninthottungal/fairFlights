@@ -151,13 +151,39 @@ class AuthServiceProvider extends ChangeNotifier {
     return null;
   }
 
-  Future<void> signInWithGoogle() async {
-    await _authFunctions.signInWithGoogle();
+  Future<String?> signInWithGoogle() async {
+    try {
+      await _authFunctions.signInWithGoogle();
+    } on NoAccountSelectedException {
+      return 'No Account Selected';
+    } on PlatformSideException {
+      return "couldn't fetch user details";
+    } on InvalidCredentialsException {
+      return 'Invalid login credentials.';
+    } on OperationNotAllowedException {
+      return 'temporarily operation blocked.';
+    } on Network404Exception {
+      return 'No network connection found.';
+    } on UserDisabledException {
+      return 'User is disabled.';
+    } on TooManyRequestsException {
+      return 'Too many requests. try later.';
+    } on GenericException {
+      return 'Unknown error occured';
+    }
     setUserState();
+    return null;
   }
 
-  Future<void> signOutFromGoogle() async {
-    await _authFunctions.signoutFromGoogle();
+  Future<String?> signOutFromGoogle() async {
+    try {
+      await _authFunctions.signoutFromGoogle();
+    } on Network404Exception {
+      return 'No network connection found.';
+    } on GenericException {
+      return 'Unknown error occured';
+    }
     setUserState();
+    return null;
   }
 }

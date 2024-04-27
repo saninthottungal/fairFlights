@@ -1,4 +1,5 @@
 import 'package:flight_booking/core/constants/enums.dart';
+import 'package:flight_booking/core/widgets/custom_utilities.dart';
 import 'package:flight_booking/providers/auth_service_provider/auth_mode_provider.dart';
 import 'package:flight_booking/providers/auth_service_provider/auth_service_provider.dart';
 import 'package:flight_booking/screens/screen_auth/widgets/auth_image_widget.dart';
@@ -72,7 +73,22 @@ class ScreenAuth extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () async {
-                await authProvider.signInWithGoogle();
+                final message = await authProvider.signInWithGoogle();
+                if (message != null) {
+                  if (!context.mounted) return;
+                  CustomUtilities.showSnackBar(
+                    context: context,
+                    message: message,
+                    isGreen: false,
+                  );
+                  return;
+                }
+                if (!context.mounted) return;
+                CustomUtilities.showSnackBar(
+                  context: context,
+                  message: "Succesfully logged in",
+                  isGreen: true,
+                );
                 if (!context.mounted) return;
                 Navigator.of(context)
                     .pushNamedAndRemoveUntil('/home', (route) => false);

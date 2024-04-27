@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flight_booking/services/connectivty/check_connectivty.dart';
 import 'package:flight_booking/services/exception/auth_exceptions.dart';
 import 'package:flight_booking/services/exception/network_exceptions.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthFunctions {
@@ -142,18 +143,50 @@ class AuthFunctions {
   //google sign in
 
   Future<void> signInWithGoogle() async {
+    final isConnectionAvailable =
+        await CheckNetConnectivity().checknetConnectivity();
+    if (!isConnectionAvailable) {
+      throw Network404Exception();
+    }
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-    await _autInstance.signInWithCredential(credential);
+    if (googleUser == null) throw NoAccountSelectedException();
+    try {
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      await _autInstance.signInWithCredential(credential);
+    } on PlatformException {
+      throw PlatformSideException();
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'invalid-credential':
+          throw InvalidCredentialsException();
+        case 'operation-not-allowed':
+          throw OperationNotAllowedException();
+        case 'user-disabled':
+          throw UserDisabledException();
+        default:
+          throw TooManyRequestsException();
+      }
+    } catch (_) {
+      throw GenericException();
+    }
   }
 
   //google signout
   Future<void> signoutFromGoogle() async {
-    await GoogleSignIn().signOut();
+    final isConnectionAvailable =
+        await CheckNetConnectivity().checknetConnectivity();
+    if (!isConnectionAvailable) {
+      throw Network404Exception();
+    }
+    try {
+      await GoogleSignIn().signOut();
+    } catch (_) {
+      throw GenericException();
+    }
   }
 }

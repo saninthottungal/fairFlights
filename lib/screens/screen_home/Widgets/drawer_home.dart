@@ -116,13 +116,25 @@ class CustomDrawerHeader extends StatelessWidget {
                         ElevatedButton(
                             onPressed: () async {
                               Navigator.of(ctx).pop();
-                              await authProvider.signOutFromGoogle();
+
                               final message = await authProvider.signOut();
                               if (message != null) {
                                 if (context.mounted) {
                                   CustomUtilities.showSnackBar(
                                     context: context,
                                     message: message,
+                                    isGreen: false,
+                                  );
+                                }
+                                return;
+                              }
+                              final messageFromGoogle =
+                                  await authProvider.signOutFromGoogle();
+                              if (messageFromGoogle != null) {
+                                if (context.mounted) {
+                                  CustomUtilities.showSnackBar(
+                                    context: context,
+                                    message: messageFromGoogle,
                                     isGreen: false,
                                   );
                                 }

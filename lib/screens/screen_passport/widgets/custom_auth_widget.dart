@@ -1,6 +1,6 @@
 import 'package:flight_booking/core/constants/enums.dart';
 import 'package:flight_booking/core/widgets/custom_utilities.dart';
-import 'package:flight_booking/providers/auth_state_provider/auth_state_provider.dart';
+import 'package:flight_booking/providers/auth_service_provider/auth_state_provider.dart';
 import 'package:flight_booking/screens/screen_passport/widgets/custom_button.dart';
 
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ class CustomAuthWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    return Consumer<AuthStateProvider>(builder: (context, provider, _) {
+    return Consumer<AuthServiceProvider>(builder: (context, provider, _) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

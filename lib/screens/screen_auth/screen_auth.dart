@@ -1,5 +1,5 @@
 import 'package:flight_booking/core/constants/enums.dart';
-import 'package:flight_booking/providers/auth_state_provider/auth_mode_provider.dart';
+import 'package:flight_booking/providers/auth_service_provider/auth_mode_provider.dart';
 import 'package:flight_booking/screens/screen_auth/widgets/auth_image_widget.dart';
 import 'package:flight_booking/screens/screen_passport/widgets/custom_button.dart';
 import 'package:flutter/material.dart';

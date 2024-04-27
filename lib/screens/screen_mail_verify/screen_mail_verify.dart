@@ -1,8 +1,8 @@
 import 'package:flight_booking/core/constants/colors.dart';
 import 'package:flight_booking/core/constants/enums.dart';
 import 'package:flight_booking/core/widgets/custom_utilities.dart';
-import 'package:flight_booking/providers/auth_state_provider/auth_state_provider.dart';
-import 'package:flight_booking/providers/auth_state_provider/timer_provider.dart';
+import 'package:flight_booking/providers/auth_service_provider/auth_state_provider.dart';
+import 'package:flight_booking/providers/auth_service_provider/timer_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +12,8 @@ class ScreenMailVerify extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthStateProvider>(context, listen: false);
+    final authProvider =
+        Provider.of<AuthServiceProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<TimerProvider>(context, listen: false).startTimer();
     });

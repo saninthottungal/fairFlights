@@ -6,8 +6,8 @@ import 'package:flight_booking/services/exception/auth_exceptions.dart';
 import 'package:flight_booking/services/exception/network_exceptions.dart';
 import 'package:flutter/material.dart';
 
-class AuthStateProvider extends ChangeNotifier {
-  AuthStateProvider() {
+class AuthServiceProvider extends ChangeNotifier {
+  AuthServiceProvider() {
     setUserState();
   }
   final FirebaseAuth authInstance = FirebaseAuth.instance;

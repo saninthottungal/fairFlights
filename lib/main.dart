@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flight_booking/core/constants/colors.dart';
 import 'package:flight_booking/providers/agency_provider.dart';
-import 'package:flight_booking/providers/auth_state_provider/auth_mode_provider.dart';
-import 'package:flight_booking/providers/auth_state_provider/auth_state_provider.dart';
-import 'package:flight_booking/providers/auth_state_provider/pass_provider.dart';
-import 'package:flight_booking/providers/auth_state_provider/timer_provider.dart';
+import 'package:flight_booking/providers/auth_service_provider/auth_mode_provider.dart';
+import 'package:flight_booking/providers/auth_service_provider/auth_state_provider.dart';
+import 'package:flight_booking/providers/auth_service_provider/pass_provider.dart';
+import 'package:flight_booking/providers/auth_service_provider/timer_provider.dart';
 import 'package:flight_booking/providers/calendar_provider/calendar_provider.dart';
 import 'package:flight_booking/providers/city_search_provider/city_search_provider.dart';
 import 'package:flight_booking/providers/flight_providers/data_loading_provider.dart';
@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
           create: (context) => AuthModeProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => AuthStateProvider(),
+          create: (context) => AuthServiceProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => PassProvider(),

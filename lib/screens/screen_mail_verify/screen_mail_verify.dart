@@ -5,6 +5,9 @@ import 'package:flight_booking/providers/auth_service_provider/auth_state_provid
 import 'package:flight_booking/providers/auth_service_provider/timer_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class ScreenMailVerify extends StatelessWidget {
@@ -105,47 +108,59 @@ class ScreenMailVerify extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 25),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CupertinoButton(
-                      onPressed: () async {
-                        CustomUtilities.showBlankDialogue(context);
-                        final message = await authProvider.reloadUser();
-                        if (context.mounted) Navigator.pop(context);
-                        if (message != null) {
-                          if (context.mounted) {
-                            CustomUtilities.showSnackBar(
-                              context: context,
-                              message: message,
-                              isGreen: false,
-                            );
-                          }
-                          return;
+                Align(
+                  alignment: Alignment.center,
+                  child: CupertinoButton(
+                    onPressed: () async {
+                      CustomUtilities.showBlankDialogue(context);
+                      final message = await authProvider.reloadUser();
+                      if (context.mounted) Navigator.pop(context);
+                      if (message != null) {
+                        if (context.mounted) {
+                          CustomUtilities.showSnackBar(
+                            context: context,
+                            message: message,
+                            isGreen: false,
+                          );
                         }
+                        return;
+                      }
 
-                        if (authProvider.userCurrentState ==
-                            UserState.loggedIn) {
-                          if (context.mounted) {
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                '/home', (route) => false);
-                          }
-                        } else {
-                          if (context.mounted) {
-                            CustomUtilities.showSnackBar(
-                              context: context,
-                              message: "Your email is not verified yet.",
-                              isGreen: false,
-                            );
-                          }
+                      if (authProvider.userCurrentState == UserState.loggedIn) {
+                        if (context.mounted) {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              '/home', (route) => false);
                         }
-                      },
-                      pressedOpacity: 0.9,
-                      color: AppColor.customBlue,
-                      child: const Text('Continue'),
-                    ),
-                  ],
+                      } else {
+                        if (context.mounted) {
+                          CustomUtilities.showSnackBar(
+                            context: context,
+                            message: "Your email is not verified yet.",
+                            isGreen: false,
+                          );
+                        }
+                      }
+                    },
+                    pressedOpacity: 0.9,
+                    color: AppColor.customBlue,
+                    child: const Text('Continue'),
+                  ),
                 ),
+                const SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: TextButton.icon(
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamedAndRemoveUntil('/home', (route) => false);
+                    },
+                    label: const Text("Verify later"),
+                    icon: const Icon(
+                      Icons.arrow_forward_ios,
+                      size: 20,
+                    ),
+                  ),
+                )
               ],
             )
           ],

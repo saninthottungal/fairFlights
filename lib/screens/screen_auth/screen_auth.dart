@@ -72,6 +72,16 @@ class ScreenAuth extends StatelessWidget {
               height: 50,
               width: 50,
             ),
+            TextButton.icon(
+              onPressed: () {
+                Navigator.of(context).pushReplacementNamed('/home');
+              },
+              label: const Text("Skip sign In"),
+              icon: const Icon(
+                Icons.arrow_forward_ios,
+                size: 20,
+              ),
+            ),
           ],
         ),
       ),

@@ -1,7 +1,7 @@
 import 'package:flight_booking/core/constants/colors.dart';
 import 'package:flight_booking/core/constants/enums.dart';
 import 'package:flight_booking/core/widgets/custom_utilities.dart';
-import 'package:flight_booking/providers/auth_service_provider/auth_state_provider.dart';
+import 'package:flight_booking/providers/auth_service_provider/auth_service_provider.dart';
 import 'package:flight_booking/providers/auth_service_provider/timer_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flight_booking/services/connectivty/check_connectivty.dart';
 import 'package:flight_booking/services/exception/auth_exceptions.dart';
 import 'package:flight_booking/services/exception/network_exceptions.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthFunctions {
   final FirebaseAuth _autInstance;
@@ -137,5 +138,22 @@ class AuthFunctions {
     } else {
       throw UserNotFoundException();
     }
+  }
+  //google sign in
+
+  Future<void> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    await _autInstance.signInWithCredential(credential);
+  }
+
+  //google signout
+  Future<void> signoutFromGoogle() async {
+    await GoogleSignIn().signOut();
   }
 }

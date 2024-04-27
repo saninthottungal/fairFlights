@@ -1,6 +1,6 @@
 import 'package:flight_booking/core/constants/enums.dart';
 import 'package:flight_booking/core/widgets/custom_utilities.dart';
-import 'package:flight_booking/providers/auth_service_provider/auth_state_provider.dart';
+import 'package:flight_booking/providers/auth_service_provider/auth_service_provider.dart';
 import 'package:flight_booking/screens/screen_passport/widgets/custom_button.dart';
 
 import 'package:flutter/material.dart';

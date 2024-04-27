@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flight_booking/core/constants/colors.dart';
 import 'package:flight_booking/providers/agency_provider.dart';
 import 'package:flight_booking/providers/auth_service_provider/auth_mode_provider.dart';
-import 'package:flight_booking/providers/auth_service_provider/auth_state_provider.dart';
+import 'package:flight_booking/providers/auth_service_provider/auth_service_provider.dart';
 import 'package:flight_booking/providers/auth_service_provider/pass_provider.dart';
 import 'package:flight_booking/providers/auth_service_provider/timer_provider.dart';
 import 'package:flight_booking/providers/calendar_provider/calendar_provider.dart';

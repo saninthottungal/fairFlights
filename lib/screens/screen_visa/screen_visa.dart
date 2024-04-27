@@ -6,7 +6,7 @@ import 'package:flight_booking/screens/screen_passport/widgets/logo_row_widget.d
 import 'package:flight_booking/screens/screen_passport/widgets/custom_auth_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../providers/auth_service_provider/auth_state_provider.dart';
+import '../../providers/auth_service_provider/auth_service_provider.dart';
 
 class ScreenVisa extends StatelessWidget {
   const ScreenVisa({super.key});

@@ -1,5 +1,6 @@
 import 'package:flight_booking/core/constants/enums.dart';
 import 'package:flight_booking/providers/auth_service_provider/auth_mode_provider.dart';
+import 'package:flight_booking/providers/auth_service_provider/auth_service_provider.dart';
 import 'package:flight_booking/screens/screen_auth/widgets/auth_image_widget.dart';
 import 'package:flight_booking/screens/screen_passport/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,8 @@ class ScreenAuth extends StatelessWidget {
   Widget build(BuildContext context) {
     final authModeProvider =
         Provider.of<AuthModeProvider>(context, listen: false);
+    final authProvider =
+        Provider.of<AuthServiceProvider>(context, listen: false);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
@@ -67,10 +70,18 @@ class ScreenAuth extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
-            Image.asset(
-              'assets/images/google.png',
-              height: 50,
-              width: 50,
+            GestureDetector(
+              onTap: () async {
+                await authProvider.signInWithGoogle();
+                if (!context.mounted) return;
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil('/home', (route) => false);
+              },
+              child: Image.asset(
+                'assets/images/google.png',
+                height: 50,
+                width: 50,
+              ),
             ),
             TextButton.icon(
               onPressed: () {

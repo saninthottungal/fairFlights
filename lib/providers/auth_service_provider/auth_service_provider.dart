@@ -150,4 +150,14 @@ class AuthServiceProvider extends ChangeNotifier {
     setUserState();
     return null;
   }
+
+  Future<void> signInWithGoogle() async {
+    await _authFunctions.signInWithGoogle();
+    setUserState();
+  }
+
+  Future<void> signOutFromGoogle() async {
+    await _authFunctions.signoutFromGoogle();
+    setUserState();
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flight_booking/core/constants/enums.dart';
 import 'package:flight_booking/providers/auth_service_provider/auth_service_provider.dart';
+import 'package:flight_booking/providers/firestore_provider/firestore_provider.dart';
 import 'package:flight_booking/screens/screen_passport/widgets/card_field.dart';
 import 'package:flight_booking/screens/screen_passport/widgets/custom_button.dart';
 import 'package:flight_booking/screens/screen_passport/widgets/custom_container.dart';
@@ -31,9 +32,20 @@ class ScreenPassport extends StatelessWidget {
               const CardField(title: "Place", icon: Icons.location_city),
               const SizedBox(height: 15),
               CustomButtonWidget(
-                childTitle: 'Next',
+                childTitle: 'Apply',
                 width: 180,
-                onPressed: () {},
+                onPressed: () async {
+                  Map<String, dynamic> data = {
+                    'name': 'sanin',
+                    'age': 20,
+                    'mobile': 8590956006,
+                  };
+                  final provider = context.read<FirestoreProvider>();
+                  await provider.firestoreFunctions.addDataToFirestore(
+                    collectionPath: 'passports',
+                    data: data,
+                  );
+                },
               )
             ],
           ))

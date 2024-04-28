@@ -8,10 +8,16 @@ class FirestoreProvider extends ChangeNotifier {
   final FirestoreFunctions _firestoreFunctions =
       FirestoreFunctions(firstore: FirebaseFirestore.instance);
   List<Map<String, dynamic>> countries = [];
+  List<Map<String, dynamic>> searchCountries = [];
   String? selectedCountry;
 
   set setCountry(String? country) {
     selectedCountry = country;
+    notifyListeners();
+  }
+
+  void setSearchCountries() {
+    searchCountries.addAll(countries);
     notifyListeners();
   }
 
@@ -35,6 +41,8 @@ class FirestoreProvider extends ChangeNotifier {
       final countryData = await _firestoreFunctions.getCountries();
       countries.clear();
       countries.addAll(countryData);
+      searchCountries.clear();
+      searchCountries.addAll(countryData);
       notifyListeners();
     } on Network404Exception {
       return 'No network connection found';
@@ -42,5 +50,18 @@ class FirestoreProvider extends ChangeNotifier {
       return 'Unknown error occured';
     }
     return null;
+  }
+
+  searchCountry(String value) {
+    searchCountries.clear();
+
+    for (var element in countries) {
+      String country = element.entries.first.value as String;
+
+      if (country.toLowerCase().contains(value)) {
+        searchCountries.add(element);
+      }
+    }
+    notifyListeners();
   }
 }

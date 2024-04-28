@@ -19,6 +19,7 @@ class ScreenVisa extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final firstoreProvider = context.watch<FirestoreProvider>();
     final authProvider = Provider.of<AuthServiceProvider>(context);
     return authProvider.userCurrentState == UserState.loggedIn
         ? SingleChildScrollView(
@@ -62,13 +63,14 @@ class ScreenVisa extends StatelessWidget {
                       color: Colors.black38,
                     ),
                     title: Text(
-                      context.watch<FirestoreProvider>().selectedCountry ??
-                          "Select Country",
-                      style: const TextStyle(
-                        color: Colors.black26,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      firstoreProvider.selectedCountry ?? "Select Country",
+                      style: firstoreProvider.selectedCountry == null
+                          ? const TextStyle(
+                              color: Colors.black26,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            )
+                          : null,
                     ),
                     titleAlignment: ListTileTitleAlignment.center,
                     trailing: const Icon(
@@ -90,6 +92,7 @@ class ScreenVisa extends StatelessWidget {
                           return;
                         }
                       }
+                      provider.searchCountries.addAll(provider.countries);
                       if (!context.mounted) return;
                       Navigator.of(context).pushNamed('/country');
                     },

@@ -14,7 +14,6 @@ class ScreenVisa extends StatelessWidget {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
-  final placeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,9 @@ class ScreenVisa extends StatelessWidget {
             child: CustomContainerWidget(
               children: [
                 const LogoRowWidget(
-                    imagePath: 'assets/images/visa.png', title: 'Tourist Visa'),
+                  imagePath: 'assets/images/visa.png',
+                  title: 'Tourist Visa',
+                ),
                 CardField(
                   title: 'Name',
                   icon: Icons.person,
@@ -41,10 +42,36 @@ class ScreenVisa extends StatelessWidget {
                   controller: phoneController,
                   keyboardType: TextInputType.number,
                 ),
-                CardField(
-                  title: "Place",
-                  icon: Icons.location_city,
-                  controller: placeController,
+                const SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      "Place",
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    )),
+                const Card(
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.location_city,
+                      color: Colors.black38,
+                    ),
+                    title: Text(
+                      "Select City",
+                    ),
+                    titleAlignment: ListTileTitleAlignment.center,
+                    titleTextStyle: TextStyle(
+                      color: Colors.black26,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.black38,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 15),
                 CustomButtonWidget(

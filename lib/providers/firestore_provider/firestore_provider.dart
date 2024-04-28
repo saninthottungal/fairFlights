@@ -30,10 +30,17 @@ class FirestoreProvider extends ChangeNotifier {
     return null;
   }
 
-  Future<void> getCountryData() async {
-    final countryData = await _firestoreFunctions.getCountries();
-    countries.clear();
-    countries.addAll(countryData);
-    notifyListeners();
+  Future<String?> getCountryData() async {
+    try {
+      final countryData = await _firestoreFunctions.getCountries();
+      countries.clear();
+      countries.addAll(countryData);
+      notifyListeners();
+    } on Network404Exception {
+      return 'No network connection found';
+    } on GenericException {
+      return 'Unknown error occured';
+    }
+    return null;
   }
 }

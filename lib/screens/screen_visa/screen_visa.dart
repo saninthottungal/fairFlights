@@ -1,4 +1,5 @@
 import 'package:flight_booking/core/constants/enums.dart';
+import 'package:flight_booking/core/widgets/custom_utilities.dart';
 import 'package:flight_booking/providers/firestore_provider/firestore_provider.dart';
 import 'package:flight_booking/screens/screen_passport/widgets/card_field.dart';
 import 'package:flight_booking/screens/screen_passport/widgets/custom_button.dart';
@@ -78,7 +79,16 @@ class ScreenVisa extends StatelessWidget {
                       final provider = context.read<FirestoreProvider>();
 
                       if (provider.countries.isEmpty) {
-                        await provider.getCountryData();
+                        CustomUtilities.showBlankDialogue(context);
+                        final message = await provider.getCountryData();
+                        if (!context.mounted) return;
+                        Navigator.of(context).pop();
+                        if (message != null) {
+                          if (!context.mounted) return;
+                          CustomUtilities.showSnackBar(
+                              context: context, message: message);
+                          return;
+                        }
                       }
                       if (!context.mounted) return;
                       Navigator.of(context).pushNamed('/country');

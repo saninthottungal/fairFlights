@@ -27,12 +27,21 @@ class FirestoreFunctions {
   }
 
   Future<List<Map<String, dynamic>>> getCountries() async {
-    QuerySnapshot<Map<String, dynamic>> snapshot =
-        await _firstore.collection('countries').get();
-    List<Map<String, dynamic>> countries = snapshot.docs.map((docsnap) {
-      return docsnap.data();
-    }).toList();
+    final isConnectionAvailable =
+        await CheckNetConnectivity().checknetConnectivity();
+    if (!isConnectionAvailable) {
+      throw Network404Exception();
+    }
+    try {
+      QuerySnapshot<Map<String, dynamic>> snapshot =
+          await _firstore.collection('countries').get();
+      List<Map<String, dynamic>> countries = snapshot.docs.map((docsnap) {
+        return docsnap.data();
+      }).toList();
 
-    return countries;
+      return countries;
+    } catch (_) {
+      throw GenericException();
+    }
   }
 }

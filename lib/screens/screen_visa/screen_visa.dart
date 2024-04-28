@@ -74,7 +74,13 @@ class ScreenVisa extends StatelessWidget {
                       Icons.arrow_forward_ios,
                       color: Colors.black38,
                     ),
-                    onTap: () {
+                    onTap: () async {
+                      final provider = context.read<FirestoreProvider>();
+
+                      if (provider.countries.isEmpty) {
+                        await provider.getCountryData();
+                      }
+                      if (!context.mounted) return;
                       Navigator.of(context).pushNamed('/country');
                     },
                   ),

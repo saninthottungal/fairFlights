@@ -17,6 +17,7 @@ class FirestoreProvider extends ChangeNotifier {
   }
 
   void setSearchCountries() {
+    searchCountries.clear();
     searchCountries.addAll(countries);
     notifyListeners();
   }
@@ -58,7 +59,7 @@ class FirestoreProvider extends ChangeNotifier {
     for (var element in countries) {
       String country = element.entries.first.value as String;
 
-      if (country.toLowerCase().contains(value)) {
+      if (country.toLowerCase().contains(value.toLowerCase())) {
         searchCountries.add(element);
       }
     }

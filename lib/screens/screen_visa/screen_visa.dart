@@ -92,7 +92,7 @@ class ScreenVisa extends StatelessWidget {
                           return;
                         }
                       }
-                      provider.searchCountries.addAll(provider.countries);
+                      provider.setSearchCountries();
                       if (!context.mounted) return;
                       Navigator.of(context).pushNamed('/country');
                     },
@@ -102,11 +102,66 @@ class ScreenVisa extends StatelessWidget {
                 CustomButtonWidget(
                   childTitle: 'Apply',
                   width: 180,
-                  onPressed: () {},
+                  onPressed: () async {
+                    final data = getdata(context);
+                    if (data == null) {
+                      CustomUtilities.showSnackBar(
+                          context: context, message: "Fields cannot be empty.");
+                      return;
+                    }
+                    final provider = context.read<FirestoreProvider>();
+                    CustomUtilities.showBlankDialogue(context);
+                    final message = await provider.addDataToFirestore(
+                      collectionPath: 'visas',
+                      data: data,
+                    );
+                    if (context.mounted) Navigator.of(context).pop();
+                    if (message != null) {
+                      if (!context.mounted) return;
+                      CustomUtilities.showSnackBar(
+                          context: context, message: message);
+                      return;
+                    }
+                    nameController.clear();
+                    emailController.clear();
+                    phoneController.clear();
+                    if (!context.mounted) return;
+                    CustomUtilities.showSnackBar(
+                      context: context,
+                      message:
+                          "Your application has been sumbitted successfully.",
+                      isGreen: true,
+                    );
+                  },
                 )
               ],
             ),
           )
         : const CustomAuthWidget();
+  }
+
+  Map<String, dynamic>? getdata(BuildContext context) {
+    final provider = context.read<FirestoreProvider>();
+    String name = nameController.text;
+    String mail = emailController.text;
+    String phone = phoneController.text;
+    String? country = provider.selectedCountry;
+    String? user = context.read<AuthServiceProvider>().userMail;
+
+    if (name.isEmpty) return null;
+    if (mail.isEmpty) return null;
+    if (phone.isEmpty) return null;
+    if (country == null) return null;
+    if (user == null) return null;
+
+    provider.setCountry = null;
+
+    return {
+      'name': name,
+      'mail': mail,
+      'phone': phone,
+      'country': country,
+      'user': user,
+    };
   }
 }

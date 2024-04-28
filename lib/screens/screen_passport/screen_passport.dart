@@ -58,7 +58,7 @@ class ScreenPassport extends StatelessWidget {
                 childTitle: 'Apply',
                 width: 180,
                 onPressed: () async {
-                  final data = getdata();
+                  final data = getdata(context);
                   if (data == null) {
                     CustomUtilities.showSnackBar(
                         context: context, message: "Fields cannot be empty.");
@@ -70,6 +70,7 @@ class ScreenPassport extends StatelessWidget {
                     collectionPath: 'passports',
                     data: data,
                   );
+
                   if (context.mounted) Navigator.of(context).pop();
                   if (message != null) {
                     if (!context.mounted) return;
@@ -77,6 +78,10 @@ class ScreenPassport extends StatelessWidget {
                         context: context, message: message);
                     return;
                   }
+                  nameController.clear();
+                  emailController.clear();
+                  phoneController.clear();
+                  placeController.clear();
                   if (!context.mounted) return;
                   CustomUtilities.showSnackBar(
                     context: context,
@@ -91,27 +96,25 @@ class ScreenPassport extends StatelessWidget {
         : const CustomAuthWidget();
   }
 
-  Map<String, dynamic>? getdata() {
+  Map<String, dynamic>? getdata(BuildContext context) {
     String name = nameController.text;
     String mail = emailController.text;
     String phone = phoneController.text;
     String place = placeController.text;
+    String? user = context.read<AuthServiceProvider>().userMail;
 
     if (name.isEmpty) return null;
     if (mail.isEmpty) return null;
     if (phone.isEmpty) return null;
     if (place.isEmpty) return null;
-
-    nameController.clear();
-    emailController.clear();
-    phoneController.clear();
-    placeController.clear();
+    if (user == null) return null;
 
     return {
       'name': name,
       'mail': mail,
       'phone': phone,
       'place': place,
+      'user': user,
     };
   }
 }

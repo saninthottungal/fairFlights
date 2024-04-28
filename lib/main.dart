@@ -18,6 +18,7 @@ import 'package:flight_booking/providers/home_providers/counter_provider.dart';
 import 'package:flight_booking/providers/home_providers/class_chip_provider.dart';
 import 'package:flight_booking/providers/web_view_provider/web_view_provider.dart';
 import 'package:flight_booking/screens/screen_calendar/screen_calendar.dart';
+import 'package:flight_booking/screens/screen_country_search/screen_country_search.dart';
 import 'package:flight_booking/screens/screen_flights_list/screen_flights_list.dart';
 import 'package:flight_booking/screens/screen_home/screen_home.dart';
 import 'package:flight_booking/screens/screen_auth/screen_auth.dart';
@@ -144,6 +145,7 @@ class MyApp extends StatelessWidget {
           '/login': (context) => ScreenLogin(),
           '/mail': (context) => const ScreenMailVerify(),
           '/reset': (context) => ScreenRestPassword(),
+          '/country': (context) => ScreenCountrySearch(),
         },
         home: const ScreenSplash(),
       ),

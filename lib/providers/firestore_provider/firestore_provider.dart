@@ -7,6 +7,12 @@ import '../../services/exception/network_exceptions.dart';
 class FirestoreProvider extends ChangeNotifier {
   final FirestoreFunctions _firestoreFunctions =
       FirestoreFunctions(firstore: FirebaseFirestore.instance);
+  String? selectedCountry;
+
+  set setCountry(String? country) {
+    selectedCountry = country;
+    notifyListeners();
+  }
 
   Future<String?> addDataToFirestore({
     required String collectionPath,

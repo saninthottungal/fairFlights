@@ -31,7 +31,6 @@ class ScreenSearch extends StatelessWidget {
           child: Padding(
         padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             //from searchfield
 

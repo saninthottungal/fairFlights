@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 
 class CardField extends StatelessWidget {
-  const CardField({super.key, required this.title, required this.icon});
+  const CardField({
+    super.key,
+    required this.title,
+    required this.icon,
+    required this.controller,
+    this.keyboardType,
+  });
+  final TextEditingController controller;
   final IconData icon;
   final String title;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +32,8 @@ class CardField extends StatelessWidget {
               )),
           Card(
             child: TextField(
+                controller: controller,
+                keyboardType: keyboardType,
                 style: const TextStyle(
                   color: Colors.black,
                 ),

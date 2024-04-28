@@ -1,4 +1,5 @@
 import 'package:flight_booking/core/constants/enums.dart';
+import 'package:flight_booking/core/widgets/custom_utilities.dart';
 import 'package:flight_booking/providers/auth_service_provider/auth_service_provider.dart';
 import 'package:flight_booking/providers/firestore_provider/firestore_provider.dart';
 import 'package:flight_booking/screens/screen_passport/widgets/card_field.dart';
@@ -10,9 +11,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ScreenPassport extends StatelessWidget {
-  const ScreenPassport({
-    super.key,
-  });
+  ScreenPassport({super.key});
+
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
+  final placeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,29 +30,88 @@ class ScreenPassport extends StatelessWidget {
                   imagePath: 'assets/images/passport.png',
                   title: "Passport\nAppointment 1599/Rs only"),
               const SizedBox(height: 15),
-              const CardField(title: "Name", icon: Icons.person),
-              const CardField(title: "Email", icon: Icons.mail),
-              const CardField(title: "Mobile", icon: Icons.phone),
-              const CardField(title: "Place", icon: Icons.location_city),
+              //name field
+              CardField(
+                title: "Name",
+                icon: Icons.person,
+                controller: nameController,
+              ),
+              //email field
+              CardField(
+                title: "Email",
+                icon: Icons.mail,
+                controller: emailController,
+              ),
+              CardField(
+                title: "Mobile",
+                icon: Icons.phone,
+                controller: phoneController,
+                keyboardType: TextInputType.number,
+              ),
+              CardField(
+                title: "Place",
+                icon: Icons.location_city,
+                controller: placeController,
+              ),
               const SizedBox(height: 15),
               CustomButtonWidget(
                 childTitle: 'Apply',
                 width: 180,
                 onPressed: () async {
-                  Map<String, dynamic> data = {
-                    'name': 'sanin',
-                    'age': 20,
-                    'mobile': 8590956006,
-                  };
+                  final data = getdata();
+                  if (data == null) {
+                    CustomUtilities.showSnackBar(
+                        context: context, message: "Fields cannot be empty.");
+                    return;
+                  }
                   final provider = context.read<FirestoreProvider>();
-                  await provider.firestoreFunctions.addDataToFirestore(
+                  CustomUtilities.showBlankDialogue(context);
+                  final message = await provider.addDataToFirestore(
                     collectionPath: 'passports',
                     data: data,
+                  );
+                  if (context.mounted) Navigator.of(context).pop();
+                  if (message != null) {
+                    if (!context.mounted) return;
+                    CustomUtilities.showSnackBar(
+                        context: context, message: message);
+                    return;
+                  }
+                  if (!context.mounted) return;
+                  CustomUtilities.showSnackBar(
+                    context: context,
+                    message:
+                        "Your application has been sumbitted successfully.",
+                    isGreen: true,
                   );
                 },
               )
             ],
           ))
         : const CustomAuthWidget();
+  }
+
+  Map<String, dynamic>? getdata() {
+    String name = nameController.text;
+    String mail = emailController.text;
+    String phone = phoneController.text;
+    String place = placeController.text;
+
+    if (name.isEmpty) return null;
+    if (mail.isEmpty) return null;
+    if (phone.isEmpty) return null;
+    if (place.isEmpty) return null;
+
+    nameController.clear();
+    emailController.clear();
+    phoneController.clear();
+    placeController.clear();
+
+    return {
+      'name': name,
+      'mail': mail,
+      'phone': phone,
+      'place': place,
+    };
   }
 }

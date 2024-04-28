@@ -97,10 +97,7 @@ class CustomDrawerHeader extends StatelessWidget {
 
                                     if (context.mounted) {
                                       CustomUtilities.showSnackBar(
-                                        context: context,
-                                        message: message,
-                                        isGreen: false,
-                                      );
+                                          context: context, message: message);
                                       return;
                                     }
                                   }
@@ -121,10 +118,7 @@ class CustomDrawerHeader extends StatelessWidget {
                               if (message != null) {
                                 if (context.mounted) {
                                   CustomUtilities.showSnackBar(
-                                    context: context,
-                                    message: message,
-                                    isGreen: false,
-                                  );
+                                      context: context, message: message);
                                 }
                                 return;
                               }
@@ -133,10 +127,8 @@ class CustomDrawerHeader extends StatelessWidget {
                               if (messageFromGoogle != null) {
                                 if (context.mounted) {
                                   CustomUtilities.showSnackBar(
-                                    context: context,
-                                    message: messageFromGoogle,
-                                    isGreen: false,
-                                  );
+                                      context: context,
+                                      message: messageFromGoogle);
                                 }
                                 return;
                               }

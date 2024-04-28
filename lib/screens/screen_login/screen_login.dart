@@ -91,10 +91,8 @@ class ScreenLogin extends StatelessWidget {
                       password = passwordController.text;
                     } else {
                       CustomUtilities.showSnackBar(
-                        context: context,
-                        message: "Username/password cannot be empty.",
-                        isGreen: false,
-                      );
+                          context: context,
+                          message: "Username/password cannot be empty.");
                       return;
                     }
                     if (authMode == AuthMode.signin) {
@@ -105,10 +103,7 @@ class ScreenLogin extends StatelessWidget {
                       if (message != null) {
                         if (context.mounted) {
                           CustomUtilities.showSnackBar(
-                            context: context,
-                            message: message,
-                            isGreen: false,
-                          );
+                              context: context, message: message);
                         }
                         return;
                       }
@@ -120,10 +115,7 @@ class ScreenLogin extends StatelessWidget {
                       if (message != null) {
                         if (context.mounted) {
                           CustomUtilities.showSnackBar(
-                            context: context,
-                            message: message,
-                            isGreen: false,
-                          );
+                              context: context, message: message);
                         }
                         return;
                       }
@@ -143,10 +135,7 @@ class ScreenLogin extends StatelessWidget {
                       if (message != null) {
                         if (context.mounted) {
                           CustomUtilities.showSnackBar(
-                            context: context,
-                            message: message,
-                            isGreen: false,
-                          );
+                              context: context, message: message);
                         }
                         return;
                       }

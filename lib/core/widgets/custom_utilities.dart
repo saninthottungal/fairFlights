@@ -4,13 +4,15 @@ class CustomUtilities {
   static void showSnackBar({
     required BuildContext context,
     required String message,
-    required bool isGreen,
+    bool? isGreen,
   }) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
         behavior: SnackBarBehavior.floating,
-        backgroundColor: isGreen ? Colors.green.shade400 : Colors.red.shade400,
+        backgroundColor: isGreen == null || isGreen == false
+            ? Colors.red.shade400
+            : Colors.green.shade400,
       ),
     );
   }

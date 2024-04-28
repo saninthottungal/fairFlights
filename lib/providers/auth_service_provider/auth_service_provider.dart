@@ -10,14 +10,14 @@ class AuthServiceProvider extends ChangeNotifier {
   AuthServiceProvider() {
     setUserState();
   }
-  final FirebaseAuth authInstance = FirebaseAuth.instance;
+  final FirebaseAuth _authInstance = FirebaseAuth.instance;
   User? user;
   late UserState userCurrentState;
   final AuthFunctions _authFunctions =
       AuthFunctions(autInstance: FirebaseAuth.instance);
 
   void setUserState() async {
-    user = authInstance.currentUser;
+    user = _authInstance.currentUser;
     userCurrentState = user == null
         ? UserState.loggedOut
         : user!.emailVerified

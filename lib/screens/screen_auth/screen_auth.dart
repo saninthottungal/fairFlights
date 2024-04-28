@@ -77,10 +77,7 @@ class ScreenAuth extends StatelessWidget {
                 if (message != null) {
                   if (!context.mounted) return;
                   CustomUtilities.showSnackBar(
-                    context: context,
-                    message: message,
-                    isGreen: false,
-                  );
+                      context: context, message: message);
                   return;
                 }
                 if (!context.mounted) return;

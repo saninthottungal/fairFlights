@@ -1,6 +1,11 @@
+import 'package:flight_booking/core/widgets/custom_utilities.dart';
+import 'package:flight_booking/providers/firestore_provider/firestore_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'widgets/logo_container.dart';
+import 'widgets/privacy_card.dart';
 
 class ScreenPrivacyPolicy extends StatelessWidget {
   const ScreenPrivacyPolicy({super.key});
@@ -48,25 +53,39 @@ class ScreenPrivacyPolicy extends StatelessWidget {
                 wordSpacing: 1,
               ),
             ),
-            const Card(
-              margin: EdgeInsets.symmetric(vertical: 25),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.black45,
-                      foregroundColor: Colors.white,
-                      child: Icon(Icons.lock),
-                    ),
-                    SizedBox(width: 20),
-                    Text(
-                      "Privacy Policy",
-                      style: TextStyle(fontSize: 19),
-                    ),
-                  ],
-                ),
-              ),
+            GestureDetector(
+              onTap: () async {
+                final provider = context.read<FirestoreProvider>();
+                CustomUtilities.showBlankDialogue(context);
+                final message = await provider.getPrivacyPolicyLink();
+                if (!context.mounted) return;
+                Navigator.of(context).pop();
+                if (message != null) {
+                  if (!context.mounted) return;
+                  CustomUtilities.showSnackBar(
+                      context: context, message: message);
+                  return;
+                }
+                final linkAsMap =
+                    context.read<FirestoreProvider>().privacyPolicyLink;
+                final link = linkAsMap?.entries.first.value as String?;
+                if (link != null) {
+                  final url = Uri.parse(link);
+                  if (!await launchUrl(url)) {
+                    if (!context.mounted) return;
+                    CustomUtilities.showSnackBar(
+                        context: context,
+                        message: "Couldn't load privacy policy");
+                  }
+                } else {
+                  if (!context.mounted) return;
+                  CustomUtilities.showSnackBar(
+                      context: context,
+                      message:
+                          "privacy policy components not availble at the moment.");
+                }
+              },
+              child: const PrivacyCardWidget(),
             ),
           ],
         ),

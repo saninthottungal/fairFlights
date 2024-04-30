@@ -62,4 +62,19 @@ class FirestoreFunctions {
       throw GenericException();
     }
   }
+
+  Future<Map<String, dynamic>> getPrivacyPolicyLink() async {
+    final isConnectionAvailable =
+        await CheckNetConnectivity().checknetConnectivity();
+    if (!isConnectionAvailable) {
+      throw Network404Exception();
+    }
+    try {
+      final snapshot = await _firstore.collection('privacyPolicyLink').get();
+      final linkMap = snapshot.docs.first.data();
+      return linkMap;
+    } catch (_) {
+      throw GenericException();
+    }
+  }
 }

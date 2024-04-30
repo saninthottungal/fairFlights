@@ -11,6 +11,7 @@ class FirestoreProvider extends ChangeNotifier {
   List<Map<String, dynamic>> searchCountries = [];
   Map<String, dynamic>? whatsappInfo;
   String? selectedCountry;
+  Map<String, dynamic>? privacyPolicyLink;
 
   set setCountry(String? country) {
     selectedCountry = country;
@@ -70,6 +71,18 @@ class FirestoreProvider extends ChangeNotifier {
   Future<String?> getWhatsappInfo() async {
     try {
       whatsappInfo = await _firestoreFunctions.getWhatsappInfo();
+      notifyListeners();
+    } on Network404Exception {
+      return 'No network connection found';
+    } on GenericException {
+      return 'Unknown error occured';
+    }
+    return null;
+  }
+
+  Future<String?> getPrivacyPolicyLink() async {
+    try {
+      privacyPolicyLink = await _firestoreFunctions.getPrivacyPolicyLink();
       notifyListeners();
     } on Network404Exception {
       return 'No network connection found';

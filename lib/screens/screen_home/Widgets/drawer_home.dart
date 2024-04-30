@@ -13,31 +13,32 @@ class DrawerHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-        children: const [
-          CustomDrawerHeader(),
-          CustomDrawerItem(
+        children: [
+          const CustomDrawerHeader(),
+          const CustomDrawerItem(
             iconData: Icons.settings,
             text: "Settings",
           ),
-          CustomDrawerItem(
+          const CustomDrawerItem(
             iconData: Icons.help_outline,
             text: 'Support',
           ),
-          CustomDrawerItem(
+          const CustomDrawerItem(
             iconData: Icons.question_answer_outlined,
             text: 'FAQ',
           ),
-          CustomDrawerItem(
+          const CustomDrawerItem(
             iconData: Icons.star,
             text: 'Rate this app',
           ),
-          CustomDrawerItem(
+          const CustomDrawerItem(
             iconData: Icons.share,
             text: 'Share',
           ),
           CustomDrawerItem(
             iconData: Icons.priority_high_outlined,
             text: 'About Us',
+            onTap: () => Navigator.of(context).pushNamed('/privacy'),
           ),
         ],
       ),
@@ -160,33 +161,37 @@ class CustomDrawerHeader extends StatelessWidget {
 
 class CustomDrawerItem extends StatelessWidget {
   const CustomDrawerItem(
-      {super.key, required this.iconData, required this.text});
+      {super.key, required this.iconData, required this.text, this.onTap});
 
   final IconData iconData;
   final String text;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(
-            iconData,
-            size: 28,
-            color: const Color.fromARGB(255, 109, 109, 109),
-          ),
-          const SizedBox(width: 30),
-          Text(
-            text,
-            style: const TextStyle(
-              color: Color.fromARGB(255, 109, 109, 109),
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              iconData,
+              size: 28,
+              color: const Color.fromARGB(255, 109, 109, 109),
             ),
-          ),
-        ],
+            const SizedBox(width: 30),
+            Text(
+              text,
+              style: const TextStyle(
+                color: Color.fromARGB(255, 109, 109, 109),
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

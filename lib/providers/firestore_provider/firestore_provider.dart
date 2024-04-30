@@ -9,6 +9,7 @@ class FirestoreProvider extends ChangeNotifier {
       FirestoreFunctions(firstore: FirebaseFirestore.instance);
   List<Map<String, dynamic>> countries = [];
   List<Map<String, dynamic>> searchCountries = [];
+  Map<String, dynamic>? whatsappInfo;
   String? selectedCountry;
 
   set setCountry(String? country) {
@@ -64,5 +65,17 @@ class FirestoreProvider extends ChangeNotifier {
       }
     }
     notifyListeners();
+  }
+
+  Future<String?> getWhatsappInfo() async {
+    try {
+      whatsappInfo = await _firestoreFunctions.getWhatsappInfo();
+      notifyListeners();
+    } on Network404Exception {
+      return 'No network connection found';
+    } on GenericException {
+      return 'Unknown error occured';
+    }
+    return null;
   }
 }

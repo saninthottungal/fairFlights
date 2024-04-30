@@ -5,9 +5,6 @@ import 'package:flight_booking/providers/auth_service_provider/auth_service_prov
 import 'package:flight_booking/providers/auth_service_provider/timer_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class ScreenMailVerify extends StatelessWidget {

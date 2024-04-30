@@ -1,5 +1,9 @@
 import 'package:flight_booking/core/constants/colors.dart';
+import 'package:flight_booking/core/widgets/custom_utilities.dart';
+import 'package:flight_booking/providers/firestore_provider/firestore_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'widgets/support_container.dart';
 
@@ -75,7 +79,41 @@ class ScreenSupport extends StatelessWidget {
                             const MaterialStatePropertyAll(Colors.white),
                         backgroundColor:
                             MaterialStatePropertyAll(AppColor.customBlue)),
-                    onPressed: () {},
+                    onPressed: () async {
+                      final provider = context.read<FirestoreProvider>();
+
+                      CustomUtilities.showBlankDialogue(context);
+                      final message = await provider.getWhatsappInfo();
+                      if (!context.mounted) return;
+                      Navigator.pop(context);
+                      if (message != null) {
+                        if (!context.mounted) return;
+                        CustomUtilities.showSnackBar(
+                          context: context,
+                          message: message,
+                        );
+                        return;
+                      }
+                      final mapValue =
+                          context.read<FirestoreProvider>().whatsappInfo;
+                      final number = mapValue?.entries.first.value as String?;
+                      final url = Uri.parse('https://wa.me/$number');
+                      if (number != null) {
+                        if (!await launchUrl(url)) {
+                          if (!context.mounted) return;
+                          CustomUtilities.showSnackBar(
+                            context: context,
+                            message: "Couldn't launch external browser.",
+                          );
+                        }
+                      } else {
+                        if (!context.mounted) return;
+                        CustomUtilities.showSnackBar(
+                          context: context,
+                          message: "Couldn't fetch contact details.",
+                        );
+                      }
+                    },
                     label: const Text("Contact Us"),
                     icon: const Icon(Icons.call),
                   )

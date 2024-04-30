@@ -26,6 +26,8 @@ class FirestoreFunctions {
     }
   }
 
+  //get countries
+
   Future<List<Map<String, dynamic>>> getCountries() async {
     final isConnectionAvailable =
         await CheckNetConnectivity().checknetConnectivity();
@@ -40,6 +42,22 @@ class FirestoreFunctions {
       }).toList();
 
       return countries;
+    } catch (_) {
+      throw GenericException();
+    }
+  }
+
+  Future<Map<String, dynamic>> getWhatsappInfo() async {
+    final isConnectionAvailable =
+        await CheckNetConnectivity().checknetConnectivity();
+    if (!isConnectionAvailable) {
+      throw Network404Exception();
+    }
+
+    try {
+      final snapshot = await _firstore.collection('contacts').get();
+      final whatapp = snapshot.docs.first.data();
+      return whatapp;
     } catch (_) {
       throw GenericException();
     }

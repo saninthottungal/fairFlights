@@ -38,7 +38,9 @@ class DrawerHome extends StatelessWidget {
           CustomDrawerItem(
             iconData: Icons.priority_high_outlined,
             text: 'About Us',
-            onTap: () => Navigator.of(context).pushNamed('/privacy'),
+            onTap: () {
+              Navigator.of(context).pushNamed('/privacy');
+            },
           ),
         ],
       ),

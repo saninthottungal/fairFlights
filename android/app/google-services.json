@@ -7,6 +7,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:1093533823288:android:5096d47b4863b4cd6351cd",
+        "android_client_info": {
+          "package_name": "com.example.fairflights"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1093533823288-ps11mkm5tl2u4pimj63ns19no9pgh9kd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQAb8TkDMPBjxDQpa6shgk8kZ1pewBCn4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1093533823288-ps11mkm5tl2u4pimj63ns19no9pgh9kd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:1093533823288:android:a1fbcded5ea5e7ce6351cd",
         "android_client_info": {
           "package_name": "com.example.flight_booking"

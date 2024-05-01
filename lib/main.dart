@@ -1,7 +1,7 @@
 import 'dart:ui';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flight_booking/core/constants/colors.dart';
 import 'package:flight_booking/providers/agency_provider.dart';
 import 'package:flight_booking/providers/auth_service_provider/auth_mode_provider.dart';
@@ -41,11 +41,11 @@ Future<void> main() async {
   FlutterError.onError = (errorDetails) {
     FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
   };
-
   PlatformDispatcher.instance.onError = (error, stack) {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
+  await FirebaseMessaging.instance.requestPermission();
 
   await dotenv.load(fileName: '.env');
   runApp(const MyApp());

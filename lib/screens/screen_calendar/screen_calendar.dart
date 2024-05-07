@@ -14,7 +14,9 @@ class ScreenCalendar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Departure Date"),
+        title: Text(context.read<CalendarProvider>().isDepartureWay
+            ? 'Departure Date'
+            : 'Return Date'),
         centerTitle: false,
       ),
       body: Column(

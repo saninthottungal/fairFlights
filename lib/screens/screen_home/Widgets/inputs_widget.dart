@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flight_booking/core/constants/colors.dart';
 import 'package:flight_booking/core/constants/enums.dart';
 import 'package:flight_booking/core/widgets/custom_utilities.dart';
@@ -288,6 +286,7 @@ class InputsWidget extends StatelessWidget {
               sortProvider.selectedGroupValue = SortValues.none;
               dataLoadingProvider.setExceptionThrown = false;
               if (!await CheckNetConnectivity().checknetConnectivity()) {
+                if (!context.mounted) return;
                 CustomUtilities.showSnackBar(
                   context: context,
                   message: "No network connection!",
@@ -295,10 +294,12 @@ class InputsWidget extends StatelessWidget {
                 );
                 return;
               }
+              if (!context.mounted) return;
               Navigator.of(context).pushNamed('/flightsList');
 
               String? message = await dataProvider.getFlightData(context);
               if (message != null) {
+                if (!context.mounted) return;
                 CustomUtilities.showSnackBar(
                   context: context,
                   message: message,

@@ -6,6 +6,8 @@ class CalendarProvider extends ChangeNotifier {
   DateTime returnDate = DateTime.now().add(const Duration(days: 1));
   TripWay way = TripWay.departureWay;
 
+  bool get isDepartureWay => way == TripWay.departureWay ? true : false;
+
   set changeDepartureDate(DateTime dateTime) {
     departureDate = dateTime;
     notifyListeners();

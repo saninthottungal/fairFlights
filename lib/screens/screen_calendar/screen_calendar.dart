@@ -59,7 +59,8 @@ class ScreenCalendar extends StatelessWidget {
                     }
                   }
                   Future.delayed(const Duration(milliseconds: 300), () {
-                    Navigator.of(context).pop();
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/home', (route) => false);
                   });
                 },
               ),

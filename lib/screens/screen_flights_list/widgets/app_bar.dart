@@ -1,3 +1,4 @@
+import 'package:flight_booking/core/constants/enums.dart';
 import 'package:flight_booking/providers/calendar_provider/calendar_provider.dart';
 import 'package:flight_booking/providers/home_providers/counter_provider.dart';
 import 'package:flight_booking/providers/home_providers/from_to_provider.dart';
@@ -20,6 +21,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         centerTitle: false,
         actions: [
           IconButton(onPressed: onPressed, icon: const Icon(Icons.sort)),
+          IconButton(
+              onPressed: () {
+                context.read<CalendarProvider>().way = TripWay.departureWay;
+                Navigator.of(context).pushNamed('/calendar');
+              },
+              icon: const Icon(Icons.edit_calendar_outlined))
         ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
